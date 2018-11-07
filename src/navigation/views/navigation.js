@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {view as SearchToolbar} from './searchToolbar/';
 import {view as UserToolbar} from './userToolbar/';
+import {view as ListsToolbar} from './listsToolbar/';
 
 import './style.css';
 
@@ -11,7 +12,7 @@ class Navigation extends Component {
 	<div className="navigation-inner">
 	  <SearchToolbar />
 	  <UserToolbar />
-	  <div className="lists-toolbar"></div>
+	  <ListsToolbar />
 	  <div className="create-toolbar"></div>
 	</div>
       </div>
