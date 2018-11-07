@@ -1,0 +1,11 @@
+.navigation {
+  width: 42px;
+  height: 100vh;
+  background: #f7f7f7;
+  transition: all .3s;
+  overflow: hidden;
+}
+
+.navigation.active {
+  width: 280px;
+}
