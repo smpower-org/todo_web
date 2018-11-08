@@ -64,9 +64,11 @@
 .user-toolbar .stream-counts .bell-icon {  /* 小铃铛图标 */
   background: url("./bell.svg") no-repeat center center;
   background-size: 100%;
+  margin-right: 15px;
 }
 
 .user-toolbar .stream-counts .conversation-icon {  /* 对话图标 */
   background: url("./conversation.svg") no-repeat center center;
   background-size: 100%;
+  margin-right: 5px;
 }
