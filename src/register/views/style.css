@@ -1,0 +1,107 @@
+.main .register {
+  width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.main .register-logo {
+  padding: 100px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.main .register-logo-icon {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background: url("./todo.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .register-logo-title {
+  padding: 20px 0;
+}
+
+.main .register-inner {
+  max-width: 370px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(50,50,50,0.08);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.main .register-inner .register-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+
+.main .register-inner .register-item-icon {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  margin: 0 10px;
+}
+
+.main .register-inner .register-name-icon {
+  background: url("./name.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .register-inner .register-email-icon {
+  background: url("./email.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .register-inner .register-password-icon {
+  background: url("./password.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .register-inner .register-item-input {
+  height: 15px;
+  font-size: 16px;
+  border: 0 none;
+  flex: 1;
+  color: 666;
+  padding: 22px 8px;
+}
+
+.main .register-inner .register-item-input:focus {
+  outline: none;
+}
+
+.main .register-inner .register-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .register-inner .register-submit-btn {
+  background: #2b88d9;
+  font-weight: bold;
+  margin: 18px auto;
+  padding: 12px 10px;
+  border-radius: 3px;
+  border: 0 none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.main .register-inner .register-submit-btn:focus {
+  outline: none;
+}
