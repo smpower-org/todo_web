@@ -52,6 +52,31 @@ class Register extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    fetch('/todo/register', {
+      method: 'POST',
+      headers: {
+	'Content-Type': 'application/json;charset=UTF-8'
+	// 'Content-Type': 'application/x-www-form-urlencoded'  // 1. 这种方法也是可以的
+      },
+      body: JSON.stringify({
+	username: 'Olive5',
+	email: 'olive1@gmail.com',
+	password: 'olive1'
+      })
+      // body: `userName=Olive&password=123&passwordAgain=123`  // 1. 这种方法也是可以的
+    }).then(res => {
+      if (res.status === 200) return res.json();
+    }).then(resJson => {
+      console.group('测试 POST 请求方式:');
+      console.log('后台返回到前台的 JSON 数据:');
+      console.log(resJson);
+      console.groupEnd();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 }
 
 export default Register;
