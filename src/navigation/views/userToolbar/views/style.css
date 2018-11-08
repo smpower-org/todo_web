@@ -1,0 +1,72 @@
+.user-toolbar {
+  display: flex;
+  box-align: center;
+  align-items: center;
+  padding: 5px 5px 8px;
+}
+
+.user-toolbar .user {
+  display: flex;
+  flex: 1;
+  box-flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+
+.user-toolbar .user .user-avatar {  /* 用户头像 */
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: url("./avatar.svg") no-repeat center center;
+  background-size: 100%;
+  flex-shrink: 0;
+}
+
+.user-toolbar .user .user-name {  /* 用户名 */
+  padding: 5px;
+  color: #262626;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+
+.user-toolbar .user .user-arrow-icon {  /* 小三角图标 */
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url("./arrow-down.svg") no-repeat center center;
+  background-size: 100%;
+  flex-shrink: 0;
+}
+
+.user-toolbar .user .sync {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.user-toolbar .stream-counts {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.user-toolbar .stream-counts .bell-icon,
+.user-toolbar .stream-counts .conversation-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.user-toolbar .stream-counts .bell-icon {  /* 小铃铛图标 */
+  background: url("./bell.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.user-toolbar .stream-counts .conversation-icon {  /* 对话图标 */
+  background: url("./conversation.svg") no-repeat center center;
+  background-size: 100%;
+}
