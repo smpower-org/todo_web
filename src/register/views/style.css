@@ -26,6 +26,8 @@
 
 .main .register-logo-title {
   padding: 20px 0;
+  color: #666;
+  font-weight: normal;
 }
 
 .main .register-inner {
@@ -77,7 +79,7 @@
   font-size: 16px;
   border: 0 none;
   flex: 1;
-  color: 666;
+  color: #666;
   padding: 22px 8px;
 }
 
@@ -100,8 +102,23 @@
   border: 0 none;
   color: #fff;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .main .register-inner .register-submit-btn:focus {
   outline: none;
+}
+
+.main .register-login-text {
+  position: relative;
+  top: 10px;
+  font-size: 15px;
+  color: #666;
+}
+
+.main .register-login-text a {
+  text-decoration: none;
+  color: #1b7edf;
+  font-weight: bold;
+  padding-left: 3px;
 }

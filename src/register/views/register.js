@@ -42,6 +42,12 @@ class Register extends Component {
 	      </button>
 	    </div>
 	  </div>
+	  <div className="register-login">
+	    <span className="register-login-text">
+	      Have an account already? 
+	      <a href="/#/login">Sign in</a>
+	    </span>
+	  </div>
 	</div>
       </div>
     );
