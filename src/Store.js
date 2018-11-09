@@ -1,7 +1,9 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import {reducer as registerReducer} from './register/';
 
 const reducer = combineReducers({
-  test: {mes: 'Hello world.'}
+  register: registerReducer
 });
 
-export default createStore(reducer);
+export default createStore(reducer, applyMiddleware(thunkMiddleware));

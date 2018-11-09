@@ -1,8 +1,58 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {regist} from '../actions';
 
 import './style.css';
 
 class Register extends Component {
+  constructor() {
+    super(...arguments);
+
+    this.onChange = this.onChange.bind(this);
+    this.onNameInputChange = this.onNameInputChange.bind(this);
+    this.onEmailInputChange = this.onEmailInputChange.bind(this);
+    this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+    this.state = {
+      nameInputValue: '',
+      emailInputValue: '',
+      passwordInputValue: ''
+    };
+  }
+
+  onChange() {
+    const {status, isRegisted} = this.context.store.getState().register;
+
+    if (status === 'success' && isRegisted) this.props.history.push('/login');
+  }
+
+  onNameInputChange(event) {
+    this.setState({
+      nameInputValue: event.target.value.trim()
+    });
+  }
+
+  onEmailInputChange(event) {
+    this.setState({
+      emailInputValue: event.target.value.trim()
+    });
+  }
+
+  onPasswordInputChange(event) {
+    this.setState({
+      passwordInputValue: event.target.value.trim()
+    });
+  }
+
+  onSubmit() {
+    this.context.store.dispatch(regist(
+      this.state.nameInputValue,
+      this.state.emailInputValue,
+      this.state.passwordInputValue
+    ));
+  }
+
   render() {
     return (
       <div className="main">
@@ -18,6 +68,8 @@ class Register extends Component {
 		type="text"
 		className="register-item-input register-name-input"
 		placeholder="Name" 
+		onChange={this.onNameInputChange}
+		value={this.state.nameInputValue}
 	      />
 	    </div>
 	    <div className="register-item register-email">
@@ -26,18 +78,22 @@ class Register extends Component {
 		type="text"
 		className="register-item-input register-email-input"
 		placeholder="Email" 
+		onChange={this.onEmailInputChange}
+		value={this.state.emailInputValue}
 	      />
 	    </div>
 	    <div className="register-item register-password">
 	      <i className="register-item-icon register-password-icon"></i>
 	      <input
-		type="text"
+		type="password"
 		className="register-item-input register-password-input"
 		placeholder="Password" 
+		onChange={this.onPasswordInputChange}
+		value={this.state.passwordInputValue}
 	      />
 	    </div>
 	    <div className="register-item register-submit">
-	      <button type="button" className="register-submit-btn">
+	      <button type="button" className="register-submit-btn" onClick={this.onSubmit}>
 	        Create Free Account
 	      </button>
 	    </div>
@@ -54,29 +110,18 @@ class Register extends Component {
   }
 
   componentDidMount() {
-    fetch('/todo/register', {
-      method: 'POST',
-      headers: {
-	'Content-Type': 'application/json;charset=UTF-8'
-	// 'Content-Type': 'application/x-www-form-urlencoded'  // 1. 这种方法也是可以的
-      },
-      body: JSON.stringify({
-	username: 'Olive5',
-	email: 'olive1@gmail.com',
-	password: 'olive1'
-      })
-      // body: `userName=Olive&password=123&passwordAgain=123`  // 1. 这种方法也是可以的
-    }).then(res => {
-      if (res.status === 200) return res.json();
-    }).then(resJson => {
-      console.group('测试 POST 请求方式:');
-      console.log('后台返回到前台的 JSON 数据:');
-      console.log(resJson);
-      console.groupEnd();
-    }).catch(err => {
-      console.log(err);
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
     });
   }
+
+  componentWillUnmount() {
+    this.state.unsubscribe()
+  }
 }
+
+Register.contextTypes = {
+  store: PropTypes.object
+};
 
 export default Register;
