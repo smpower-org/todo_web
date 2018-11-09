@@ -1,4 +1,4 @@
-import view from './views/register';
+import view from './views/registerContainer';
 import * as actions from './actions';
 import reducer from './reducer';
 
