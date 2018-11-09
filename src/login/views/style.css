@@ -1,0 +1,116 @@
+.main .login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main .login-logo {  /* logo */
+  padding: 100px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+.main .login-logo-icon {  /* logo */
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background: url("./todo.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .login-inner {  /* inputs */
+  max-width: 370px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.main .login-item {  /* input item */
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.main .login-item-icon {  /* inputs' icon */
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+
+.main .login-email-icon {  /* email's icon */
+  background: url("./email.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .login-password-icon {  /* password's icon */
+  background: url("./password.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.main .login-item-input {  /* input */
+  border: none;
+  border-bottom: 1px solid #ddd;
+  height: 25px;
+  line-height: 25px;
+  background: transparent;
+  margin-left: 10px;
+  flex: 1;
+  color: #666;
+  font-size: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.main .login-item-input:focus {  /* input focused */
+  outline: none;
+}
+
+.main .login-item-placeholder {  /* placeholder of input */
+  position: relative;
+  z-index: 1;
+  color: #666;
+  font-size: 16px;
+  position: absolute;
+  left: 35px;
+  bottom: 0;
+  height: 25px;
+  line-height: 25px;
+}
+
+.main .login-submit {  /* Sign in */
+  display: flex;
+  justify-content: center;
+}
+
+.main .login-submit-signin {  /* button of sign in*/
+  border: 0 none;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: bold;
+  background: #2b88d9;
+  padding: 12px 40px;
+  margin: 20px 0 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.main .login-submit-signin:focus {  /* button of sign in focused */
+  outline: none;
+}
+
+.main .login-link {
+  font-size: 14px;
+  color: #1b7edf;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .login-link-item {
+  text-decoration: none;
+}
+
+.main .login-link-item:visited {
+  color: #1b7edf;
+}
