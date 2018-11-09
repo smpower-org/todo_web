@@ -54,7 +54,6 @@ class App extends Component {
       <div className="App">
 	{
 	  routes.map((item, index) => {
-	    console.log(item);
 	    return (
 	      <Route 
 		key={index}
