@@ -1,23 +1,21 @@
-import {
-  REGIST_STARTED, REGIST_SUCCESS, REGIST_FAILURE
-} from './actionTypes';
+import {LOGIN_STARTED, LOGIN_SUCCESS, LOGIN_FAILURE} from './actionTypes';
 import * as Status from './status';
 
 export default (state = {status: Status.LOADING}, action) => {
   switch(action.type) {
-    case REGIST_STARTED:
+    case LOGIN_STARTED:
       return {status: Status.LOADING};
-    case REGIST_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
 	status: Status.SUCCESS,
 	...action.resJson
       };
-    case REGIST_FAILURE:
+    case LOGIN_FAILURE:
       return {
-	status: Status.FAILURE,
+        status: Status.FAILURE,
 	...action.error
       };
     default:
-      return state;
+      return state
   }
 };
