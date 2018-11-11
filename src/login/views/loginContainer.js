@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Login from './login';
+import {login} from '../actions';
 
 import './style.css';
 
@@ -7,6 +9,7 @@ class LoginContainer extends Component {
   constructor() {
     super(...arguments);
 
+    this.onChange = this.onChange.bind(this);
     this.onEmailInputFocus = this.onEmailInputFocus.bind(this);
     this.onEmailInputBlur = this.onEmailInputBlur.bind(this);
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
@@ -21,6 +24,12 @@ class LoginContainer extends Component {
       emailInputValue: '',
       passwordInputValue: ''
     };
+  }
+
+  onChange() {
+    const {status, isLogined} = this.context.store.getState().login;
+
+    if (status === 'success' && isLogined) this.props.history.push('/main');
   }
 
   onEmailInputFocus() {
@@ -74,6 +83,7 @@ class LoginContainer extends Component {
     }
 
     // 派发 action...
+    this.context.store.dispatch(login(emailInputValue, passwordInputValue));
   }
 
   render() {
@@ -93,6 +103,20 @@ class LoginContainer extends Component {
       />
     );
   }
+
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe()
+  }
 }
+
+LoginContainer.contextTypes = {
+  store: PropTypes.object
+};
 
 export default LoginContainer;
