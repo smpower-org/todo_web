@@ -1,3 +1,3 @@
-import view from './views/login';
+import view from './views/loginContainer';
 
 export {view};

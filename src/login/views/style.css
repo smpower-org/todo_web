@@ -76,6 +76,13 @@
   bottom: 0;
   height: 25px;
   line-height: 25px;
+  transition: all .3s;
+}
+
+.main .login-item-placeholder.active {
+  left: 35px;
+  bottom: 20px;
+  font-size: 14px;
 }
 
 .main .login-submit {  /* Sign in */
