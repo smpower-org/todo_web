@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {view as Register} from './register/';
 import {view as Login} from './login/';
 import {view as Navigation} from './navigation/';
@@ -8,29 +9,26 @@ import {view as Content} from './content/';
 import './App.css';
 // import TestFetch from './testFetch';
 
-const Main = () => (
-  <div className="main">
-    <Navigation />
-    <Content />
-    {
-      /*<header className="App-header">
-	  <img src={logo} className="App-logo" alt="logo" />
-	  <p>
-	    Edit <code>src/App.js</code> and save to reload.
-	  </p>
-	  <a
-	    className="App-link"
-	    href="https://reactjs.org"
-	    target="_blank"
-	    rel="noopener noreferrer"
-	  >
-	    Learn React
-	  </a>
-	</header>
-	<TestFetch />*/
+class Main extends Component {
+  componentWillMount() {
+    if (this.context.store.getState().login.status === 'loading') {
+      this.props.history.push('/login');
     }
-  </div>
-);
+  }
+
+  render() {
+    return (
+      <div className="main">
+	<Navigation />
+	<Content />
+      </div>
+    );
+  }
+}
+
+Main.contextTypes = {
+  store: PropTypes.object
+};
 
 const routes = [
   {
@@ -43,7 +41,7 @@ const routes = [
   },
   {
     exact: true,
-    path: '/main',
+    path: '/',
     component: Main
   }
 ];
