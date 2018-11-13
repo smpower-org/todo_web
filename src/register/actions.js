@@ -20,7 +20,7 @@ export const regist = (username, email, password) => {
   return (dispatch) => {
     dispatch(registStarted());
 
-    fetch('https://47.110.53.31:1116/todo/regist', {
+    fetch('https://www.wundertodo.xyz:1116/todo/regist', {
       method: 'POST',
       headers: {
 	'Content-Type': 'application/json;charset=UTF-8'
