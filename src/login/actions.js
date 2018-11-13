@@ -18,7 +18,7 @@ export const login = (email, password) => {
   return (dispatch) => {
     loginStarted();
 
-    fetch('http://47.110.53.31:1115/todo/login', {
+    fetch('https://47.110.53.31:1116/todo/login', {
       method: 'POST',
       headers: {
 	'Content-Type': 'application/json;charset=UTF-8'
