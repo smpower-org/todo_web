@@ -1,4 +1,5 @@
 import {LOGIN_STARTED, LOGIN_SUCCESS, LOGIN_FAILURE} from './actionTypes';
+import {baseUrl, apis} from '../config/';
 
 export const loginStarted = () => ({
   type: LOGIN_STARTED
@@ -18,7 +19,7 @@ export const login = (email, password) => {
   return (dispatch) => {
     loginStarted();
 
-    fetch('http://47.110.53.31:1115/todo/login', {
+    fetch(`${baseUrl}${apis.login.path}`, {
       method: 'POST',
       headers: {
 	'Content-Type': 'application/json;charset=UTF-8'

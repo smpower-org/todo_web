@@ -1,6 +1,7 @@
 import {
   REGIST_STARTED, REGIST_SUCCESS, REGIST_FAILURE
 } from './actionTypes';
+import {baseUrl, apis} from '../config/';
 
 const registStarted = () => ({
   type: REGIST_STARTED
@@ -20,7 +21,7 @@ export const regist = (username, email, password) => {
   return (dispatch) => {
     dispatch(registStarted());
 
-    fetch('http://47.110.53.31:1115/todo/regist', {
+    fetch(`${baseUrl}${apis.regist.path}`, {
       method: 'POST',
       headers: {
 	'Content-Type': 'application/json;charset=UTF-8'
