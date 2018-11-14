@@ -54,6 +54,13 @@ class RegisterContainer extends Component {
     ));
   }
 
+  componentWillMount() {
+    if (sessionStorage.isUserLogined) {
+      this.props.history.push('/');
+      return;
+    }
+  }
+
   render() {
     return (
       <Register 
@@ -72,10 +79,6 @@ class RegisterContainer extends Component {
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
-  }
-
-  componentWillUnmount() {
-    this.state.unsubscribe()
   }
 }
 

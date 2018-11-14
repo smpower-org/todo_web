@@ -11,8 +11,9 @@ import './App.css';
 
 class Main extends Component {
   componentWillMount() {
-    if (this.context.store.getState().login.status === 'loading') {
+    if (!sessionStorage.isUserLogined) {
       this.props.history.push('/login');
+      return;
     }
   }
 
