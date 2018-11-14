@@ -27,9 +27,14 @@ class LoginContainer extends Component {
   }
 
   onChange() {
-    const {status, isLogined} = this.context.store.getState().login;
+    const {status, isLogined,} = this.context.store.getState().login;
     if (status === 'success' && isLogined) {
-      localStorage.setItem('isUserLogined', true);
+      const {username, cryemail, crypwd} = this.context.store.getState().login;
+      sessionStorage.setItem('isUserLogined', true);
+      sessionStorage.setItem('username', username);
+      sessionStorage.setItem('cryemail', cryemail);
+      sessionStorage.setItem('crypwd', crypwd);
+
       this.props.history.push('/');
       return;
     }
@@ -89,6 +94,12 @@ class LoginContainer extends Component {
     this.context.store.dispatch(login(emailInputValue, passwordInputValue));
   }
 
+  componentWillMount() {
+    if (sessionStorage.isUserLogined) {
+      this.props.history.push('/');
+    }
+  }
+
   render() {
     return (
       <Login 
@@ -114,7 +125,7 @@ class LoginContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.state.unsubscribe()
+    // this.state.unsubscribe()
   }
 }
 
