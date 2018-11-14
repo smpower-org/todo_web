@@ -28,8 +28,11 @@ class LoginContainer extends Component {
 
   onChange() {
     const {status, isLogined} = this.context.store.getState().login;
-
-    if (status === 'success' && isLogined) this.props.history.push('/');
+    if (status === 'success' && isLogined) {
+      localStorage.setItem('isUserLogined', true);
+      this.props.history.push('/');
+      return;
+    }
   }
 
   onEmailInputFocus() {
