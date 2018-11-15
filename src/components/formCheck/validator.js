@@ -23,11 +23,10 @@ class Validator {
   }
 
   start() {  // 开始校验
-    let msg = null;
-    this.cache.forEach((item, index) => {
-      msg = item();
-    });
-    if (msg) return msg;  // 若 msg 存在，则说明校验未通过
+    for (let i = 0, len = this.cache.length; i < len; i++) {
+      const msg = this.cache[i]();
+      if (msg) return msg;  // 若 msg 存在，则说明校验未通过
+    }
   }
 }
 
