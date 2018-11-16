@@ -12,7 +12,7 @@ import './App.css';
 class Main extends Component {
   componentWillMount() {
     if (!sessionStorage.isUserLogined) {
-      this.props.history.push('/login');
+      this.props.history.replace('/login');
       return;
     }
   }
