@@ -1,4 +1,5 @@
 import React from 'react';
+import {view as TipBox} from '../../components/tipBox/';
 
 const Register = ({
   onNameInputChange, onEmailInputChange, onPasswordInputChange,
@@ -21,6 +22,9 @@ const Register = ({
 	    onChange={onNameInputChange}
 	    value={nameInputValue}
 	  />
+	  <div className="register-item-tip register-name-tip">
+	    <TipBox value="请输入用户名" />
+	  </div>
 	</div>
 	<div className="register-item register-email">
 	  <i className="register-item-icon register-email-icon"></i>
