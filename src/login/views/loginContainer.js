@@ -35,7 +35,7 @@ class LoginContainer extends Component {
       sessionStorage.setItem('cryemail', cryemail);
       sessionStorage.setItem('crypwd', crypwd);
 
-      this.props.history.push('/');
+      this.props.history.replace('/');
       return;
     }
   }
