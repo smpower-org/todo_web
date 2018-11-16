@@ -11,6 +11,7 @@ class RegisterContainer extends Component {
     super(...arguments);
 
     this.onChange = this.onChange.bind(this);
+    this.setErrorMsg = this.setErrorMsg.bind(this);
     this.onNameInputChange = this.onNameInputChange.bind(this);
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
@@ -19,7 +20,11 @@ class RegisterContainer extends Component {
     this.state = {
       nameInputValue: '',
       emailInputValue: '',
-      passwordInputValue: ''
+      passwordInputValue: '',
+      nameInputErrorMsg: '',
+      emailInputErrorMsg: '',
+      passwordInputErrorMsg: '',
+      errorMsg: null
     };
   }
 
@@ -27,6 +32,20 @@ class RegisterContainer extends Component {
     const {status, isRegisted} = this.context.store.getState().register;
 
     if (status === 'success' && isRegisted) this.props.history.push('/login');
+  }
+
+  setErrorMsg(key, errorMsg) {  // 设置错误信息
+    if (errorMsg) {
+      this.setState({
+        [key]: errorMsg
+      });
+      return;
+    } else {
+      this.setState({
+        [key]: ''
+      });
+      return;
+    }
   }
 
   onNameInputChange(event) {
@@ -39,15 +58,16 @@ class RegisterContainer extends Component {
       strategy: 'isNonEmpty',
       errorMsg: '请输入用户名'
     }, {
-      strategy: 'minLength: 4',
-      errorMsg: '用户名应大于 4 位'
+      strategy: 'minLength: 2',
+      errorMsg: '用户名应大于 2 位'
     }, {
       strategy: 'maxLength: 20',
       errorMsg: '用户名应小于 20 位'
     }]);
 
     const errorMsg = validator.start();
-    if (errorMsg) console.log(errorMsg);
+    this.setErrorMsg('nameInputErrorMsg', errorMsg);
+    return;
   }
 
   onEmailInputChange(event) {
@@ -65,7 +85,8 @@ class RegisterContainer extends Component {
     }]);
 
     const errorMsg = validator.start();
-    if (errorMsg) console.log(errorMsg);
+    this.setErrorMsg('emailInputErrorMsg', errorMsg);
+    return;
   }
 
   onPasswordInputChange(event) {
@@ -86,15 +107,26 @@ class RegisterContainer extends Component {
     }]);
 
     const errorMsg = validator.start();
-    if (errorMsg) console.log(errorMsg);
+    this.setErrorMsg('passwordInputErrorMsg', errorMsg);
+    return;
   }
 
   onSubmit() {
-    this.context.store.dispatch(regist(
-      this.state.nameInputValue,
-      this.state.emailInputValue,
-      this.state.passwordInputValue
-    ));
+    const {
+      nameInputErrorMsg, emailInputErrorMsg, passwordInputErrorMsg
+    } = this.state;
+    const isNameInputPassed = nameInputErrorMsg === '' ? true : false;
+    const isEmailInputPassed = emailInputErrorMsg === '' ? true : false;
+    const isPasswordInputPassed = passwordInputErrorMsg === '' ? true : false;
+
+    if (isNameInputPassed && isEmailInputPassed && isPasswordInputPassed) {
+      this.context.store.dispatch(regist(
+        this.state.nameInputValue,
+	this.state.emailInputValue,
+	this.state.passwordInputValue
+      ));
+      return;
+    }
   }
 
   componentWillMount() {
@@ -113,6 +145,9 @@ class RegisterContainer extends Component {
 	nameInputValue={this.state.nameInputValue}
 	emailInputValue={this.state.emailInputValue}
 	passwordInputValue={this.state.passwordInputValue}
+	nameInputErrorMsg={this.state.nameInputErrorMsg}
+	emailInputErrorMsg={this.state.emailInputErrorMsg}
+	passwordInputErrorMsg={this.state.passwordInputErrorMsg}
 	onSubmit={this.onSubmit}
       />
     );

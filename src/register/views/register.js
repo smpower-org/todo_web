@@ -4,6 +4,7 @@ import {view as TipBox} from '../../components/tipBox/';
 const Register = ({
   onNameInputChange, onEmailInputChange, onPasswordInputChange,
   nameInputValue, emailInputValue, passwordInputValue,
+  nameInputErrorMsg, emailInputErrorMsg, passwordInputErrorMsg,
   onSubmit
 }) => (
   <div className="main">
@@ -22,8 +23,8 @@ const Register = ({
 	    onChange={onNameInputChange}
 	    value={nameInputValue}
 	  />
-	  <div className="register-item-tip register-name-tip">
-	    <TipBox value="请输入用户名" />
+	  <div className={nameInputErrorMsg === '' ? "register-item-tip register-name-tip" : "register-item-tip register-name-tip active"}>
+	    <TipBox value={nameInputErrorMsg} />
 	  </div>
 	</div>
 	<div className="register-item register-email">
@@ -35,6 +36,9 @@ const Register = ({
 	    onChange={onEmailInputChange}
 	    value={emailInputValue}
 	  />
+	  <div className={emailInputErrorMsg === '' ? "register-item-tip register-email-tip" : "register-item-tip register-email-tip active"}>
+	    <TipBox value={emailInputErrorMsg} />
+	  </div>
 	</div>
 	<div className="register-item register-password">
 	  <i className="register-item-icon register-password-icon"></i>
@@ -45,6 +49,9 @@ const Register = ({
 	    onChange={onPasswordInputChange}
 	    value={passwordInputValue}
 	  />
+	  <div className={passwordInputErrorMsg === '' ? "register-item-tip register-password-tip" : "register-item-tip register-password-tip active"}>
+	    <TipBox value={passwordInputErrorMsg} />
+	  </div>
 	</div>
 	<div className="register-item register-submit">
 	  <button 
