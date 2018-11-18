@@ -123,10 +123,6 @@ class LoginContainer extends Component {
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
   }
-
-  componentWillUnmount() {
-    // this.state.unsubscribe()
-  }
 }
 
 LoginContainer.contextTypes = {
