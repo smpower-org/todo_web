@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Register from './register';
 import {regist} from '../actions';
+import {actions, status} from '../../checkUsername/';
 import {Validator} from '../../components/formCheck/';
 
 import './style.css';
@@ -28,9 +29,22 @@ class RegisterContainer extends Component {
     };
   }
 
+  setErrorMsg(key, errorMsg) {  // 设置错误信息
+    if (errorMsg) {
+      this.setState({
+        [key]: errorMsg
+      });
+      return;
+    } else {
+      this.setState({
+        [key]: ''
+      });
+      return;
+    }
+  }
+
   onChange() {
     const {status, isRegisted} = this.context.store.getState().register;
-
     if (status === 'success' && isRegisted) this.props.history.replace('/login');
   }
 
@@ -63,6 +77,22 @@ class RegisterContainer extends Component {
     }, {
       strategy: 'maxLength: 20',
       errorMsg: '用户名应小于 20 位'
+    }, {
+      strategy: 'isUsernameExisted',  // 判断用户是否已注册
+      errorMsg: (value) => {
+	this.context.store.dispatch(actions.checkUsername(value));
+
+	const getStatus = () => {
+	  const checkUsername = this.context.store.getState().checkUsername;
+	  if (checkUsername.status === status.SUCCESS) {
+	    if (checkUsername.isUsernameExisted) {
+	      this.setErrorMsg('nameInputErrorMsg', '该用户已被注册');
+	    } else this.setErrorMsg('nameInputErrorMsg', '');
+	  }
+	};
+
+	const timer = window.setInterval(getStatus, 1000);
+      }
     }]);
 
     const errorMsg = validator.start();
@@ -131,7 +161,7 @@ class RegisterContainer extends Component {
 
   componentWillMount() {
     if (sessionStorage.isUserLogined) {
-      this.props.history.push('/');
+      this.props.history.replace('/');
       return;
     }
   }
