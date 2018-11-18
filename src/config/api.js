@@ -9,3 +9,9 @@ export const regist = {
   params: ['username', 'email', 'password'],
   des: '用户注册'
 };
+
+export const checkUsername = {
+  path: '/todo/isUsernameExisted',
+  params: ['username'],
+  des: '验证用户名是否已注册(存在)'
+};
