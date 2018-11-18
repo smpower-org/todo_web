@@ -15,6 +15,10 @@ const strategies = {
     if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/g.test(value)) {  // 验证邮箱是否合法
       return errorMsg;
     }
+  },
+  // 用户注册时，判断用户名是否已存在
+  isUsernameExisted(value, errorMsg) {
+    if (typeof errorMsg === 'function') errorMsg(value);
   }
 };
 
