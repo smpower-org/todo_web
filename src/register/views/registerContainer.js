@@ -157,7 +157,6 @@ class RegisterContainer extends Component {
 	this.state.emailInputValue,
 	this.state.passwordInputValue
       ));
-      return;
     } else {
       alert('请检查注册信息');
     }
