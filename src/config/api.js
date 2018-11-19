@@ -15,3 +15,9 @@ export const checkUsername = {
   params: ['username'],
   des: '验证用户名是否已注册(存在)'
 };
+
+export const checkEmail = {
+  path: '/todo/isEmailExisted',
+  params: ['email'],
+  des: '验证用户邮箱是否已注册(存在)'
+};
