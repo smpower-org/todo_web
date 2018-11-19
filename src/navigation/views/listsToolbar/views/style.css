@@ -1,3 +1,7 @@
+.lists-toolbar {  /* 列表 */
+  flex: 1;
+}
+
 .lists-toolbar-inbox {  /* 收件箱 */
   height: 38px;
   line-height: 38px;
