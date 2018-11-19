@@ -37,3 +37,11 @@ export const regist = (username, email, password) => {
     });
   };
 };
+
+// 用户从注册模块注册成功加载登录模块时，调用该方法可清除注册时的 Store 状态，
+// 解决再返回注册模块输入用户名时主动跳转到登录模块的问题
+export const clearStore = () => {
+  return (dispatch) => {
+    dispatch(registStarted());
+  };
+};

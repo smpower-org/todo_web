@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Login from './login';
 import {login} from '../actions';
+import {actions} from '../../register/';
 
 import './style.css';
 
@@ -119,6 +120,7 @@ class LoginContainer extends Component {
   }
 
   componentDidMount() {
+    this.context.store.dispatch(actions.clearStore());
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
