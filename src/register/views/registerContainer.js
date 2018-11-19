@@ -143,11 +143,13 @@ class RegisterContainer extends Component {
 
   onSubmit() {
     const {
+      nameInputValue, emailInputValue, passwordInputValue,
       nameInputErrorMsg, emailInputErrorMsg, passwordInputErrorMsg
     } = this.state;
-    const isNameInputPassed = nameInputErrorMsg === '' ? true : false;
-    const isEmailInputPassed = emailInputErrorMsg === '' ? true : false;
-    const isPasswordInputPassed = passwordInputErrorMsg === '' ? true : false;
+
+    const isNameInputPassed = (nameInputErrorMsg === '' && nameInputValue !== '') ? true : false;
+    const isEmailInputPassed = (emailInputErrorMsg === '' && emailInputValue !== '') ? true : false;
+    const isPasswordInputPassed = (passwordInputErrorMsg === '' && passwordInputValue !== '') ? true : false;
 
     if (isNameInputPassed && isEmailInputPassed && isPasswordInputPassed) {
       this.context.store.dispatch(regist(
@@ -156,6 +158,8 @@ class RegisterContainer extends Component {
 	this.state.passwordInputValue
       ));
       return;
+    } else {
+      alert('请检查注册信息');
     }
   }
 
