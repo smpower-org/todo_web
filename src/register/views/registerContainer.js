@@ -53,13 +53,12 @@ class RegisterContainer extends Component {
       this.setState({
         [key]: errorMsg
       });
-      return;
     } else {
       this.setState({
         [key]: ''
       });
-      return;
     }
+    return;
   }
 
   onNameInputChange(event) {
@@ -85,6 +84,7 @@ class RegisterContainer extends Component {
 	const getStatus = () => {
 	  const checkUsername = this.context.store.getState().checkUsername;
 	  if (checkUsername.status === status.SUCCESS) {
+	    window.clearInterval(timer);
 	    if (checkUsername.isUsernameExisted) {
 	      this.setErrorMsg('nameInputErrorMsg', '该用户已被注册');
 	    } else this.setErrorMsg('nameInputErrorMsg', '');
