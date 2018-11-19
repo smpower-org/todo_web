@@ -127,7 +127,6 @@ class RegisterContainer extends Component {
 	  if (checkEmail.status === checkEmailStatus.SUCCESS) {
 	    window.clearInterval(emailTimer);
 	    if (checkEmail.isEmailExisted) {
-	      console.log(checkEmail.isEmailExisted);
 	      this.setErrorMsg('emailInputErrorMsg', '该邮箱已被注册');
 	    } else this.setErrorMsg('emailInputErrorMsg', '');
 	  }
