@@ -16,8 +16,10 @@ const strategies = {
       return errorMsg;
     }
   },
-  // 用户注册时，判断用户名是否已存在
-  isUsernameExisted(value, errorMsg) {
+  isUsernameExisted(value, errorMsg) {  // 用户注册时，判断用户名是否已存在
+    if (typeof errorMsg === 'function') errorMsg(value);
+  },
+  isEmailExisted(value, errorMsg) {  // 用户注册时，判断用户邮箱是否已存在
     if (typeof errorMsg === 'function') errorMsg(value);
   }
 };

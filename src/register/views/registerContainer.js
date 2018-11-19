@@ -2,7 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Register from './register';
 import {regist} from '../actions';
-import {actions, status} from '../../checkUsername/';
+import {
+  actions as checkUsernameActions, status as checkUsernameStatus
+} from '../../checkUsername/';
+import {
+  actions as checkEmailActions, status as checkEmailStatus
+} from '../../checkEmail/';
 import {Validator} from '../../components/formCheck/';
 
 import './style.css';
@@ -79,11 +84,11 @@ class RegisterContainer extends Component {
     }, {
       strategy: 'isUsernameExisted',  // 判断用户是否已注册
       errorMsg: (value) => {
-	this.context.store.dispatch(actions.checkUsername(value));
+	this.context.store.dispatch(checkUsernameActions.checkUsername(value));
 
 	const getStatus = () => {
 	  const checkUsername = this.context.store.getState().checkUsername;
-	  if (checkUsername.status === status.SUCCESS) {
+	  if (checkUsername.status === checkUsernameStatus.SUCCESS) {
 	    window.clearInterval(timer);
 	    if (checkUsername.isUsernameExisted) {
 	      this.setErrorMsg('nameInputErrorMsg', '该用户已被注册');
@@ -91,7 +96,7 @@ class RegisterContainer extends Component {
 	  }
 	};
 
-	const timer = window.setInterval(getStatus, 1000);
+	const timer = window.setInterval(getStatus, 30);
       }
     }]);
 
@@ -112,6 +117,24 @@ class RegisterContainer extends Component {
     }, {
       strategy: 'isEmail',
       errorMsg: '请输入正确的邮箱'
+    }, {
+      strategy: 'isEmailExisted',
+      errorMsg: (value) => {
+	this.context.store.dispatch(checkEmailActions.checkEmail(value));
+
+	const getStatus = () => {
+	  const checkEmail = this.context.store.getState().checkEmail;
+	  if (checkEmail.status === checkEmailStatus.SUCCESS) {
+	    window.clearInterval(emailTimer);
+	    if (checkEmail.isEmailExisted) {
+	      console.log(checkEmail.isEmailExisted);
+	      this.setErrorMsg('emailInputErrorMsg', '该邮箱已被注册');
+	    } else this.setErrorMsg('emailInputErrorMsg', '');
+	  }
+	};
+
+	const emailTimer = window.setInterval(getStatus, 30);
+      }
     }]);
 
     const errorMsg = validator.start();
