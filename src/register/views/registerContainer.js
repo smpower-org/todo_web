@@ -66,7 +66,7 @@ class RegisterContainer extends Component {
     return;
   }
 
-  onNameInputChange(event) {
+  onNameInputChange(event) {  // 用户名
     this.setState({
       nameInputValue: event.target.value.trim()
     });
@@ -105,7 +105,7 @@ class RegisterContainer extends Component {
     return;
   }
 
-  onEmailInputChange(event) {
+  onEmailInputChange(event) {  // 邮箱
     this.setState({
       emailInputValue: event.target.value.trim()
     });
@@ -141,7 +141,7 @@ class RegisterContainer extends Component {
     return;
   }
 
-  onPasswordInputChange(event) {
+  onPasswordInputChange(event) {  // 密码
     this.setState({
       passwordInputValue: event.target.value.trim()
     });
@@ -163,7 +163,7 @@ class RegisterContainer extends Component {
     return;
   }
 
-  onSubmit() {
+  onSubmit() {  // 提交
     const {
       nameInputValue, emailInputValue, passwordInputValue,
       nameInputErrorMsg, emailInputErrorMsg, passwordInputErrorMsg
