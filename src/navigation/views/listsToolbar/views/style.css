@@ -33,3 +33,41 @@
   font-size: 12px;
   padding: 0 4px;
 }
+
+/* 用户添加的列表 */
+.lists-toolbar-collection {  /* 用户列表 */
+  list-style: none;
+  margin: 0;
+  padding: 0 8px;
+}
+
+.lists-toolbar-collection-item {  /* 用户列表 */
+  height: 38px;
+  line-height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.lists-toolbar-collection-item-icon {  /* 用户列表图标 */
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("./list.svg") no-repeat center center;
+  background-size: 100%;
+  margin-right: 10px;
+}
+
+.lists-toolbar-collection-item-title {  /* 用户列表标题 */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  flex: 1;
+  padding-right: 6px;
+  font-size: 15px;
+}
+
+.lists-toolbar-collection-item-count {  /* 用户列表数量 */
+  color: #262626;
+  font-size: 12px;
+  padding: 0 4px;
+}
