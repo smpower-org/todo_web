@@ -29,8 +29,6 @@ class LoginContainer extends Component {
 
   onChange() {
     const {status, isLogined,} = this.context.store.getState().login;
-    console.log(status);
-    console.log(isLogined);
     if (status === 'success' && isLogined) {  // 登录成功
       const {username, cryemail, crypwd} = this.context.store.getState().login;
       sessionStorage.setItem('isUserLogined', true);
