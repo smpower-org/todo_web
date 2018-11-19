@@ -29,7 +29,9 @@ class LoginContainer extends Component {
 
   onChange() {
     const {status, isLogined,} = this.context.store.getState().login;
-    if (status === 'success' && isLogined) {
+    console.log(status);
+    console.log(isLogined);
+    if (status === 'success' && isLogined) {  // 登录成功
       const {username, cryemail, crypwd} = this.context.store.getState().login;
       sessionStorage.setItem('isUserLogined', true);
       sessionStorage.setItem('username', username);
@@ -37,6 +39,12 @@ class LoginContainer extends Component {
       sessionStorage.setItem('crypwd', crypwd);
 
       this.props.history.replace('/');
+      return;
+    }
+
+    if (status === 'success' && !isLogined) {  // 登录失败
+      alert('用户名或密码错误');
+      console.log('用户名或密码错误');
       return;
     }
   }
