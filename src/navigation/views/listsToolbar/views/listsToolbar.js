@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
+import Inbox from './inbox';
+import Collection from './collection';
 
 import './style.css';
 
 class ListsToolbar extends Component {
   render() {
     return (
-      <div className="lists-toolbar">ListsToolbar Component</div>
+      <div className="lists-toolbar">
+	<Inbox />
+	<Collection />
+      </div>
     );
   }
 }
