@@ -6,6 +6,14 @@
   overflow: hidden;
 }
 
+.navigation-inner {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .navigation.active {
   width: 280px;
 }

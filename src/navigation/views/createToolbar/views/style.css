@@ -1,0 +1,31 @@
+.create-toolbar {
+  border-top: 1px solid #e1e1e1;
+  background: #f7f7f7;
+  position: relative;
+}
+
+.create-toolbar-inner {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 42px;
+  line-height: 42px;
+}
+
+.create-toolbar-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background: url("./add.svg") no-repeat center center;
+  background-size: 100%;
+}
+
+.create-toolbar-title {
+  color: #1296db;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
