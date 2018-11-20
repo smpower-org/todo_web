@@ -1,6 +1,5 @@
 .user-toolbar {
   display: flex;
-  box-align: center;
   align-items: center;
   padding: 5px 5px 8px;
 }
@@ -8,7 +7,6 @@
 .user-toolbar .user {
   display: flex;
   flex: 1;
-  box-flex: 1;
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;

@@ -4,6 +4,7 @@
   background: #f7f7f7;
   transition: all .3s;
   overflow: hidden;
+  display: flex;
 }
 
 .navigation-inner {
