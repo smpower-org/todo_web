@@ -22,6 +22,7 @@
   background: url("./inbox.svg") no-repeat center center;
   background-size: 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .lists-toolbar-inbox-title {  /* 收件箱标题 */
@@ -47,7 +48,11 @@
   padding-left: 11px;
 }
 
-.lists-toolbar-collection-item {  /* 用户列表 */
+.lists-toolbar-collection li {  /* 用户列表 */
+  display: none;
+}
+
+li.lists-toolbar-collection-item {  /* 用户列表 */
   height: 38px;
   line-height: 38px;
   display: flex;
@@ -61,6 +66,7 @@
   background: url("./list.svg") no-repeat center center;
   background-size: 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .lists-toolbar-collection-item-title {  /* 用户列表标题 */
