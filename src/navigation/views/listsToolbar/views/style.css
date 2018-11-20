@@ -13,6 +13,7 @@
 .lists-toolbar-inbox-item {  /* 收件箱 */
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .lists-toolbar-inbox-icon {  /* 收件箱图标 */
@@ -57,6 +58,7 @@ li.lists-toolbar-collection-item {  /* 用户列表 */
   line-height: 38px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .lists-toolbar-collection-item-icon {  /* 用户列表图标 */
@@ -82,4 +84,14 @@ li.lists-toolbar-collection-item {  /* 用户列表 */
   color: #262626;
   font-size: 12px;
   padding: 0 4px;
+}
+
+.lists-toolbar-collection-item-icon-more {  /* 显示更多按钮 */
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("./more.svg") no-repeat center center;
+  background-size: 100%;
+  flex-shrink: 0;
+  cursor: pointer;
 }

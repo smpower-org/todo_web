@@ -45,6 +45,9 @@ class Collection extends Component {
 	  <span className="lists-toolbar-collection-item-title">test list 2</span>
 	  <span className="lists-toolbar-collection-item-count">7</span>
 	</li>
+	<li className={isNavigationExtended ? "" : "lists-toolbar-collection-item"}>
+	  <i className="lists-toolbar-collection-item-icon-more"></i>
+	</li>
       </ul>
     );
   }
