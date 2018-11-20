@@ -20,6 +20,7 @@
   background: url("./avatar.svg") no-repeat center center;
   background-size: 100%;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .user-toolbar .user .user-name {  /* 用户名 */
@@ -29,6 +30,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .user-toolbar .user .user-arrow-icon {  /* 小三角图标 */
@@ -38,6 +40,7 @@
   background: url("./arrow-down.svg") no-repeat center center;
   background-size: 100%;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .user-toolbar .user .sync {
@@ -60,6 +63,7 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .user-toolbar .stream-counts .bell-icon {  /* 小铃铛图标 */
