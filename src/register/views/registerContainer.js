@@ -34,20 +34,6 @@ class RegisterContainer extends Component {
     };
   }
 
-  setErrorMsg(key, errorMsg) {  // 设置错误信息
-    if (errorMsg) {
-      this.setState({
-        [key]: errorMsg
-      });
-      return;
-    } else {
-      this.setState({
-        [key]: ''
-      });
-      return;
-    }
-  }
-
   onChange() {
     const {status, isRegisted} = this.context.store.getState().register;
     if (status === 'success' && isRegisted) this.props.history.replace('/login');
