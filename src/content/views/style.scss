@@ -1,64 +1,69 @@
 .content {
   flex: 1;
-}
-
-.content-header {
-  height: 45px;
-  max-height: 45px;
-  line-height: 45px;
-  background: #668964;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.content-header h1 {
-  font-size: 20px;
-  color: #fff;
-  padding: 0 14px;
-  height: 45px;
-  max-height: 45px;
-  line-height: 45px;
-  letter-spacing: 1px;
-  flex: 1;
-}
-
-.content-header .action-bar {
-  height: 45px;
-  max-height: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.content-header .action-bar-buttons button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 0 15px;
-  color: #fff;
-  font-size: 10px;
-}
-
-.content-header .action-bar-content {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  width: 250px;
-  max-width: 250px;
-  background: #668964;
-  color: #fff;
-  font-size: 14px;
-}
-
-.content-header .action-bar-content ul li a {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  color: #fff;
-  padding: 0 34px 0 7px;
+  .content-header {
+    height: 45px;
+    max-height: 45px;
+    line-height: 45px;
+    background: #668964;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      padding: 0 14px;
+      height: 45px;
+      max-height: 45px;
+      line-height: 45px;
+      letter-spacing: 1px;
+      flex: 1;
+    }
+    .action-bar {
+      height: 45px;
+      max-height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .action-bar-buttons button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 0 15px;
+      color: #fff;
+      font-size: 10px;
+    }
+    .action-bar-content {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      width: 250px;
+      max-width: 250px;
+      background: #668964;
+      color: #fff;
+      font-size: 14px;
+      li {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	color: #fff;
+	cursor: pointer;
+	transition: all .3s;
+	img {
+	  margin: 0 10px;
+	}
+	span {
+	  position: relative;
+	  top: 2px;
+	}
+	&:hover {
+	  background: #669064;
+	}
+      }
+    }
+  }
 }
 
