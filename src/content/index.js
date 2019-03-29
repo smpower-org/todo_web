@@ -1,3 +1,3 @@
 import view from './views/content';
 
-export {view};
+export { view };

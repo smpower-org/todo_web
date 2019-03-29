@@ -6,6 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #fafafa;
   font-size: 14px;
+  user-select: none;
 }
 
 body::before {
@@ -46,6 +47,11 @@ code {
 input {
   padding: 0;
   margin: 0;
+  border: none;
+}
+
+input:focus {
+  outline: none;
 }
 
 button {

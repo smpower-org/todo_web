@@ -8,7 +8,7 @@ import printSvg from './images/print.svg';
 import undisturbSvg from './images/undisturb.svg';
 import deleteSvg from './images/delete.svg';
 
-class Header extends Component {
+class Toolbar extends Component {
   constructor() {
     super();
 
@@ -20,8 +20,9 @@ class Header extends Component {
   }
 
   render() {
+    const { isMoreContentExtracted } = this.state;
     return(
-      <div className="content-header">
+      <div className="list-toolbar">
 	<h1>收件箱</h1>
 	<div className="action-bar">
 	  <div className="action-bar-buttons">
@@ -35,7 +36,7 @@ class Header extends Component {
 	    </button>
 	  </div>
 	  <div className="action-bar-content">
-	    <ul className="more">
+	    <ul className={isMoreContentExtracted ? 'more active' : 'more'}>
 	      <li>
 		<img src={copySvg} alt="复制" />
 		<span>复制清单</span>
@@ -76,11 +77,10 @@ class Header extends Component {
   }
 
   onClickMore() {
-    console.log('on click more button...');
     this.setState({
       isMoreContentExtracted: !this.state.isMoreContentExtracted,
     });
   }
 }
 
-export default Header;
+export default Toolbar;
