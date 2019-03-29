@@ -15,7 +15,7 @@ class Tasks extends Component {
 	  </button>
 	  <input className="add-task-input" type="text" placeholder="添加任务..." />
 	  <div className="add-task-meta">
-	    <i class="meta-cal hidden">
+	    <i className="meta-cal hidden">
 	      <img src={calendarSvg} alt="设置日期" />
 	    </i>
 	    <i className="meta-star hidden">
