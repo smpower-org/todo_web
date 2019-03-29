@@ -11,6 +11,7 @@
   padding-left: 11px;
   height: 42px;
   line-height: 42px;
+  cursor: pointer;
 }
 
 .create-toolbar-icon {
