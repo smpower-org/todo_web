@@ -195,9 +195,9 @@ class RegisterContainer extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
+    // this.setState({
+    //   unsubscribe: this.context.store.subscribe(this.onChange)
+    // });
   }
 }
 

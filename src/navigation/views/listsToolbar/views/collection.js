@@ -68,7 +68,7 @@ class Collection extends Component {
   }
 
   componentWillUnmount() {
-    this.state.unsubscribe();
+    // this.state.unsubscribe();
   }
 }
 
