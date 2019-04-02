@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { setNavigationStatus } from '../../../actions';
 import PropTypes from 'prop-types';
 
 class Collection extends Component {
@@ -7,6 +8,7 @@ class Collection extends Component {
 
     this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onExtendNavigation = this.onExtendNavigation.bind(this);
 
     this.state = this.getOwnState();
   }
@@ -24,6 +26,12 @@ class Collection extends Component {
   shouldComponentUpdate(nextState, nextProps) {
     const {isNavigationExtended} = nextProps.navigation;
     return this.state.navigation.isNavigationExtended !== isNavigationExtended;
+  }
+
+  onExtendNavigation() {
+    this.context.store.dispatch(
+      setNavigationStatus(!this.state.navigation.isNavigationExtended)
+    );
   }
 
   render() {
@@ -45,7 +53,8 @@ class Collection extends Component {
 	  <span className="lists-toolbar-collection-item-title">test list 2</span>
 	  <span className="lists-toolbar-collection-item-count">7</span>
 	</li>
-	<li className={isNavigationExtended ? "" : "lists-toolbar-collection-item"}>
+	<li className={isNavigationExtended ? "" : "lists-toolbar-collection-item"} 
+	  onClick={this.onExtendNavigation}>
 	  <i className="lists-toolbar-collection-item-icon-more"></i>
 	</li>
       </ul>
@@ -59,9 +68,13 @@ class Collection extends Component {
   }
 
   componentWillUnmount() {
-    this.state.unsubscribe();
+    // this.state.unsubscribe();
   }
 }
+
+Collection.contextTypes = {
+  store: PropTypes.object
+};
 
 Collection.contextTypes = {
   store: PropTypes.object

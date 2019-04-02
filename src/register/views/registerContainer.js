@@ -1,14 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Register from './register';
-import {regist} from '../actions';
+import { regist } from '../actions';
 import {
-  actions as checkUsernameActions, status as checkUsernameStatus
+  actions as checkUsernameActions,
+  status as checkUsernameStatus
 } from '../../checkUsername/';
 import {
-  actions as checkEmailActions, status as checkEmailStatus
+  actions as checkEmailActions,
+  status as checkEmailStatus
 } from '../../checkEmail/';
-import {Validator} from '../../components/formCheck/';
+import { Validator } from '../../components/formCheck/';
 
 import './style.css';
 
@@ -195,9 +197,9 @@ class RegisterContainer extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
+    // this.setState({
+    //   unsubscribe: this.context.store.subscribe(this.onChange)
+    // });
   }
 }
 

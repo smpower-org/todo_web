@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Login from './login';
-import {login} from '../actions';
-import {actions} from '../../register/';
+import { login } from '../actions';
+import { actions } from '../../register/';
 
 import './style.css';
 

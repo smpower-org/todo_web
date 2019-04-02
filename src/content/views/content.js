@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import Header from './header';
+import Toolbar from './toolbar';
+import Tasks from './tasks';
 
-import './style.css';
+import './style.scss';
 
 class Content extends Component {
   render() {
     return (
       <div className="content">
-	<Header />
+	<Toolbar />
+	<Tasks />
       </div>
     );
   }
