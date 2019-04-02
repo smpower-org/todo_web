@@ -12,44 +12,6 @@ import { view as Navigation } from './navigation/';
 import { view as Content } from './content/';
 import './App.css';
 
-class Main extends Component {
-  componentWillMount() {
-    // if (!sessionStorage.isUserLogined) {
-    //   this.props.history.replace('/login');
-    //   return;
-    // }
-  }
-
-  render() {
-    return (
-      <div className="main">
-	<Navigation />
-	<Content />
-      </div>
-    );
-  }
-}
-
-Main.contextTypes = {
-  store: PropTypes.object
-};
-
-const routes = [
-  {
-    path: '/register',
-    component: Register
-  },
-  {
-    path: '/login',
-    component: Login
-  },
-  {
-    exact: true,
-    path: '/',
-    component: Main
-  }
-];
-
 class App extends Component {
   constructor() {
     super(...arguments);
@@ -70,7 +32,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
 	{
@@ -87,12 +48,6 @@ class App extends Component {
 	}
       </div>
     );
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps);
-    console.log(nextState);
-    return true;
   }
 
   componentWillMount() {

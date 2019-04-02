@@ -1,6 +1,6 @@
 import { AUTH } from './actionTypes';
 
-const reducer = (state = {isAuthenticated: false}, action) => {
+export default (state = {isAuthenticated: false}, action) => {
   console.log(state);
 
   switch(action.type) {
@@ -12,6 +12,4 @@ const reducer = (state = {isAuthenticated: false}, action) => {
       break;
   }
 };
-
-export { reducer };
 
