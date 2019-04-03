@@ -8,8 +8,10 @@ import {
 import PropTypes from 'prop-types';
 import { view as Register } from './register/';
 import { view as Login } from './login/';
-import { view as Navigation } from './navigation/';
+import { view as Navigation } from './components/navigation/';
 import { view as Content } from './content/';
+import { view as Home } from './home/';
+import { view as AuthExample } from './components/auth/';
 import './App.css';
 
 class App extends Component {
@@ -34,6 +36,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+	<Home />
+	{/*<div className="main">
+	  <Navigation />
+	  <Content />
+	</div>*/}
 	{
 	  // routes.map((item, index) => {
 	  //   return (

@@ -5,11 +5,11 @@ import { regist } from '../actions';
 import {
   actions as checkUsernameActions,
   status as checkUsernameStatus
-} from '../../checkUsername/';
+} from '../../components/checkUsername/';
 import {
   actions as checkEmailActions,
   status as checkEmailStatus
-} from '../../checkEmail/';
+} from '../../components/checkEmail/';
 import { Validator } from '../../components/formCheck/';
 
 import './style.css';

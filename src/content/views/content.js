@@ -1,4 +1,12 @@
 import React, {Component} from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { view as Login } from '../../login/';
 import Toolbar from './toolbar';
 import Tasks from './tasks';
 
@@ -15,4 +23,7 @@ class Content extends Component {
   }
 }
 
+Content.contextTypes = {
+  store: PropTypes.store
+};
 export default Content;
