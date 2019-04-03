@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { reducer as authReducer } from './components/auth';
+import { reducer as authReducer } from './components/auth/';
 import { reducer as registerReducer } from './register/';
 import { reducer as loginReducer } from './login/';
 import { reducer as checkUsernameReducer } from './components/checkUsername/';

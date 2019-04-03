@@ -1,7 +1,7 @@
-import { AUTH } from './actionTypes';
+import { SET_AUTHENTICATE_STATUS } from './actionTypes';
 
-export const auth = (isAuthenticated) => ({
-  type: AUTH,
-  isAuthenticated
+export const setAuthenticate = (authenticateStatus) => ({
+  type: SET_AUTHENTICATE_STATUS,
+  authenticateStatus
 });
 

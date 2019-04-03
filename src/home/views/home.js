@@ -7,7 +7,7 @@ import './style.scss';
 class Home extends Component {
   render() {
     return (
-      <div class="main">
+      <div className="main">
 	<Navigation />
 	<Content />
       </div>
