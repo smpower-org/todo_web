@@ -44,7 +44,8 @@ class App extends Component {
   }
 
   render() {
-    const {isAuthenticate} = this.state;
+    const isAuthenticate = JSON.parse(sessionStorage.getItem('logged_in'));
+    console.log(isAuthenticate);
 
     return (
       <div className="App">

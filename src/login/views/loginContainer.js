@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Login from './login';
 import { login } from '../actions';
 import { actions } from '../../register/';
+import { actions as authActions } from '../../components/auth/';
 
 import './style.css';
 
@@ -32,30 +33,27 @@ class LoginContainer extends Component {
 
   getOwnState() {
     return {
-      login: this.context.store.getState().login
+      login: this.context.store.getState().login,
+      auth: this.context.store.getState().auth
     };
   }
 
   onChange() {
     this.setState(this.getOwnState());
 
-    // const {status, isLogined,} = this.context.store.getState().login;
-    // if (status === 'success' && isLogined) {  // 登录成功
-    //   const {username, cryemail, crypwd} = this.context.store.getState().login;
-    //   sessionStorage.setItem('isUserLogined', true);
-    //   sessionStorage.setItem('username', username);
-    //   sessionStorage.setItem('cryemail', cryemail);
-    //   sessionStorage.setItem('crypwd', crypwd);
+    const { status, uid, token } = this.state.login;
 
-    //   this.props.history.replace('/');
-    //   return;
-    // }
+    // 登录成功
+    if (status === 0) {
+      const { history } = this.state;
+      sessionStorage.setItem('logged_in', true);
+      sessionStorage.setItem('uid', uid);
+      sessionStorage.setItem('token', token);
+      history.replace('/home');
+      return;
+    }
 
-    // if (status === 'success' && !isLogined) {  // 登录失败
-    //   alert('用户名或密码错误');
-    //   console.log('用户名或密码错误');
-    //   return;
-    // }
+    sessionStorage.setItem('logged_in', false);
   }
 
   onEmailInputFocus() {
@@ -110,6 +108,7 @@ class LoginContainer extends Component {
 
     // 派发 action...
     this.context.store.dispatch(login(emailInputValue, passwordInputValue));
+    this.context.store.dispatch(authActions.setAuthenticate(true));
   }
 
   componentWillMount() {

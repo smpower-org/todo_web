@@ -19,8 +19,19 @@ class Toolbar extends Component {
     };
   }
 
+  onClickSort() {
+    console.log('on sort...');
+  }
+
+  onClickMore() {
+    this.setState({
+      isMoreContentExtracted: !this.state.isMoreContentExtracted,
+    });
+  }
+
   render() {
     const { isMoreContentExtracted } = this.state;
+
     return(
       <div className="list-toolbar">
 	<h1>收件箱</h1>
@@ -70,16 +81,6 @@ class Toolbar extends Component {
 	</div>
       </div>
     );
-  }
-
-  onClickSort() {
-    console.log('on sort...');
-  }
-
-  onClickMore() {
-    this.setState({
-      isMoreContentExtracted: !this.state.isMoreContentExtracted,
-    });
   }
 }
 

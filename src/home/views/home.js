@@ -44,7 +44,7 @@ class Home extends Component {
   }
 
   render() {
-    const { isAuthenticate } = this.state;
+    const isAuthenticate = JSON.parse(sessionStorage.getItem('logged_in'));
 
     return (
       isAuthenticate ? (

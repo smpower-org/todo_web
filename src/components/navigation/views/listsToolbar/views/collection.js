@@ -34,8 +34,19 @@ class Collection extends Component {
     );
   }
 
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
     const {isNavigationExtended} = this.state.navigation;
+
     return (
       <ul className="lists-toolbar-collection">
 	<li className={isNavigationExtended ? "lists-toolbar-collection-item" : ""}>
@@ -59,16 +70,6 @@ class Collection extends Component {
 	</li>
       </ul>
     );
-  }
-
-  componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
-  }
-
-  componentWillUnmount() {
-    // this.state.unsubscribe();
   }
 }
 
