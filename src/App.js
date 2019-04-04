@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 import { view as Home } from './home/';
 import { view as Login } from './login/';
-// import { view as AuthExample } from './components/auth/';
+import { view as NoMath } from './404/';
 
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   constructor() {
@@ -28,15 +33,37 @@ class App extends Component {
     this.setState(this.getOwnState());
   }
 
-  componentWillMount() {
-  }
-
   render() {
+    const {isAuthenticate} = this.state;
+
     return (
       <div className="App">
-	{/*
-	  <Home />
-	*/}
+	<Switch>
+	  <Route 
+	    exact
+	    path="/"
+	    render={({history}) => {
+	      return isAuthenticate ? (
+		<Redirect to="/home" />
+	      ) : (
+		<Redirect to="/login" />
+	      )}
+	    }
+	  />
+	  <Route 
+	    exact
+	    path="/login"
+	    component={Login}
+	  />
+	  <Route
+	    exact
+	    path="/home"
+	    component={Home}
+	  />
+	  <Route 
+	    component={({history}) => <NoMath />}
+	  />
+	</Switch>
       </div>
     );
   }

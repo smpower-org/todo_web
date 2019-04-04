@@ -9,6 +9,7 @@ import './style.css';
 class LoginContainer extends Component {
   constructor() {
     super(...arguments);
+    console.log(this);
 
     this.onChange = this.onChange.bind(this);
     this.onEmailInputFocus = this.onEmailInputFocus.bind(this);
@@ -23,7 +24,8 @@ class LoginContainer extends Component {
       emailInputFocused: false,
       passwordInputFocused: false,
       emailInputValue: '',
-      passwordInputValue: ''
+      passwordInputValue: '',
+      ...this.props
     };
   }
 
