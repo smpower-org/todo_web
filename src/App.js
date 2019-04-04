@@ -33,8 +33,19 @@ class App extends Component {
     this.setState(this.getOwnState());
   }
 
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
-    const {isAuthenticate} = this.state;
+    const isAuthenticate = JSON.parse(sessionStorage.getItem('logged_in'));
+    console.log(isAuthenticate);
 
     return (
       <div className="App">
@@ -42,36 +53,27 @@ class App extends Component {
 	  <Route 
 	    exact
 	    path="/"
-	    render={({history}) => {
+	    render={() => {
 	      return isAuthenticate ? (
 		<Redirect to="/home" />
 	      ) : (
 		<Redirect to="/login" />
-	      )}
-	    }
+	      );
+	    }}
 	  />
 	  <Route 
 	    exact
 	    path="/login"
 	    component={Login}
 	  />
-	  <Route
-	    exact
+	  <Route 
 	    path="/home"
 	    component={Home}
 	  />
-	  <Route 
-	    component={({history}) => <NoMath />}
-	  />
+	  <Route component={NoMath} />
 	</Switch>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
   }
 }
 

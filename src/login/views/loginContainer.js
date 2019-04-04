@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import Login from './login';
 import { login } from '../actions';
 import { actions } from '../../register/';
+import { actions as authActions } from '../../components/auth/';
 
 import './style.css';
 
 class LoginContainer extends Component {
   constructor() {
     super(...arguments);
-    console.log(this);
 
+    this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onEmailInputFocus = this.onEmailInputFocus.bind(this);
     this.onEmailInputBlur = this.onEmailInputBlur.bind(this);
@@ -20,33 +21,39 @@ class LoginContainer extends Component {
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.onSignin = this.onSignin.bind(this);
 
-    this.state = {
+    this.state = Object.assign({}, {
+      // default params
       emailInputFocused: false,
       passwordInputFocused: false,
       emailInputValue: '',
       passwordInputValue: '',
       ...this.props
+    }, this.getOwnState());
+  }
+
+  getOwnState() {
+    return {
+      login: this.context.store.getState().login,
+      auth: this.context.store.getState().auth
     };
   }
 
   onChange() {
-    const {status, isLogined,} = this.context.store.getState().login;
-    if (status === 'success' && isLogined) {  // 登录成功
-      const {username, cryemail, crypwd} = this.context.store.getState().login;
-      sessionStorage.setItem('isUserLogined', true);
-      sessionStorage.setItem('username', username);
-      sessionStorage.setItem('cryemail', cryemail);
-      sessionStorage.setItem('crypwd', crypwd);
+    this.setState(this.getOwnState());
 
-      this.props.history.replace('/');
+    const { status, uid, token } = this.state.login;
+
+    // 登录成功
+    if (status === 0) {
+      const { history } = this.state;
+      sessionStorage.setItem('logged_in', true);
+      sessionStorage.setItem('uid', uid);
+      sessionStorage.setItem('token', token);
+      history.replace('/home');
       return;
     }
 
-    if (status === 'success' && !isLogined) {  // 登录失败
-      alert('用户名或密码错误');
-      console.log('用户名或密码错误');
-      return;
-    }
+    sessionStorage.setItem('logged_in', false);
   }
 
   onEmailInputFocus() {
@@ -101,12 +108,24 @@ class LoginContainer extends Component {
 
     // 派发 action...
     this.context.store.dispatch(login(emailInputValue, passwordInputValue));
+    this.context.store.dispatch(authActions.setAuthenticate(true));
   }
 
   componentWillMount() {
-    if (sessionStorage.isUserLogined) {
-      this.props.history.push('/');
-    }
+    // if (sessionStorage.isUserLogined) {
+    //   this.props.history.push('/');
+    // }
+  }
+
+  componentDidMount() {
+    this.context.store.dispatch(actions.clearStore());
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
   }
 
   render() {
@@ -125,13 +144,6 @@ class LoginContainer extends Component {
 	onSignin={this.onSignin}
       />
     );
-  }
-
-  componentDidMount() {
-    this.context.store.dispatch(actions.clearStore());
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
   }
 }
 

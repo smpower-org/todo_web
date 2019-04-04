@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = ({
   onEmailInputFocus, onEmailInputBlur, 
@@ -48,16 +49,14 @@ const Login = ({
 	  </button>
 	</div>
 	<div className="login-item login-link">
-	  <a
-	    href="/#/findpwd" 
-	    className="login-link-item login-link-forgot">
-	    Forgot your password?
-	  </a>
-	  <a 
-	    href="/#/register" 
-	    className="login-link-item login-link-register">
-	    Create Account
-	  </a>
+	  <Link
+	    to="/findpwd"
+	    className="login-link-item login-link-forgot"
+	  >Forgot your password?</Link>
+	  <Link
+	    to="/register"
+	    className="login-link-item login-link-register"
+	  >Create Account</Link>
 	</div>
       </div>
     </div>
