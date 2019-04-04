@@ -1,7 +1,7 @@
 import {
   CHECKEMAIL_STARTED, CHECKEMAIL_SUCCESS, CHECKEMAIL_FAILURE
 } from './actionTypes';
-import {baseUrl, apis} from '../config/';
+import {baseUrl, apis} from '../../config/';
 
 const checkEmailStarted = () => ({
   type: CHECKEMAIL_STARTED

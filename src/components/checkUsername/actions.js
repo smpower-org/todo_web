@@ -1,7 +1,7 @@
 import {
   CHECKUSERNAME_STARTED, CHECKUSERNAME_SUCCESS, CHECKUSERNAME_FAILURE
 } from './actionTypes';
-import {baseUrl, apis} from '../config/';
+import {baseUrl, apis} from '../../config/';
 
 export const checkUsernameStarted = () => ({
   type: CHECKUSERNAME_STARTED

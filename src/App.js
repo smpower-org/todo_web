@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import { 
-  BroserRouter as Router,
+import PropTypes from 'prop-types';
+import {
   Route,
   Redirect,
-  withRouter 
+  Switch
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { view as Register } from './register/';
+import { view as Home } from './home/';
 import { view as Login } from './login/';
-import { view as Navigation } from './navigation/';
-import { view as Content } from './content/';
-import './App.css';
+import { view as NoMath } from './404/';
+
+import './App.scss';
 
 class App extends Component {
   constructor() {
     super(...arguments);
+
+    this.getOwnState = this.getOwnState.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     this.state = Object.assign({}, {
       // default params...
@@ -23,7 +25,7 @@ class App extends Component {
 
   getOwnState() {
     return {
-      isAuthenticated: this.context.store.getState().auth.isAuthenticated
+      isAuthenticate: this.context.store.getState().auth.isAuthenticate
     };
   }
 
@@ -32,25 +34,41 @@ class App extends Component {
   }
 
   render() {
+    const {isAuthenticate} = this.state;
+
     return (
       <div className="App">
-	{
-	  // routes.map((item, index) => {
-	  //   return (
-	  //     <Route 
-	  //       key={index}
-	  //       exact={item.exact}
-	  //       path={item.path}
-	  //       component={item.component}
-	  //     />
-	  //   );
-	  // })
-	}
+	<Switch>
+	  <Route 
+	    exact
+	    path="/"
+	    render={({history}) => {
+	      return isAuthenticate ? (
+		<Redirect to="/home" />
+	      ) : (
+		<Redirect to="/login" />
+	      )}
+	    }
+	  />
+	  <Route 
+	    exact
+	    path="/login"
+	    component={Login}
+	  />
+	  <Route
+	    exact
+	    path="/home"
+	    component={Home}
+	  />
+	  <Route 
+	    component={({history}) => <NoMath />}
+	  />
+	</Switch>
       </div>
     );
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
