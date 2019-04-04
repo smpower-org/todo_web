@@ -33,6 +33,16 @@ class App extends Component {
     this.setState(this.getOwnState());
   }
 
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
     const {isAuthenticate} = this.state;
 
@@ -51,54 +61,18 @@ class App extends Component {
 	    }}
 	  />
 	  <Route 
-	    path="/home"
-	    component={Home}
-	  />
-	  <Route 
 	    exact
 	    path="/login"
 	    component={Login}
 	  />
+	  <Route 
+	    path="/home"
+	    component={Home}
+	  />
 	  <Route component={NoMath} />
 	</Switch>
-	{
-	  /*
-	  <Switch>
-	    <Route 
-	      exact
-	      path="/"
-	      render={({history}) => {
-		return isAuthenticate ? (
-		  <Redirect to="/home" />
-		) : (
-		  <Redirect to="/login" />
-		)}
-	      }
-	    />
-	    <Route 
-	      exact
-	      path="/login"
-	      component={Login}
-	    />
-	    <Route
-	      exact
-	      path="/home"
-	      component={Home}
-	    />
-	    <Route 
-	      component={({history}) => <NoMath />}
-	    />
-	  </Switch>
-	  */
-	}
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
   }
 }
 

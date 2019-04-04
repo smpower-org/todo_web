@@ -33,6 +33,16 @@ class Home extends Component {
     return true;
   }
 
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
     const { isAuthenticate } = this.state;
 
@@ -51,16 +61,6 @@ class Home extends Component {
 	</div>
       )
     );
-  }
-
-  componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
-  }
-
-  componentWillUnmount() {
-    this.state.unsubscribe(this.onChange);
   }
 }
 

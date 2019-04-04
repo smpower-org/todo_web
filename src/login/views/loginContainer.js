@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Login from './login';
 import { login } from '../actions';
@@ -11,6 +10,7 @@ class LoginContainer extends Component {
   constructor() {
     super(...arguments);
 
+    this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onEmailInputFocus = this.onEmailInputFocus.bind(this);
     this.onEmailInputBlur = this.onEmailInputBlur.bind(this);
@@ -20,16 +20,25 @@ class LoginContainer extends Component {
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.onSignin = this.onSignin.bind(this);
 
-    this.state = {
+    this.state = Object.assign({}, {
+      // default params
       emailInputFocused: false,
       passwordInputFocused: false,
       emailInputValue: '',
       passwordInputValue: '',
       ...this.props
+    }, this.getOwnState());
+  }
+
+  getOwnState() {
+    return {
+      login: this.context.store.getState().login
     };
   }
 
   onChange() {
+    this.setState(this.getOwnState());
+
     // const {status, isLogined,} = this.context.store.getState().login;
     // if (status === 'success' && isLogined) {  // 登录成功
     //   const {username, cryemail, crypwd} = this.context.store.getState().login;
@@ -109,6 +118,17 @@ class LoginContainer extends Component {
     // }
   }
 
+  componentDidMount() {
+    this.context.store.dispatch(actions.clearStore());
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
     return (
       <Login 
@@ -125,13 +145,6 @@ class LoginContainer extends Component {
 	onSignin={this.onSignin}
       />
     );
-  }
-
-  componentDidMount() {
-    this.context.store.dispatch(actions.clearStore());
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
   }
 }
 
