@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Login from './login';
 import { login } from '../actions';
@@ -9,7 +10,6 @@ import './style.css';
 class LoginContainer extends Component {
   constructor() {
     super(...arguments);
-    console.log(this);
 
     this.onChange = this.onChange.bind(this);
     this.onEmailInputFocus = this.onEmailInputFocus.bind(this);
@@ -30,23 +30,23 @@ class LoginContainer extends Component {
   }
 
   onChange() {
-    const {status, isLogined,} = this.context.store.getState().login;
-    if (status === 'success' && isLogined) {  // 登录成功
-      const {username, cryemail, crypwd} = this.context.store.getState().login;
-      sessionStorage.setItem('isUserLogined', true);
-      sessionStorage.setItem('username', username);
-      sessionStorage.setItem('cryemail', cryemail);
-      sessionStorage.setItem('crypwd', crypwd);
+    // const {status, isLogined,} = this.context.store.getState().login;
+    // if (status === 'success' && isLogined) {  // 登录成功
+    //   const {username, cryemail, crypwd} = this.context.store.getState().login;
+    //   sessionStorage.setItem('isUserLogined', true);
+    //   sessionStorage.setItem('username', username);
+    //   sessionStorage.setItem('cryemail', cryemail);
+    //   sessionStorage.setItem('crypwd', crypwd);
 
-      this.props.history.replace('/');
-      return;
-    }
+    //   this.props.history.replace('/');
+    //   return;
+    // }
 
-    if (status === 'success' && !isLogined) {  // 登录失败
-      alert('用户名或密码错误');
-      console.log('用户名或密码错误');
-      return;
-    }
+    // if (status === 'success' && !isLogined) {  // 登录失败
+    //   alert('用户名或密码错误');
+    //   console.log('用户名或密码错误');
+    //   return;
+    // }
   }
 
   onEmailInputFocus() {
@@ -104,9 +104,9 @@ class LoginContainer extends Component {
   }
 
   componentWillMount() {
-    if (sessionStorage.isUserLogined) {
-      this.props.history.push('/');
-    }
+    // if (sessionStorage.isUserLogined) {
+    //   this.props.history.push('/');
+    // }
   }
 
   render() {
