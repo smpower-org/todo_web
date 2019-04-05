@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { view as Home } from './home/';
 import { view as Login } from './login/';
+import { view as Register } from './register/';
 import { view as NoMath } from './404/';
 
 import './App.scss';
@@ -45,7 +46,6 @@ class App extends Component {
 
   render() {
     const isAuthenticate = JSON.parse(sessionStorage.getItem('logged_in'));
-    console.log(isAuthenticate);
 
     return (
       <div className="App">
@@ -65,6 +65,11 @@ class App extends Component {
 	    exact
 	    path="/login"
 	    component={Login}
+	  />
+	  <Route 
+	    exact
+	    path="/register"
+	    component={Register}
 	  />
 	  <Route 
 	    path="/home"
