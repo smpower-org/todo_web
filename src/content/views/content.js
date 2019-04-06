@@ -1,41 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { getData } from '../actions';
+import { getData as getTaskListData } from '../actions';
 import Toolbar from './toolbar';
 import Tasks from './tasks';
 
 import './style.scss';
 
 class Content extends Component {
-  constructor() {
-    super(...arguments);
-
-    this.getOwnState = this.getOwnState.bind(this);
-    this.onChange = this.onChange.bind(this);
-
-    this.state = Object.assign({}, {
-      // default params...
-    }, this.getOwnState());
-  }
-
-  getOwnState() {
-    return {
-    };
-  }
-
-  onChange() {
-    this.setState(this.getOwnState());
-  }
-
   componentDidMount() {
-    this.context.store.dispatch(getData(4, sessionStorage.getItem('token')));
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
-  }
+    const uid = parseInt(sessionStorage.getItem('uid'), 10);
+    const token = sessionStorage.getItem('token');
 
-  componentWillUnmount() {
-    this.state.unsubscribe(this.onChange);
+    console.log(this);
+    this.context.store.dispatch(getTaskListData(uid, token));
   }
 
   render() {

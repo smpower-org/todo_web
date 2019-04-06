@@ -6,7 +6,7 @@ import { reducer as loginReducer } from './login/';
 import { reducer as checkUsernameReducer } from './components/checkUsername/';
 import { reducer as checkEmailReducer } from './components/checkEmail/';
 import { reducer as navigationReducer } from './components/navigation/';
-import { reducer as getDataReducer } from './content/';
+import { reducer as taskListReducer } from './content/';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -15,7 +15,7 @@ const reducer = combineReducers({
   checkUsername: checkUsernameReducer,
   checkEmail: checkEmailReducer,
   navigation: navigationReducer,
-  getData: getDataReducer
+  taskList: taskListReducer
 });
 
 export default createStore(reducer, applyMiddleware(thunkMiddleware));
