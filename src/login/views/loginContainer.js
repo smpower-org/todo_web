@@ -118,7 +118,7 @@ class LoginContainer extends Component {
   }
 
   componentDidMount() {
-    this.context.store.dispatch(actions.clearStore());
+    // this.context.store.dispatch(actions.clearStore());
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
