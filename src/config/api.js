@@ -21,3 +21,10 @@ export const checkEmail = {
   params: ['email'],
   des: '验证用户邮箱是否已注册(存在)'
 };
+
+export const getData = {
+  path: '/todo/getData',
+  params: ['uid', 'token'],
+  des: '获取 todo 数据'
+};
+

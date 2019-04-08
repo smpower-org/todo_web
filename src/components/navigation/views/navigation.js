@@ -35,8 +35,19 @@ class Navigation extends Component {
     );
   }
 
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
     const {isNavigationExtended} = this.state.navigation;
+
     return (
       <div className={isNavigationExtended ? "navigation active" : "navigation"}>
 	<div className="navigation-inner">
@@ -49,16 +60,6 @@ class Navigation extends Component {
 	</div>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.setState({
-      unsubscribe: this.context.store.subscribe(this.onChange)
-    });
-  }
-
-  componentWillUnmount() {
-    this.state.unsubscribe(this.onChange);
   }
 }
 

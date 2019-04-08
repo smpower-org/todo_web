@@ -25,7 +25,7 @@ class Home extends Component {
   }
 
   onChange() {
-    this.setState(this.onChange());
+    this.setState(this.getOwnState());
   }
 
   shouldComponentUpdate(nextProps, nextState) {
