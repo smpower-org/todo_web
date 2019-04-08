@@ -12,7 +12,17 @@ class Collection extends Component {
 
     const { dataTask } = this.props;
     let filterDataTask = dataTask.filter(item => {
-      if (item.box !== 'inbox') return item;
+      if (item.box !== 'inbox') {
+	let uncompleted = 0;
+
+	item.dataList.forEach(taskItem => {
+	  if (!taskItem.completed) uncompleted++;
+	});
+
+	item.uncompleted = uncompleted;
+
+	return item;
+      }
     });
 
     this.state = Object.assign({}, {
@@ -63,7 +73,7 @@ class Collection extends Component {
 	    <li className={isNavigationExtended ? "lists-toolbar-collection-item" : ""} key={index}>
 	      <i className="lists-toolbar-collection-item-icon"></i>
 	      <span className="lists-toolbar-collection-item-title">{item.box}</span>
-	      <span className="lists-toolbar-collection-item-count">2</span>
+	      <span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
 	    </li>
 	  ))
 	}
