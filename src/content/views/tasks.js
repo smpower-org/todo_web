@@ -7,6 +7,32 @@ import starBorderSvg from './images/star-border.svg';
 import starWhiteSvg from './images/star-white.svg';
 
 class Tasks extends Component {
+  constructor() {
+    super();
+
+    this.handleOnFocus = this.handleOnFocus.bind(this);
+    this.handleEnterKey = this.handleEnterKey.bind(this);
+
+    this.state = Object.assign({}, {
+      // default params...
+    });
+  }
+
+  handleOnFocus() {
+    document.addEventListener('keydown', this.handleEnterKey, false);
+  }
+
+  handleEnterKey(event) {
+    const target = event.target;
+    if (event.keyCode === 13) {
+      if (target.value.trim() === '') {
+	alert('不能为空！');
+	return;
+      }
+      console.log('与服务器通信，添加一条 todo。');
+    }
+  }
+
   render() {
     return (
       <div className="tasks-scroll">
@@ -14,7 +40,12 @@ class Tasks extends Component {
 	  <button className="add-task-button">
 	    <img src={addSvg} alt="添加任务" />
 	  </button>
-	  <input className="add-task-input" type="text" placeholder="添加任务..." />
+	  <input 
+	    className="add-task-input" 
+	    type="text" 
+	    placeholder="添加任务..." 
+	    onFocus={this.handleOnFocus} 
+	  />
 	  <div className="add-task-meta">
 	    <i className="meta-cal hidden">
 	      <img src={calendarSvg} alt="设置日期" />
