@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import addSvg from './images/add.svg';
 import calendarSvg from './images/calendar.svg';
@@ -6,6 +7,10 @@ import starBorderSvg from './images/star-border.svg';
 import starWhiteSvg from './images/star-white.svg';
 
 class Tasks extends Component {
+  constructor() {
+    super(...arguments);
+  }
+
   render() {
     return (
       <div className="tasks-scroll">
@@ -32,5 +37,9 @@ class Tasks extends Component {
     );
   }
 }
+
+Tasks.contextTypes = {
+  store: PropTypes.object
+};
 
 export default Tasks;

@@ -14,9 +14,10 @@ class Toolbar extends Component {
 
     this.onClickMore = this.onClickMore.bind(this);
 
-    this.state = {
+    this.state = Object.assign({}, {
+      // default params
       isMoreContentExtracted: false,
-    };
+    });
   }
 
   onClickSort() {
@@ -30,7 +31,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { isMoreContentExtracted } = this.state;
+    const { isMoreContentExtracted, taskList } = this.state;
 
     return(
       <div className="list-toolbar">

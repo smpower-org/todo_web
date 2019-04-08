@@ -11,7 +11,6 @@ class Content extends Component {
     const uid = parseInt(sessionStorage.getItem('uid'), 10);
     const token = sessionStorage.getItem('token');
 
-    console.log(this);
     this.context.store.dispatch(getTaskListData(uid, token));
   }
 
