@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Login from './login';
 import { login } from '../actions';
-import { actions } from '../../register/';
 import { actions as authActions } from '../../components/auth/';
 
 import './style.css';

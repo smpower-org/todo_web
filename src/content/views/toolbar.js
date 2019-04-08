@@ -10,7 +10,7 @@ import deleteSvg from './images/delete.svg';
 
 class Toolbar extends Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.onClickMore = this.onClickMore.bind(this);
 
@@ -31,7 +31,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { isMoreContentExtracted, taskList } = this.state;
+    const { isMoreContentExtracted } = this.state;
 
     return(
       <div className="list-toolbar">
