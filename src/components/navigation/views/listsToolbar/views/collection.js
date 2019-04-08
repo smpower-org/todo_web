@@ -23,6 +23,8 @@ class Collection extends Component {
 
 	return item;
       }
+
+      return false;
     });
 
     this.state = Object.assign({}, {

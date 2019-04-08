@@ -7,10 +7,6 @@ import starBorderSvg from './images/star-border.svg';
 import starWhiteSvg from './images/star-white.svg';
 
 class Tasks extends Component {
-  constructor() {
-    super(...arguments);
-  }
-
   render() {
     return (
       <div className="tasks-scroll">

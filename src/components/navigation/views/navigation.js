@@ -21,7 +21,8 @@ class Navigation extends Component {
 
   getOwnState() {
     return {
-      navigation: this.context.store.getState().navigation
+      navigation: this.context.store.getState().navigation,
+      taskList: this.context.store.getState().taskList
     };
   }
 
@@ -46,7 +47,8 @@ class Navigation extends Component {
   }
 
   render() {
-    const {isNavigationExtended} = this.state.navigation;
+    const { isNavigationExtended } = this.state.navigation;
+    const { taskList } = this.state;
 
     return (
       <div className={isNavigationExtended ? "navigation active" : "navigation"}>
@@ -55,7 +57,11 @@ class Navigation extends Component {
 	    onClickMenuBtn={this.onClickMenuBtn}
 	  />
 	  <UserToolbar />
-	  <ListsToolbar />
+	  {
+	    taskList.status === 'loading' ? '' : (
+	      <ListsToolbar />
+	    )
+	  }
 	  <CreateToolbar />
 	</div>
       </div>
