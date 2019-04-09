@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Inbox from './inbox';
 import Collection from './collection';
 
-import './style.css';
+import './style.scss';
 
 class ListsToolbar extends Component {
   render() {
@@ -11,7 +11,7 @@ class ListsToolbar extends Component {
     if (taskList.status === 'loading') return false;
 
     return (
-      <div className="lists-toolbar">
+      <div className="lists-toolbar custom-scroll">
 	<Inbox />
 	<Collection dataTask={taskList.data} />
       </div>
