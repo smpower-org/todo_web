@@ -1,8 +1,12 @@
-.no-auth {
-  span {
-    color: #fff;
-  }
-  a {
-    color: lightblue;
+.main {
+  height: 100vh;
+  overflow-y: hidden;
+  .no-auth {
+    span {
+      color: #fff;
+    }
+    a {
+      color: lightblue;
+    }
   }
 }
