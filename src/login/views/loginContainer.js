@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Login from './login';
-import { login } from '../actions';
+import { login, clearStore } from '../actions';
 import { actions as authActions } from '../../components/auth/';
 
 import './style.css';
@@ -40,7 +40,7 @@ class LoginContainer extends Component {
   onChange() {
     this.setState(this.getOwnState());
 
-    const { status, uid, token } = this.state.login;
+    const { status, uid, token, message } = this.state.login;
 
     // 登录成功
     if (status === 0) {
@@ -51,6 +51,14 @@ class LoginContainer extends Component {
       history.replace('/home');
       return;
     }
+
+    if (status === 1) {
+      alert(message);
+      this.context.store.dispatch(clearStore());
+      return;
+    }
+
+    console.log(this.state);
 
     sessionStorage.setItem('logged_in', false);
   }
