@@ -36,3 +36,9 @@ export const login = (email, password) => {
   };
 };
 
+export const clearStore = () => {
+  return dispatch => {
+    dispatch(loginStarted());
+  }
+};
+

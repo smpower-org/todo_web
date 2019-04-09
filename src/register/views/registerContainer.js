@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Register from './register';
-import { regist } from '../actions';
+import { regist, clearStore } from '../actions';
 import {
   actions as checkUsernameActions,
   status as checkUsernameStatus
@@ -18,6 +18,7 @@ class RegisterContainer extends Component {
   constructor() {
     super(...arguments);
 
+    this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
     this.setErrorMsg = this.setErrorMsg.bind(this);
     this.onNameInputChange = this.onNameInputChange.bind(this);
@@ -25,7 +26,8 @@ class RegisterContainer extends Component {
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
-    this.state = {
+    this.state = Object.assign({}, {
+      // default params
       nameInputValue: '',
       emailInputValue: '',
       passwordInputValue: '',
@@ -33,12 +35,21 @@ class RegisterContainer extends Component {
       emailInputErrorMsg: '',
       passwordInputErrorMsg: '',
       errorMsg: null
+    }, this.getOwnState());
+  }
+
+  getOwnState() {
+    return {
+      register: this.context.store.getState().register
     };
   }
 
   onChange() {
-    const {status, isRegisted} = this.context.store.getState().register;
-    if (status === 'success' && isRegisted) this.props.history.replace('/login');
+    this.setState(this.getOwnState());
+
+    if (this.state.register.status === 'success') {
+      this.props.history.push('/login');
+    }
   }
 
   setErrorMsg(key, errorMsg) {  // 设置错误信息
@@ -172,11 +183,15 @@ class RegisterContainer extends Component {
     }
   }
 
-  componentWillMount() {
-    if (sessionStorage.isUserLogined) {
-      this.props.history.replace('/');
-      return;
-    }
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+    this.context.store.dispatch(clearStore());
   }
 
   render() {
@@ -194,12 +209,6 @@ class RegisterContainer extends Component {
 	onSubmit={this.onSubmit}
       />
     );
-  }
-
-  componentDidMount() {
-    // this.setState({
-    //   unsubscribe: this.context.store.subscribe(this.onChange)
-    // });
   }
 }
 
