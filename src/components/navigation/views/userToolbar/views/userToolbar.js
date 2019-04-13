@@ -1,29 +1,42 @@
 import React, {Component} from 'react';
+import { actions as userboxActions } from '../../../../userBox/';
 import PropTypes from 'prop-types';
 
-import './style.css';
+import './style.scss';
 
 class UserToolbar extends Component {
+  constructor() {
+    super(...arguments);
+    this.onClickUser = this.onClickUser.bind(this);
+  }
+
+  onClickUser() {
+    this.context.store.dispatch(
+      userboxActions.toggleUserboxStatus()
+    );
+  }
+
   render() {
     const taskList = this.context.store.getState().taskList;
+    const { isUserboxExtended } = this.context.store.getState().userbox;
 
     return (
-      <div className="user-toolbar">
-	<div className="user">
-	  <i className="user-avatar"></i>
+      <div className="user-toolbar" data-selector="user-toolbar">
+	<div className="user" data-selector="user-toolbar" onClick={this.onClickUser} >
+	  <i className="user-avatar" data-selector="user-toolbar"></i>
 	  {
 	    taskList.status === 0 ? (
-	      <span className="user-name">{taskList.username}</span>
+	      <span className="user-name" data-selector="user-toolbar">{taskList.username}</span>
 	    ) : (
 	      taskList.status === 'loading' ? (
-		<span className="user-name">loading...</span>
+		<span className="user-name" data-selector="user-toolbar">loading...</span>
 	      ) : (
-		<span className="user-name">error...</span>
+		<span className="user-name" data-selector="user-toolbar">error...</span>
 	      )
 	    )
 	  }
-	  <i className="user-arrow-icon"></i>
-	  <span className="sync"></span>
+	  <i className={isUserboxExtended ? 'user-arrow-icon active' : 'user-arrow-icon'} data-selector="user-toolbar"></i>
+	  <span className="sync" data-selector="user-toolbar"></span>
 	</div>
 	<div className="stream-counts">
 	  <i className="bell-icon"></i>

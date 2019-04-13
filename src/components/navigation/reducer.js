@@ -8,3 +8,4 @@ export default (state = {isNavigationExtended: true}, action) => {
       return state;
   }
 };
+

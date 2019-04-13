@@ -7,6 +7,10 @@ import Tasks from './tasks';
 import './style.scss';
 
 class Content extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
   componentDidMount() {
     const uid = parseInt(sessionStorage.getItem('uid'), 10);
     const token = sessionStorage.getItem('token');

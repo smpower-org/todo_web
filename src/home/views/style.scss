@@ -1,5 +1,6 @@
 .main {
   height: 100vh;
+  position: relative;
   overflow-y: hidden;
   .no-auth {
     span {
@@ -7,6 +8,21 @@
     }
     a {
       color: lightblue;
+    }
+  }
+  .me {
+    position: absolute;
+    top: 90px;
+    left: 8px;
+    z-index: 2;
+    min-width: 200px;
+    max-width: 300px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    border: 1px solid transparent;
+    .menu {
+      font-size: 13px;
+      padding: 12px;
     }
   }
 }
