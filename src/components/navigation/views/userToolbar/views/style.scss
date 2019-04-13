@@ -41,6 +41,10 @@
   background-size: 100%;
   flex-shrink: 0;
   cursor: pointer;
+  transition: transform .3s;
+  &.active {
+    transform: rotate(180deg);
+  }
 }
 
 .user-toolbar .user .sync {

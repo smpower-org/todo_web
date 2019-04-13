@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { view as Content } from '../../content/';
 import { view as Navigation } from '../../components/navigation/';
-import PropTypes from 'prop-types';
+import { view as UserBox } from '../../components/userBox/';
+import { actions as userboxActions } from '../../components/userBox/';
 
 import './style.scss';
 
@@ -12,6 +14,7 @@ class Home extends Component {
 
     this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.hideUserbox = this.hideUserbox.bind(this);
 
     this.state = Object.assign({}, {
       // default params...
@@ -20,7 +23,8 @@ class Home extends Component {
 
   getOwnState() {
     return {
-      isAuthenticate: this.context.store.getState().auth.isAuthenticate
+      isAuthenticate: this.context.store.getState().auth.isAuthenticate,
+      isUserboxExtended: this.context.store.getState().userbox.isUserboxExtended
     };
   }
 
@@ -28,9 +32,27 @@ class Home extends Component {
     this.setState(this.getOwnState());
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.isAuthenticate !== nextState.isAuthenticate) return false;
-    return true;
+  hideUserbox(event) {
+    const target = event.target;
+    const dataSelector = target.getAttribute('data-selector');
+    const isUserboxExtended = this.state.isUserboxExtended;
+
+    switch(dataSelector) {
+      case 'user-toolbar':
+	if (isUserboxExtended) {
+	  this.context.store.dispatch(
+	    userboxActions.toggleUserboxStatus()
+	  );
+	}
+	break;
+      default:
+	if (isUserboxExtended) {
+	  this.context.store.dispatch(
+	    userboxActions.toggleUserboxStatus()
+	  );
+	}
+	break;
+    }
   }
 
   componentDidMount() {
@@ -45,12 +67,20 @@ class Home extends Component {
 
   render() {
     const isAuthenticate = JSON.parse(sessionStorage.getItem('logged_in'));
+    const isUserboxExtended = this.state.isUserboxExtended;
 
     return (
       isAuthenticate ? (
-	<div className="main">
+	<div className="main" onClick={this.hideUserbox}>
 	  <Navigation />
 	  <Content />
+	  {
+	    isUserboxExtended ? (
+	      <UserBox />
+	    ) : (
+	      ''
+	    )
+	  }
 	</div>
       ) : (
 	<div className="no-auth-box">

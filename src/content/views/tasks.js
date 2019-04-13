@@ -6,7 +6,7 @@ import calendarSvg from './images/calendar.svg';
 import starBorderSvg from './images/star-border.svg';
 import starWhiteSvg from './images/star-white.svg';
 import checkboxNonSvg from './images/checkbox-non.svg';
-import checkboxCheckedSvg from './images/checkbox-checked.svg';
+// import checkboxCheckedSvg from './images/checkbox-checked.svg';
 
 class Tasks extends Component {
   constructor() {
@@ -86,10 +86,9 @@ class Tasks extends Component {
 	  <ol>
 	    {
 	      typeof taskList !== 'undefined' ? (
-	        taskList.data.map(item => {
+	        taskList.data.map((item, index) => {
 		  if (item.box === 'inbox') {
 		    return item.dataList.map((taskItem, taskIndex) => {
-		      console.log(taskItem);
 		      return (
 			<li key={taskIndex}>
 			  <div className="task-list-item">
@@ -107,6 +106,10 @@ class Tasks extends Component {
 			</li>
 		      );
 		    });
+		  } else {
+		    return (
+		      <li key={index}>Loading...</li>
+		    );
 		  }
 		})
 	      ) : (
