@@ -39,16 +39,11 @@ class Home extends Component {
 
     switch(dataSelector) {
       case 'user-toolbar':
-	if (isUserboxExtended) {
-	  this.context.store.dispatch(
-	    userboxActions.toggleUserboxStatus()
-	  );
-	}
-	break;
+        break;
       default:
 	if (isUserboxExtended) {
 	  this.context.store.dispatch(
-	    userboxActions.toggleUserboxStatus()
+	    userboxActions.toggleUserboxStatus(false)
 	  );
 	}
 	break;
