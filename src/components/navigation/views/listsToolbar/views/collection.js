@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { setNavigationStatus } from '../../../actions';
 import PropTypes from 'prop-types';
 
-import moreSvg from './more.svg';
-
 class Collection extends Component {
   constructor() {
     super(...arguments);
