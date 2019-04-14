@@ -1,6 +1,7 @@
 .lists-toolbar {  /* 列表 */
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {  
     width: 6px;

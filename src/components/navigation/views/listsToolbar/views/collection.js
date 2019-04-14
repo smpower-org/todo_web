@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { setNavigationStatus } from '../../../actions';
 import PropTypes from 'prop-types';
 
+import moreSvg from './more.svg';
+
 class Collection extends Component {
   constructor() {
     super(...arguments);
@@ -71,13 +73,21 @@ class Collection extends Component {
     return (
       <ul className="lists-toolbar-collection">
         {
-	  filterDataTask.map((item, index) => (
-	    <li className={isNavigationExtended ? "lists-toolbar-collection-item" : ""} key={index}>
-	      <i className="lists-toolbar-collection-item-icon"></i>
-	      <span className="lists-toolbar-collection-item-title">{item.box}</span>
-	      <span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
+	  isNavigationExtended ? (
+	    // 导航展开时
+	    filterDataTask.map((item, index) => (
+	      <li className={isNavigationExtended ? "lists-toolbar-collection-item" : ""} key={index}>
+		<i className="lists-toolbar-collection-item-icon"></i>
+		<span className="lists-toolbar-collection-item-title">{item.box}</span>
+		<span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
+	      </li>
+	    ))
+	  ) : (
+	    // 导航收起时
+	    <li className="more lists-toolbar-collection-item" onClick={this.onExtendNavigation}>
+	      <i className="lists-toolbar-collection-item-icon-more"></i>
 	    </li>
-	  ))
+	  )
 	}
       </ul>
     );
