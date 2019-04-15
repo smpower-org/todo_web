@@ -9,6 +9,7 @@ class Collection extends Component {
     this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onExtendNavigation = this.onExtendNavigation.bind(this);
+    this.onToggleTaskChecked = this.onToggleTaskChecked.bind(this);
 
     const { dataTask } = this.props;
     let filterDataTask = dataTask.filter(item => {
@@ -20,11 +21,21 @@ class Collection extends Component {
 	});
 
 	item.uncompleted = uncompleted;
+	item.checked = false;
 
 	return item;
       }
 
-      return false;
+      let uncompleted = 0;
+
+      item.dataList.forEach(taskItem => {
+	if (!taskItem.completed) uncompleted++;
+      });
+
+      item.uncompleted = uncompleted;
+      item.checked = true;
+
+      return item;
     });
 
     this.state = Object.assign({}, {
@@ -35,7 +46,8 @@ class Collection extends Component {
 
   getOwnState() {
     return {
-      navigation: this.context.store.getState().navigation
+      navigation: this.context.store.getState().navigation,
+      taskList: this.context.store.getState().taskList.data
     };
   }
 
@@ -43,15 +55,24 @@ class Collection extends Component {
     this.setState(this.getOwnState());
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const {isNavigationExtended} = nextState.navigation;
-    return this.state.navigation.isNavigationExtended !== isNavigationExtended;
-  }
-
   onExtendNavigation() {
     this.context.store.dispatch(
       setNavigationStatus(!this.state.navigation.isNavigationExtended)
     );
+  }
+
+  onToggleTaskChecked(index) {
+    const _this = this;
+    const { filterDataTask } = this.state;
+
+    return function(event) {
+      filterDataTask.forEach((item, index) => {
+        item.checked = false;
+      });
+
+      filterDataTask[index].checked = !filterDataTask[index].checked;
+      _this.setState({ filterDataTask });
+    }
   }
 
   componentDidMount() {
@@ -67,19 +88,43 @@ class Collection extends Component {
   render() {
     const { isNavigationExtended } = this.state.navigation;
     const { filterDataTask } = this.state;
+    const inboxClassName = 'lists-toolbar-filter-item inbox';
+    const collectionClassName = 'lists-toolbar-collection-item';
 
     return (
-      <ul className="lists-toolbar-collection">
+      <ul className="lists-toolbar-group">
         {
 	  isNavigationExtended ? (
 	    // 导航展开时
-	    filterDataTask.map((item, index) => (
-	      <li className={isNavigationExtended ? "lists-toolbar-collection-item" : ""} key={index}>
-		<i className="lists-toolbar-collection-item-icon"></i>
-		<span className="lists-toolbar-collection-item-title">{item.box}</span>
-		<span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
-	      </li>
-	    ))
+	    filterDataTask.map((item, index) => {
+	      if (item.box === 'inbox') {
+		return (
+		  <li 
+		    className={item.checked ? `${inboxClassName} active` : `${inboxClassName}`} 
+		    onClick={this.onToggleTaskChecked(index)}
+		    key={index}>
+		    <i className="lists-toolbar-filter-item-icon"></i>
+		    <span className="lists-toolbar-filter-item-title">Inbox</span>
+		    <span className="lists-toolbar-filter-item-count">{item.uncompleted}</span>
+		  </li>
+		);
+	      }
+
+	      if (item.box !== 'inbox') {
+		return (
+		  <li 
+		    className={item.checked ? `${collectionClassName} active` : `${collectionClassName}`} 
+		    onClick={this.onToggleTaskChecked(index)}
+		    key={index} >
+		    <i className="lists-toolbar-collection-item-icon"></i>
+		    <span className="lists-toolbar-collection-item-title">{item.box}</span>
+		    <span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
+		  </li>
+		);
+	      }
+
+	      return false;
+	    })
 	  ) : (
 	    // 导航收起时
 	    <li className="more lists-toolbar-collection-item" onClick={this.onExtendNavigation}>
