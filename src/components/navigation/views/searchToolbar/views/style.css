@@ -15,7 +15,6 @@
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 
 .search-toolbar .search-menu-icon {
@@ -24,6 +23,7 @@
   height: 24px;
   background: url("./menu.svg") no-repeat center center;
   background-size: 100%;
+  cursor: pointer;
 }
 
 .search-toolbar .search-input-wrapper {
