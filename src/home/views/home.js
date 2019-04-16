@@ -50,6 +50,10 @@ class Home extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
   componentDidMount() {
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)

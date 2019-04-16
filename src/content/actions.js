@@ -1,4 +1,9 @@
-import { GETDATA_STARTED, GETDATA_SUCCESS, GETDATA_FAILURE } from './actionTypes';
+import { 
+  GETDATA_STARTED,
+  GETDATA_SUCCESS,
+  GETDATA_FAILURE,
+  UPDATE_DATA_CHECKED_STATUS
+} from './actionTypes';
 import { baseUrl, apis } from '../config/';
 
 export const getDataStarted = () => ({
@@ -37,4 +42,9 @@ export const getData = (uid, token) => {
     });
   };
 };
+
+export const updateCheckedStatus = (index) => ({
+  type: UPDATE_DATA_CHECKED_STATUS,
+  index
+});
 

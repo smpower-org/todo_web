@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { setNavigationStatus } from '../../../actions';
+import { actions as taskListActions } from '../../../../../content/';
 import PropTypes from 'prop-types';
 
 class Collection extends Component {
@@ -66,6 +67,8 @@ class Collection extends Component {
     const { filterDataTask } = this.state;
 
     return function(event) {
+      const { updateCheckedStatus } = taskListActions;
+      _this.context.store.dispatch(updateCheckedStatus(index));
       filterDataTask.forEach((item, index) => {
         item.checked = false;
       });

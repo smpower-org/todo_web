@@ -161,6 +161,17 @@
 	  }
 	}
       }
+      .show-completed {
+	margin: 20px 0 10px 0;
+	span {
+	  display: inline-block;
+	  background: rgba(102,137,100,0.75);
+	  padding: 3px 10px;
+	  border-radius: 3px;
+	  color: #fff;
+	  cursor: pointer;
+	}
+      }
     }
     .task-loading {}
     .task-no-data {}

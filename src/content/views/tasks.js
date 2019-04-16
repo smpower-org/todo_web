@@ -10,16 +10,17 @@ import checkboxNonSvg from './images/checkbox-non.svg';
 
 class Tasks extends Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleOnFocus = this.handleOnFocus.bind(this);
     this.handleEnterKey = this.handleEnterKey.bind(this);
+    this.onShowCompleted = this.onShowCompleted.bind(this);
 
     this.state = Object.assign({}, {
       // default params...
-    });
+    }, this.getOwnState());
   }
 
   getOwnState() {
@@ -47,6 +48,15 @@ class Tasks extends Component {
     }
   }
 
+  onShowCompleted() {
+    alert('研发中...');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.hasOwnProperty('taskList')) return true;
+    else return false;
+  }
+
   componentDidMount() {
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
@@ -60,70 +70,75 @@ class Tasks extends Component {
   render() {
     const taskList = this.state.taskList;
 
-    return (
-      <div className="tasks-scroll custom-scroll">
-	<div className="add-task">
-	  <button className="add-task-button">
-	    <img src={addSvg} alt="添加任务" />
-	  </button>
-	  <input 
-	    className="add-task-input" 
-	    type="text" 
-	    placeholder="添加任务..." 
-	    onFocus={this.handleOnFocus} 
-	  />
-	  <div className="add-task-meta">
-	    <i className="meta-cal hidden">
-	      <img src={calendarSvg} alt="设置日期" />
-	    </i>
-	    <i className="meta-star hidden">
-	      <img className="" src={starBorderSvg} alt="星标" />
-	      <img className="hidden" src={starWhiteSvg} alt="星标" />
-	    </i>
+    if (typeof taskList === 'undefined') return false;
+    else {
+      return (
+	<div className="tasks-scroll custom-scroll">
+	  <div className="add-task">
+	    <button className="add-task-button">
+	      <img src={addSvg} alt="添加任务" />
+	    </button>
+	    <input 
+	      className="add-task-input" 
+	      type="text" 
+	      placeholder="添加任务..." 
+	      onFocus={this.handleOnFocus} 
+	    />
+	    <div className="add-task-meta">
+	      <i className="meta-cal hidden">
+		<img src={calendarSvg} alt="设置日期" />
+	      </i>
+	      <i className="meta-star hidden">
+		<img className="" src={starBorderSvg} alt="星标" />
+		<img className="hidden" src={starWhiteSvg} alt="星标" />
+	      </i>
+	    </div>
 	  </div>
-	</div>
-	<div className="task-list ">
-	  <ol>
-	    {
-	      typeof taskList !== 'undefined' ? (
-	        taskList.data.map((item, index) => {
-		  if (item.box === 'inbox') {
-		    return item.dataList.map((taskItem, taskIndex) => {
-		      return (
-			<li key={taskIndex}>
-			  <div className="task-list-item">
-			    <i className="task-list-item-checkbox">
-			      <img 
-				src={checkboxNonSvg} 
-				alt="标记为已完成" 
-				title="标记为已完成"
-			      />
-			    </i>
-			    <div className="task-list-item-input">
-			      <span>{taskItem.text}</span>
+	  <div className="task-list ">
+	    <ol>
+	      {
+		typeof taskList !== 'undefined' && typeof taskList.data !== 'undefined' ? (
+		  taskList.data.map((item, index) => {
+		    let result;
+
+		    if (item.checked) {
+		      result = item.dataList.map((taskItem, taskIndex) => {
+			return (
+			  <li key={taskIndex}>
+			    <div className="task-list-item">
+			      <i className="task-list-item-checkbox">
+				<img 
+				  src={checkboxNonSvg} 
+				  alt="标记为已完成" 
+				  title="标记为已完成"
+				/>
+			      </i>
+			      <div className="task-list-item-input">
+				<span>{taskItem.text}</span>
+			      </div>
 			    </div>
-			  </div>
-			</li>
-		      );
-		    });
-		  } else {
-		    return (
-		      <li key={index}>Loading...</li>
-		    );
-		  }
-		})
-	      ) : (
-	        'loading...'
-	      )
-	    }
-	  </ol>
-	  <h2>显示已完成任务</h2>
+			  </li>
+			);
+		      });
+		    }
+
+		    return result;
+		  })
+		) : (
+		  'loading...'
+		)
+	      }
+	    </ol>
+	    <h2 className="show-completed">
+	      <span onClick={this.onShowCompleted}>显示已完成任务</span>
+	    </h2>
+	  </div>
+	  <div className="task-loading hidden">正在加载</div>
+	  <div className="task-no-data hidden">暂无数据</div>
+	  <div className="task-error hidden">通信失败</div>
 	</div>
-	<div className="task-loading hidden">正在加载</div>
-	<div className="task-no-data hidden">暂无数据</div>
-	<div className="task-error hidden">通信失败</div>
-      </div>
-    );
+      );
+    }
   }
 }
 
