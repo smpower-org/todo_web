@@ -101,7 +101,7 @@ class Tasks extends Component {
 		  taskList.data.map((item, index) => {
 		    let result;
 
-		    if (item.box === 'inbox') {
+		    if (item.checked) {
 		      result = item.dataList.map((taskItem, taskIndex) => {
 			return (
 			  <li key={taskIndex}>
