@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import sortSvg from './images/sort.svg';
 import moreSvg from './images/more.svg';
@@ -12,12 +13,24 @@ class Toolbar extends Component {
   constructor() {
     super(...arguments);
 
+    this.getOwnState = this.getOwnState.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onClickMore = this.onClickMore.bind(this);
 
     this.state = Object.assign({}, {
       // default params
       isMoreContentExtracted: false,
-    });
+    }, this.getOwnState());
+  }
+
+  getOwnState() {
+    return {
+      taskList: this.context.store.getState().taskList.data
+    };
+  }
+
+  onChange() {
+    this.setState(this.getOwnState());
   }
 
   onClickSort() {
@@ -30,12 +43,32 @@ class Toolbar extends Component {
     });
   }
 
+  componentDidMount() {
+    this.setState({
+      unsubscribe: this.context.store.subscribe(this.onChange)
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.unsubscribe(this.onChange);
+  }
+
   render() {
-    const { isMoreContentExtracted } = this.state;
+    const { isMoreContentExtracted, taskList } = this.state;
 
     return(
       <div className="list-toolbar">
-	<h1>收件箱</h1>
+        {
+	  typeof taskList !== 'undefined' ? (
+	    taskList.map((item, index) => {
+	      if (item.checked) {
+		return <h1 key={index}>{item.box}</h1>;
+	      } else return false;
+	    })
+	  ) : (
+	    <h1>Loading...</h1>
+	  )
+	}
 	<div className="action-bar">
 	  <div className="action-bar-buttons">
 	    <button className="sort hidden" onClick={this.onClickSort}>
@@ -84,5 +117,9 @@ class Toolbar extends Component {
     );
   }
 }
+
+Toolbar.contextTypes = {
+  store: PropTypes.object
+};
 
 export default Toolbar;
