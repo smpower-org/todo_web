@@ -2,7 +2,8 @@ import {
   GETDATA_STARTED,
   GETDATA_SUCCESS,
   GETDATA_FAILURE,
-  UPDATE_DATA_CHECKED_STATUS
+  UPDATE_DATA_CHECKED_STATUS,
+  ADD_TODO
 } from './actionTypes';
 import * as Status from './status';
 
@@ -11,7 +12,11 @@ let resJson = {};
 export default (state = {status: Status.LOADING}, action) => {
   switch(action.type) {
     case GETDATA_STARTED:
-      return state;
+      return {
+        ...state,
+	status: action.status,
+	message: '' 
+      };
     case GETDATA_SUCCESS:
       resJson = Object.assign({}, action.resJson);
       return {
@@ -32,6 +37,17 @@ export default (state = {status: Status.LOADING}, action) => {
 	return item;
       });
       return resJson;
+    case ADD_TODO:
+      const { listIndex, taskId, text } = action;
+      const listItem = resJson.data[listIndex];
+      listItem.uncompleted++;
+
+      listItem.dataList.unshift({
+        id: taskId,
+	text
+      });
+
+      return state;
     default:
       return state;
   }

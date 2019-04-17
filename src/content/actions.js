@@ -2,7 +2,8 @@ import {
   GETDATA_STARTED,
   GETDATA_SUCCESS,
   GETDATA_FAILURE,
-  UPDATE_DATA_CHECKED_STATUS
+  UPDATE_DATA_CHECKED_STATUS,
+  ADD_TODO
 } from './actionTypes';
 import { baseUrl, apis } from '../config/';
 
@@ -26,7 +27,6 @@ export const getData = (uid, token) => {
 
     fetch(`${baseUrl}${apis.getData.path}`, {
       method: 'POST',
-      type: 'cors',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
 	'Authorization': token
@@ -46,5 +46,12 @@ export const getData = (uid, token) => {
 export const updateCheckedStatus = (index) => ({
   type: UPDATE_DATA_CHECKED_STATUS,
   index
+});
+
+export const addTodo = (listIndex, taskId, text) => ({
+  type: ADD_TODO,
+  listIndex,
+  taskId,
+  text
 });
 

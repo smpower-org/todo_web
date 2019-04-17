@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { addTodo } from '../actions';
+import { actions as addTodoActions } from '../../components/addTodo/';
 
 import addSvg from './images/add.svg';
 import calendarSvg from './images/calendar.svg';
@@ -16,6 +18,7 @@ class Tasks extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleOnFocus = this.handleOnFocus.bind(this);
     this.handleEnterKey = this.handleEnterKey.bind(this);
+    this.clearAddTodoVal = this.clearAddTodoVal.bind(this);
     this.onShowCompleted = this.onShowCompleted.bind(this);
 
     this.state = Object.assign({}, {
@@ -25,7 +28,8 @@ class Tasks extends Component {
 
   getOwnState() {
     return {
-      taskList: this.context.store.getState().taskList
+      taskList: this.context.store.getState().taskList,
+      addTodo: this.context.store.getState().addTodo
     };
   }
 
@@ -38,14 +42,28 @@ class Tasks extends Component {
   }
 
   handleEnterKey(event) {
-    const target = event.target;
     if (event.keyCode === 13) {
-      if (target.value.trim() === '') {
-	alert('不能为空！');
-	return;
-      }
-      console.log('与服务器通信，添加一条 todo。');
+      const token = window.sessionStorage.getItem('token');
+      const uid = parseInt(window.sessionStorage.getItem('uid'), 10);
+      const target = event.target;
+
+      if (target.value.trim() === '') return;
+
+      // 与服务器通信，添加一条 todo
+      this.context.store.dispatch(
+        addTodoActions.addTodo(uid, target.value.trim(), token)
+      );
+
+      this.setState({
+        inputElement: target,
+	addedTodoVal: target.value.trim()
+      });
     }
+  }
+
+  clearAddTodoVal() {
+    const { inputElement } = this.state;
+    inputElement.value = '';
   }
 
   onShowCompleted() {
@@ -55,6 +73,25 @@ class Tasks extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.hasOwnProperty('taskList')) return true;
     else return false;
+  }
+
+  componentDidUpdate() {
+    if (this.state.addTodo.status === 0) {
+      const {  addedTodoVal, taskList } = this.state;
+      let listIndex = 0;
+      let taskId = this.state.addTodo.taskId;
+      let text = addedTodoVal;
+
+      taskList.data.forEach((item, index) => {
+        if (item.checked) {
+	  listIndex = index;
+	  return;
+	}
+      });
+
+      this.context.store.dispatch(addTodoActions.reset());
+      this.context.store.dispatch(addTodo(listIndex, taskId, text));
+    }
   }
 
   componentDidMount() {
@@ -68,7 +105,11 @@ class Tasks extends Component {
   }
 
   render() {
-    const taskList = this.state.taskList;
+    const { taskList, addTodo } = this.state;
+
+    if (addTodo.status === 0) {
+      this.clearAddTodoVal();
+    }
 
     if (typeof taskList === 'undefined') return false;
     else {
@@ -82,7 +123,7 @@ class Tasks extends Component {
 	      className="add-task-input" 
 	      type="text" 
 	      placeholder="添加任务..." 
-	      onFocus={this.handleOnFocus} 
+	      onFocus={addTodo.status === 'loading' ? this.handleOnFocus : null} 
 	    />
 	    <div className="add-task-meta">
 	      <i className="meta-cal hidden">

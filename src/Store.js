@@ -9,6 +9,7 @@ import { reducer as checkEmailReducer } from './components/checkEmail/';
 import { reducer as navigationReducer } from './components/navigation/';
 import { reducer as taskListReducer } from './content/';
 import { reducer as userboxReducer } from './components/userBox/';
+import { reducer as addTodoReducer } from './components/addTodo/';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
   checkEmail: checkEmailReducer,
   navigation: navigationReducer,
   taskList: taskListReducer,
-  userbox: userboxReducer
+  userbox: userboxReducer,
+  addTodo: addTodoReducer
 });
 
 // export default createStore(reducer, applyMiddleware(thunkMiddleware));
