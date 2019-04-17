@@ -28,3 +28,9 @@ export const getData = {
   des: '获取 todo 数据'
 };
 
+export const addTodo = {
+  path: '/todo/addTodo',
+  params: ['uid', 'token', 'index', 'text'],
+  des: '添加 todo'
+};
+
