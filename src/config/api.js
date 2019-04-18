@@ -34,3 +34,9 @@ export const addTodo = {
   des: '添加 todo'
 };
 
+export const toggleTodoChecked = {
+  path: '/todo/toggleTodoChecked',
+  params: ['listIndex', 'taskId', 'uid', 'token'],
+  des: '标记 todo 完成状态'
+};
+

@@ -3,7 +3,8 @@ import {
   GETDATA_SUCCESS,
   GETDATA_FAILURE,
   UPDATE_DATA_CHECKED_STATUS,
-  ADD_TODO
+  ADD_TODO,
+  TOGGLE_TODO_CHECKED
 } from './actionTypes';
 import { baseUrl, apis } from '../config/';
 
@@ -36,6 +37,12 @@ export const getData = (uid, token) => {
       if (res.status === 200) return res.json();
       else dispatch(getDataFailure());
     }).then(resJson => {
+      resJson.data.forEach((item, index) => {
+	item.dataList.forEach((taskItem, taskIndex) => {
+	  taskItem.completed = false;
+	});
+      });
+
       dispatch(getDataSuccess(resJson));
     }).catch(error => {
       dispatch(getDataFailure(error));
@@ -43,9 +50,10 @@ export const getData = (uid, token) => {
   };
 };
 
-export const updateCheckedStatus = (index) => ({
+export const updateCheckedStatus = (listIndex, taskIndex) => ({
   type: UPDATE_DATA_CHECKED_STATUS,
-  index
+  listIndex,
+  taskIndex
 });
 
 export const addTodo = (listIndex, taskId, text) => ({
@@ -53,5 +61,11 @@ export const addTodo = (listIndex, taskId, text) => ({
   listIndex,
   taskId,
   text
+});
+
+export const toggleTodoChecked = (listIndex, taskIndex) => ({
+  type: TOGGLE_TODO_CHECKED,
+  listIndex,
+  taskIndex
 });
 

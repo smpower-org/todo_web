@@ -126,6 +126,13 @@
     .task-list {
       li {
 	margin-bottom: 1px;
+	height: 46px;
+	transition: height .3s, margin-bottom .3s;
+	overflow-y: hidden;
+	&.collapse {
+	  height: 0;
+	  margin-bottom: 0;
+	}
 	&:last-child {
 	  margin-bottom: 0;
 	}
