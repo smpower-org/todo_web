@@ -3,11 +3,13 @@ import {
   GETDATA_SUCCESS,
   GETDATA_FAILURE,
   UPDATE_DATA_CHECKED_STATUS,
-  ADD_TODO
+  ADD_TODO,
+  TOGGLE_TODO_CHECKED
 } from './actionTypes';
 import * as Status from './status';
 
 let resJson = {};
+let matchedList;
 
 export default (state = {status: Status.LOADING}, action) => {
   switch(action.type) {
@@ -48,6 +50,16 @@ export default (state = {status: Status.LOADING}, action) => {
       });
 
       return state;
+    case TOGGLE_TODO_CHECKED:
+      matchedList = resJson.data[action.listIndex];
+
+      matchedList.dataList.forEach((item, index) => {
+	if (item.id === action.taskIndex) {
+	  item.completed = !item.completed;
+	}
+      });
+
+      return resJson;
     default:
       return state;
   }

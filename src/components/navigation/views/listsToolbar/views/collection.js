@@ -93,7 +93,6 @@ class Collection extends Component {
     const { filterDataTask } = this.state;
     const inboxClassName = 'lists-toolbar-filter-item inbox';
     const collectionClassName = 'lists-toolbar-collection-item';
-    let result;
 
     return (
       <ul className="lists-toolbar-group">
