@@ -11,6 +11,7 @@ import { reducer as taskListReducer } from './content/';
 import { reducer as userboxReducer } from './components/userBox/';
 import { reducer as addTodoReducer } from './components/addTodo/';
 import { reducer as toggleTodoCheckedReducer } from './components/toggleTodoChecked/';
+import { reducer as toggleTasklistVisibleReducer } from './components/toggleTasklistVisible/';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -22,7 +23,8 @@ const reducer = combineReducers({
   taskList: taskListReducer,
   userbox: userboxReducer,
   addTodo: addTodoReducer,
-  toggleTodoChecked: toggleTodoCheckedReducer
+  toggleTodoChecked: toggleTodoCheckedReducer,
+  toggleTasklistVisible: toggleTasklistVisibleReducer
 });
 
 // export default createStore(reducer, applyMiddleware(thunkMiddleware));

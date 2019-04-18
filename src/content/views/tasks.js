@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { addTodo, toggleTodoChecked } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
+import { actions as toggleTasklistVisibleActions } from '../../components/toggleTasklistVisible/';
 
 import addSvg from './images/add.svg';
 import calendarSvg from './images/calendar.svg';
@@ -25,7 +26,6 @@ class Tasks extends Component {
 
     this.state = Object.assign({}, {
       // default params...
-      isCompletedShow: false
     }, this.getOwnState());
   }
 
@@ -35,7 +35,8 @@ class Tasks extends Component {
     return {
       taskList: store.getState().taskList,
       addTodo: store.getState().addTodo,
-      toggleTodoChecked: store.getState().toggleTodoChecked
+      toggleTodoChecked: store.getState().toggleTodoChecked,
+      toggleTasklistVisible: store.getState().toggleTasklistVisible
     };
   }
 
@@ -73,12 +74,13 @@ class Tasks extends Component {
   }
 
   onShowCompleted() {
-    this.setState({
-      isCompletedShow: !this.state.isCompletedShow
-    });
+    const { isTasklistVisible } = this.state.toggleTasklistVisible;
+    this.context.store.dispatch(
+      toggleTasklistVisibleActions.toggleTasklistVisible(!isTasklistVisible)
+    );
   }
 
-  toggleChecked(listIndex, taskId) {
+  toggleChecked(listIndex, taskId, clickedType) {
     const _this = this;
     return function(event) {
       const token = window.sessionStorage.getItem('token');
@@ -89,7 +91,7 @@ class Tasks extends Component {
       );
 
       _this.setState({
-        listIndex, taskId
+	listIndex, taskId
       });
     }
   }
@@ -100,7 +102,8 @@ class Tasks extends Component {
   }
 
   componentWillUpdate() {
-    if (this.state.isCompletedShow) {
+    const {  uncompletedTodoClicked, completedTodoClicked } = this.state;
+    if (!uncompletedTodoClicked && !completedTodoClicked && this.state.isCompletedShow) {
       this.setState({
         isCompletedShow: false
       });
@@ -148,7 +151,7 @@ class Tasks extends Component {
   }
 
   render() {
-    const { taskList, addTodo } = this.state;
+    const { taskList, addTodo, toggleTasklistVisible } = this.state;
 
     if (addTodo.status === 0) {
       this.clearAddTodoVal();
@@ -197,7 +200,7 @@ class Tasks extends Component {
 				  src={checkboxNonSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(index, taskItem.id)}
+				  onClick={this.toggleChecked(index, taskItem.id, 'uncompleted')}
 				/>
 			      </i>
 			      <div className="task-list-item-input">
@@ -217,9 +220,11 @@ class Tasks extends Component {
 	      }
 	    </ol>
 	    <h2 className="show-completed">
-	      <span onClick={this.onShowCompleted}>{this.state.isCompletedShow ? '隐藏' : '显示'}已完成任务</span>
+	      <span onClick={this.onShowCompleted}>
+	        {toggleTasklistVisible.isTasklistVisible ? '隐藏' : '显示'}已完成任务
+	      </span>
 	    </h2>
-	    <ol className={this.state.isCompletedShow ? 'completed' : 'completed hidden'}>
+	    <ol className={toggleTasklistVisible.isTasklistVisible ? 'completed' : 'completed hidden'}>
 	      {
 	        typeof taskList !== 'undefined' && typeof taskList.data !== 'undefined' ? (
 		  taskList.data.map((item, index) => {
@@ -237,7 +242,7 @@ class Tasks extends Component {
 				  src={checkboxCheckedSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(index, taskItem.id)}
+				  onClick={this.toggleChecked(index, taskItem.id, 'completed')}
 				/>
 			      </i>
 			      <div className="task-list-item-input">
