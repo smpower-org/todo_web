@@ -50,9 +50,9 @@ class Home extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return false;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return false;
+  // }
 
   componentDidMount() {
     this.setState({
