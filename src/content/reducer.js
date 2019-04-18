@@ -56,6 +56,8 @@ export default (state = {status: Status.LOADING}, action) => {
       matchedList.dataList.forEach((item, index) => {
 	if (item.id === action.taskIndex) {
 	  item.completed = !item.completed;
+	  if (item.completed) matchedList.uncompleted--;
+	  if (!item.completed) matchedList.uncompleted++;
 	}
       });
 
