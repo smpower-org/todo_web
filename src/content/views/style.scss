@@ -176,7 +176,18 @@
 	  padding: 3px 10px;
 	  border-radius: 3px;
 	  color: #fff;
+	  letter-spacing: 1px;
 	  cursor: pointer;
+	}
+      }
+      .completed {
+	li {
+	  opacity: .75;
+	  .task-list-item-input {
+	    span {
+	      text-decoration: line-through;
+	    }
+	  }
 	}
       }
     }

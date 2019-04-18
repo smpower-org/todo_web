@@ -9,7 +9,7 @@ import calendarSvg from './images/calendar.svg';
 import starBorderSvg from './images/star-border.svg';
 import starWhiteSvg from './images/star-white.svg';
 import checkboxNonSvg from './images/checkbox-non.svg';
-// import checkboxCheckedSvg from './images/checkbox-checked.svg';
+import checkboxCheckedSvg from './images/checkbox-checked.svg';
 
 class Tasks extends Component {
   constructor() {
@@ -25,6 +25,7 @@ class Tasks extends Component {
 
     this.state = Object.assign({}, {
       // default params...
+      isCompletedShow: false
     }, this.getOwnState());
   }
 
@@ -72,7 +73,9 @@ class Tasks extends Component {
   }
 
   onShowCompleted() {
-    alert('研发中...');
+    this.setState({
+      isCompletedShow: !this.state.isCompletedShow
+    });
   }
 
   toggleChecked(listIndex, taskId) {
@@ -94,6 +97,14 @@ class Tasks extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.hasOwnProperty('taskList')) return true;
     else return false;
+  }
+
+  componentWillUpdate() {
+    if (this.state.isCompletedShow) {
+      this.setState({
+        isCompletedShow: false
+      });
+    }
   }
 
   componentDidUpdate() {
@@ -168,7 +179,7 @@ class Tasks extends Component {
 	    </div>
 	  </div>
 	  <div className="task-list ">
-	    <ol>
+	    <ol className="uncompleted">
 	      {
 		typeof taskList !== 'undefined' && typeof taskList.data !== 'undefined' ? (
 		  taskList.data.map((item, index) => {
@@ -206,8 +217,45 @@ class Tasks extends Component {
 	      }
 	    </ol>
 	    <h2 className="show-completed">
-	      <span onClick={this.onShowCompleted}>显示已完成任务</span>
+	      <span onClick={this.onShowCompleted}>{this.state.isCompletedShow ? '隐藏' : '显示'}已完成任务</span>
 	    </h2>
+	    <ol className={this.state.isCompletedShow ? 'completed' : 'completed hidden'}>
+	      {
+	        typeof taskList !== 'undefined' && typeof taskList.data !== 'undefined' ? (
+		  taskList.data.map((item, index) => {
+		    let result;
+
+		    if (item.checked) {
+		      result = item.dataList.map((taskItem, taskIndex) => {
+			return (
+			  <li 
+			    key={taskIndex}
+			    className={taskItem.completed ? '' : 'collapse'}>
+			    <div className="task-list-item">
+			      <i className="task-list-item-checkbox">
+				<img 
+				  src={checkboxCheckedSvg} 
+				  alt="标记为已完成" 
+				  title="标记为已完成"
+				  onClick={this.toggleChecked(index, taskItem.id)}
+				/>
+			      </i>
+			      <div className="task-list-item-input">
+				<span>{taskItem.text}</span>
+			      </div>
+			    </div>
+			  </li>
+			);
+		      });
+		    }
+
+		    return result;
+		  })
+		) : (
+		  'loading...'
+		)
+	      }
+	    </ol>
 	  </div>
 	  <div className="task-loading hidden">正在加载</div>
 	  <div className="task-no-data hidden">暂无数据</div>
