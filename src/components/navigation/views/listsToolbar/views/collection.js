@@ -93,6 +93,7 @@ class Collection extends Component {
     const { filterDataTask } = this.state;
     const inboxClassName = 'lists-toolbar-filter-item inbox';
     const collectionClassName = 'lists-toolbar-collection-item';
+    let result;
 
     return (
       <ul className="lists-toolbar-group">
@@ -130,6 +131,29 @@ class Collection extends Component {
 	    })
 	  ) : (
 	    // 导航收起时
+	    filterDataTask.map((item, index) => {
+	      if (item.box === 'inbox') {
+		return (
+		  <li 
+		    className={item.checked ? `${inboxClassName} active` : `${inboxClassName}`} 
+		    onClick={this.onToggleTaskChecked(index)}
+		    key={index}>
+		    <i className="lists-toolbar-filter-item-icon"></i>
+		    <span className="lists-toolbar-filter-item-title">Inbox</span>
+		    <span className="lists-toolbar-filter-item-count">{item.uncompleted}</span>
+		  </li>
+		);
+	      }
+
+	      return false;
+	    })
+	  )
+	}
+	{
+	  isNavigationExtended ? (
+	    ''
+	  ) : (
+	    // 导航收起时显示【更多】按钮
 	    <li className="more lists-toolbar-collection-item" onClick={this.onExtendNavigation}>
 	      <i className="lists-toolbar-collection-item-icon-more"></i>
 	    </li>
