@@ -89,6 +89,7 @@ class TaskToolBox extends Component {
     const pageWidth = document.documentElement.getBoundingClientRect().width;
     const pageHeight = document.documentElement.getBoundingClientRect().height;
     const refs = this.refs;
+
     let style = {
       width: '200px',
       top,
@@ -97,9 +98,8 @@ class TaskToolBox extends Component {
 
     // 计算弹框在页面上的位置
     if (typeof this.refs.taskToolBox !== 'undefined') {
-      // 后面加上的 2 是弹框的 border 宽度
-      const taskToolBoxWidth = refs.taskToolBox.getBoundingClientRect().width + 2;
-      const taskToolBoxHeight = refs.taskToolBox.getBoundingClientRect().height + 2;
+      const taskToolBoxWidth = refs.taskToolBox.getBoundingClientRect().width;
+      const taskToolBoxHeight = refs.taskToolBox.getBoundingClientRect().height;
 
       style = {
 	width: '200px',
