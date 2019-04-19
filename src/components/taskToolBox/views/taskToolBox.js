@@ -85,10 +85,39 @@ class TaskToolBox extends Component {
   }
 
   render() {
-    const { style } = this.state.taskToolBox;
+    const { top, left } = this.state.taskToolBox.style;
+    const pageWidth = document.documentElement.getBoundingClientRect().width;
+    const pageHeight = document.documentElement.getBoundingClientRect().height;
+    const refs = this.refs;
+    let style = {
+      width: '200px',
+      top,
+      left
+    };
+
+    // 计算弹框在页面上的位置
+    if (typeof this.refs.taskToolBox !== 'undefined') {
+      // 后面加上的 2 是弹框的 border 宽度
+      const taskToolBoxWidth = refs.taskToolBox.getBoundingClientRect().width + 2;
+      const taskToolBoxHeight = refs.taskToolBox.getBoundingClientRect().height + 2;
+
+      style = {
+	width: '200px',
+	top: (parseInt(top.split('px')[0], 10) + taskToolBoxHeight) > pageHeight ? (
+	  parseInt(top.split('px')[0], 10) - taskToolBoxHeight + 'px'
+	) : (
+	  top
+	),
+	left: (parseInt(left.split('px')[0], 10) + taskToolBoxWidth) > pageWidth ? (
+	  parseInt(left.split('px')[0], 10) - taskToolBoxWidth + 'px'
+	) : (
+	  left
+	)
+      };
+    }
 
     return (
-      <div className="task-tool-box" style={style} data-selector="task-tool-box">
+      <div className="task-tool-box" style={style} data-selector="task-tool-box" ref="taskToolBox">
 	<ul data-selector="task-tool-box">
 	  <li onClick={this.setCompleted} data-selector="task-tool-box">
 	    <i data-selector="task-tool-box">

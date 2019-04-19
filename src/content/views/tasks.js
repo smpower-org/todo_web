@@ -113,7 +113,7 @@ class Tasks extends Component {
         isContextMenuVisible: false
       });
 
-      // @TODO: Task #20 研发任务功能弹框 / 编写任务弹框模块
+      // @TODO: Task #19 研发任务功能弹框 / 编写任务弹框模块
       // ...
 
       store.dispatch(taskToolBoxActions.visible({
@@ -190,7 +190,6 @@ class Tasks extends Component {
 
   componentDidMount() {
     document.addEventListener('contextmenu', this.handleContextMenu);
-
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
@@ -198,7 +197,6 @@ class Tasks extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('contextmenu', this.handleContextMenu);
-
     this.state.unsubscribe(this.onChange);
   }
 
