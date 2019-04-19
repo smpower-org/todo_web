@@ -4,7 +4,8 @@ import {
   GETDATA_FAILURE,
   UPDATE_DATA_CHECKED_STATUS,
   ADD_TODO,
-  TOGGLE_TODO_CHECKED
+  TOGGLE_TODO_CHECKED,
+  SELECT_TODO
 } from './actionTypes';
 import { baseUrl, apis } from '../config/';
 
@@ -67,5 +68,17 @@ export const toggleTodoChecked = (listIndex, taskIndex) => ({
   type: TOGGLE_TODO_CHECKED,
   listIndex,
   taskIndex
+});
+
+/**
+  * @des 选择任务项
+  * @params selectedTodo [Array]
+  * @params selectedTodo[i] [Object]  - 选中的任务项
+  * @params selectedTodo[i].listId - 选中的任务列表 id
+  * @params selectedTodo[i].taskId - 选中的任务 id
+**/
+export const selectTodo = (selectedTodo) => ({
+  type: SELECT_TODO,
+  selectedTodo
 });
 

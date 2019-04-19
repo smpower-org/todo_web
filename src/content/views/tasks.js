@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addTodo, toggleTodoChecked } from '../actions';
+import { addTodo, toggleTodoChecked, selectTodo } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
 import { actions as toggleTasklistVisibleActions } from '../../components/toggleTasklistVisible/';
@@ -27,6 +27,7 @@ class Tasks extends Component {
     this.toggleChecked = this.toggleChecked.bind(this);
     this.onShowTaskBox = this.onShowTaskBox.bind(this);
     this.handleContextMenu = this.handleContextMenu.bind(this);
+    this.handleSelectTodo = this.handleSelectTodo.bind(this);
 
     this.state = Object.assign({}, {
       // true - 显示默认右键菜单 | false - 隐藏默认右键菜单
@@ -41,7 +42,8 @@ class Tasks extends Component {
       taskList: store.getState().taskList,
       addTodo: store.getState().addTodo,
       toggleTodoChecked: store.getState().toggleTodoChecked,
-      toggleTasklistVisible: store.getState().toggleTasklistVisible
+      toggleTasklistVisible: store.getState().toggleTasklistVisible,
+      taskToolBox: store.getState().taskToolBox
     };
   }
 
@@ -102,26 +104,47 @@ class Tasks extends Component {
     }
   }
 
-  onShowTaskBox(event) {
+  onShowTaskBox(listId, taskId) {
+    const _this = this;
     const store = this.context.store;
 
-    // 按下鼠标右键
-    if (event.button === 2) {
-      const { pageX, pageY } = event;
+    return function(event) {
+      // 按下鼠标右键
+      if (event.button === 2) {
+	const { pageX, pageY } = event;
+	const taskList = _this.state.taskList.data;
 
-      this.setState({
-        isContextMenuVisible: false
-      });
+	_this.setState({
+	  isContextMenuVisible: false
+	});
 
-      // @TODO: Task #19 研发任务功能弹框 / 编写任务弹框模块
-      // ...
+	// @TODO: Task #19 研发任务功能弹框 / 编写任务弹框模块
+	// ...
 
-      store.dispatch(taskToolBoxActions.visible({
-	top: `${pageY}px`,
-	left: `${pageX}px`
-      }));
+	store.dispatch(taskToolBoxActions.visible({
+	  top: `${pageY}px`,
+	  left: `${pageX}px`
+	}));
 
-      store.dispatch(userboxActions.hide());
+	store.dispatch(userboxActions.hide());
+
+	// @TODO 选中当前任务项
+	taskList.forEach((listItem, listIndex) => {
+	  if (listId === listItem.id) {
+	    listItem.dataList.forEach((taskItem, taskIndex) => {
+	      if (taskId === taskItem.id) {
+	        if (!taskItem.selected) {
+		  store.dispatch(
+		    selectTodo([
+		      { listId, taskId }
+		    ])
+		  );
+		}
+	      }
+	    });
+	  }
+	});
+      }
     }
   }
 
@@ -142,6 +165,52 @@ class Tasks extends Component {
     this.setState({
       isContextMenuVisible: true
     });
+  }
+
+  handleSelectTodo(listId, taskId) {
+    const _this = this;
+    const store = this.context.store;
+
+    return function(event) {
+      const isAltKey = event.altKey;
+      const isCtrlKey = event.ctrlKey;
+      const taskList = _this.state.taskList.data;
+      const { isTaskToolBoxVisible } = _this.state.taskToolBox;
+
+      // 选择一个任务项
+      if (!isAltKey && !isCtrlKey) {
+        // 任务功能弹框处于显示状态下，点击当前被选中的元素隐藏任务功能弹框，
+	// 但是不会取消已选中的任务项
+        if (isTaskToolBoxVisible) {
+	  // 下一次点击的任务项不是已选中的任务项，更新任务项的选中状态
+	  taskList.forEach((listItem, listIndex) => {
+	    if (listId === listItem.id) {
+	      listItem.dataList.forEach((taskItem, taskIndex) => {
+	        if (taskId !== taskItem.id) {
+		  if (taskItem.selected) {
+		    store.dispatch(selectTodo([
+		      { listId, taskId }
+		    ]));
+		  }
+		}
+	      });
+	    }
+	  });
+	}
+
+	// 任务功能弹框处于隐藏状态下，点击当前被选中的元素，切换任务项的选中
+	// 状态
+	else {
+	  store.dispatch(selectTodo([
+	    { listId, taskId }
+	  ]));
+	}
+      }
+
+      // @TODO: 选择多个任务项
+      else {
+      }
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -244,8 +313,9 @@ class Tasks extends Component {
 			  <li 
 			    key={taskIndex}
 			    className={taskItem.completed ? 'collapse' : ''}
-			    onMouseUp={this.onShowTaskBox}>
-			    <div className="task-list-item">
+			    onMouseUp={this.onShowTaskBox(item.id, taskItem.id)}
+			  >
+			    <div className={taskItem.selected ? 'task-list-item selected' : 'task-list-item'}>
 			      <i className="task-list-item-checkbox">
 				<img 
 				  src={checkboxNonSvg} 
@@ -254,7 +324,7 @@ class Tasks extends Component {
 				  onClick={this.toggleChecked(index, taskItem.id, 'uncompleted')}
 				/>
 			      </i>
-			      <div className="task-list-item-input">
+			      <div className="task-list-item-input" onClick={this.handleSelectTodo(item.id, taskItem.id)}>
 				<span>{taskItem.text}</span>
 			      </div>
 			    </div>

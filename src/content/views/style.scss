@@ -141,6 +141,10 @@
 	  line-height: 46px;
 	  display: flex;
 	  justify-content: flex-start;
+	  transition: background .3s;
+	  &.selected {
+	    background: #e0eefa;
+	  }
 	  align-items: center;
 	  .task-list-item-checkbox {
 	    display: flex;
