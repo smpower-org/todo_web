@@ -48,7 +48,7 @@ class Home extends Component {
       default:
 	if (isUserboxExtended) {
 	  this.context.store.dispatch(
-	    userboxActions.toggleUserboxStatus(false)
+	    userboxActions.hide()
 	  );
 	}
 

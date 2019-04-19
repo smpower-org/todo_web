@@ -4,6 +4,7 @@ import { addTodo, toggleTodoChecked } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
 import { actions as toggleTasklistVisibleActions } from '../../components/toggleTasklistVisible/';
+import { actions as userboxActions } from '../../components/userBox/';
 import { actions as taskToolBoxActions } from '../../components/taskToolBox/';
 
 import addSvg from './images/add.svg';
@@ -119,6 +120,8 @@ class Tasks extends Component {
 	top: `${pageY}px`,
 	left: `${pageX}px`
       }));
+
+      store.dispatch(userboxActions.hide());
     }
   }
 
