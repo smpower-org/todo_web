@@ -88,19 +88,19 @@ class TaskToolBox extends Component {
     const { style } = this.state.taskToolBox;
 
     return (
-      <div className="task-tool-box" style={style}>
-	<ul>
-	  <li onClick={this.setCompleted}>
-	    <i>
-	      <img src={completedSvg} alt="标记为已完成" />
+      <div className="task-tool-box" style={style} data-selector="task-tool-box">
+	<ul data-selector="task-tool-box">
+	  <li onClick={this.setCompleted} data-selector="task-tool-box">
+	    <i data-selector="task-tool-box">
+	      <img src={completedSvg} alt="标记为已完成" data-selector="task-tool-box" />
 	    </i>
-	    <span>标记为已完成</span>
+	    <span data-selector="task-tool-box">标记为已完成</span>
 	  </li>
-	  <li onClick={this.deleteTodo}>
-	    <i>
+	  <li onClick={this.deleteTodo} data-selector="task-tool-box" data-selector="task-tool-box">
+	    <i data-selector="task-tool-box">
 	      <img src={deleteSvg} alt="删除任务" />
 	    </i>
-	    <span>删除任务</span>
+	    <span data-selector="task-tool-box">删除任务</span>
 	  </li>
 	</ul>
       </div>

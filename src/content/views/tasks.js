@@ -130,6 +130,15 @@ class Tasks extends Component {
 
     if (!isContextMenuVisible) event.preventDefault();
 
+    // 鼠标右键点击任务项功能菜单时，屏蔽浏览器默认的上下文菜单
+    switch(event.target.getAttribute('data-selector')) {
+      case 'task-tool-box':
+        event.preventDefault();
+	break;
+      default:
+        break;
+    }
+
     this.setState({
       isContextMenuVisible: true
     });
@@ -237,20 +246,18 @@ class Tasks extends Component {
 			  <li 
 			    key={taskIndex}
 			    className={taskItem.completed ? 'collapse' : ''}
-			    onMouseUp={this.onShowTaskBox}
-			    data-selector="task-item">
-			    <div className="task-list-item" data-selector="task-item">
-			      <i className="task-list-item-checkbox" data-selector="task-item">
+			    onMouseUp={this.onShowTaskBox}>
+			    <div className="task-list-item">
+			      <i className="task-list-item-checkbox">
 				<img 
 				  src={checkboxNonSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
 				  onClick={this.toggleChecked(index, taskItem.id, 'uncompleted')}
-				  data-selector="task-item"
 				/>
 			      </i>
-			      <div className="task-list-item-input" data-selector="task-item">
-				<span data-selector="task-item">{taskItem.text}</span>
+			      <div className="task-list-item-input">
+				<span>{taskItem.text}</span>
 			      </div>
 			    </div>
 			  </li>
