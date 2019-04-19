@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { addTodo, toggleTodoChecked } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
+import { actions as toggleTasklistVisibleActions } from '../../components/toggleTasklistVisible/';
+import { actions as userboxActions } from '../../components/userBox/';
+import { actions as taskToolBoxActions } from '../../components/taskToolBox/';
 
 import addSvg from './images/add.svg';
 import calendarSvg from './images/calendar.svg';
@@ -22,10 +25,12 @@ class Tasks extends Component {
     this.clearAddTodoVal = this.clearAddTodoVal.bind(this);
     this.onShowCompleted = this.onShowCompleted.bind(this);
     this.toggleChecked = this.toggleChecked.bind(this);
+    this.onShowTaskBox = this.onShowTaskBox.bind(this);
+    this.handleContextMenu = this.handleContextMenu.bind(this);
 
     this.state = Object.assign({}, {
-      // default params...
-      isCompletedShow: false
+      // true - 显示默认右键菜单 | false - 隐藏默认右键菜单
+      isContextMenuVisible: true
     }, this.getOwnState());
   }
 
@@ -35,7 +40,8 @@ class Tasks extends Component {
     return {
       taskList: store.getState().taskList,
       addTodo: store.getState().addTodo,
-      toggleTodoChecked: store.getState().toggleTodoChecked
+      toggleTodoChecked: store.getState().toggleTodoChecked,
+      toggleTasklistVisible: store.getState().toggleTasklistVisible
     };
   }
 
@@ -73,12 +79,14 @@ class Tasks extends Component {
   }
 
   onShowCompleted() {
-    this.setState({
-      isCompletedShow: !this.state.isCompletedShow
-    });
+    const { isTasklistVisible } = this.state.toggleTasklistVisible;
+
+    this.context.store.dispatch(
+      toggleTasklistVisibleActions.toggleTasklistVisible(!isTasklistVisible)
+    );
   }
 
-  toggleChecked(listIndex, taskId) {
+  toggleChecked(listIndex, taskId, clickedType) {
     const _this = this;
     return function(event) {
       const token = window.sessionStorage.getItem('token');
@@ -89,9 +97,51 @@ class Tasks extends Component {
       );
 
       _this.setState({
-        listIndex, taskId
+	listIndex, taskId
       });
     }
+  }
+
+  onShowTaskBox(event) {
+    const store = this.context.store;
+
+    // 按下鼠标右键
+    if (event.button === 2) {
+      const { pageX, pageY } = event;
+
+      this.setState({
+        isContextMenuVisible: false
+      });
+
+      // @TODO: Task #19 研发任务功能弹框 / 编写任务弹框模块
+      // ...
+
+      store.dispatch(taskToolBoxActions.visible({
+	top: `${pageY}px`,
+	left: `${pageX}px`
+      }));
+
+      store.dispatch(userboxActions.hide());
+    }
+  }
+
+  handleContextMenu(event) {
+    const { isContextMenuVisible } = this.state;
+
+    if (!isContextMenuVisible) event.preventDefault();
+
+    // 鼠标右键点击任务项功能菜单时，屏蔽浏览器默认的上下文菜单
+    switch(event.target.getAttribute('data-selector')) {
+      case 'task-tool-box':
+        event.preventDefault();
+	break;
+      default:
+        break;
+    }
+
+    this.setState({
+      isContextMenuVisible: true
+    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -100,7 +150,8 @@ class Tasks extends Component {
   }
 
   componentWillUpdate() {
-    if (this.state.isCompletedShow) {
+    const {  uncompletedTodoClicked, completedTodoClicked } = this.state;
+    if (!uncompletedTodoClicked && !completedTodoClicked && this.state.isCompletedShow) {
       this.setState({
         isCompletedShow: false
       });
@@ -138,17 +189,19 @@ class Tasks extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener('contextmenu', this.handleContextMenu);
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
   }
 
   componentWillUnmount() {
+    document.removeEventListener('contextmenu', this.handleContextMenu);
     this.state.unsubscribe(this.onChange);
   }
 
   render() {
-    const { taskList, addTodo } = this.state;
+    const { taskList, addTodo, toggleTasklistVisible } = this.state;
 
     if (addTodo.status === 0) {
       this.clearAddTodoVal();
@@ -190,14 +243,15 @@ class Tasks extends Component {
 			return (
 			  <li 
 			    key={taskIndex}
-			    className={taskItem.completed ? 'collapse' : ''}>
+			    className={taskItem.completed ? 'collapse' : ''}
+			    onMouseUp={this.onShowTaskBox}>
 			    <div className="task-list-item">
 			      <i className="task-list-item-checkbox">
 				<img 
 				  src={checkboxNonSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(index, taskItem.id)}
+				  onClick={this.toggleChecked(index, taskItem.id, 'uncompleted')}
 				/>
 			      </i>
 			      <div className="task-list-item-input">
@@ -217,9 +271,11 @@ class Tasks extends Component {
 	      }
 	    </ol>
 	    <h2 className="show-completed">
-	      <span onClick={this.onShowCompleted}>{this.state.isCompletedShow ? '隐藏' : '显示'}已完成任务</span>
+	      <span onClick={this.onShowCompleted}>
+	        {toggleTasklistVisible.isTasklistVisible ? '隐藏' : '显示'}已完成任务
+	      </span>
 	    </h2>
-	    <ol className={this.state.isCompletedShow ? 'completed' : 'completed hidden'}>
+	    <ol className={toggleTasklistVisible.isTasklistVisible ? 'completed' : 'completed hidden'}>
 	      {
 	        typeof taskList !== 'undefined' && typeof taskList.data !== 'undefined' ? (
 		  taskList.data.map((item, index) => {
@@ -237,7 +293,7 @@ class Tasks extends Component {
 				  src={checkboxCheckedSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(index, taskItem.id)}
+				  onClick={this.toggleChecked(index, taskItem.id, 'completed')}
 				/>
 			      </i>
 			      <div className="task-list-item-input">

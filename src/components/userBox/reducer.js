@@ -1,9 +1,20 @@
-import { TOGGLE_USERBOX_STAUS } from './actionTypes';
+import {
+  SET_USERBOX_VISIBLE,
+  SET_USERBOX_HIDDEN
+} from './actionTypes';
 
 export default (state = {isUserboxExtended: false}, action) => {
   switch(action.type) {
-    case TOGGLE_USERBOX_STAUS:
-      return { ...state, isUserboxExtended: !state.isUserboxExtended };
+    case SET_USERBOX_VISIBLE:
+      return {
+        ...state,
+	isUserboxExtended: true
+      };
+    case SET_USERBOX_HIDDEN:
+      return {
+        ...state,
+	isUserboxExtended: false
+      };
     default:
       return state;
   }

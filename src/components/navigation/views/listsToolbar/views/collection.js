@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { setNavigationStatus } from '../../../actions';
 import { actions as taskListActions } from '../../../../../content/';
+import { actions as toggleTasklistVisibleActions } from '../../../../../components/toggleTasklistVisible/';
 import PropTypes from 'prop-types';
 
 class Collection extends Component {
@@ -72,9 +73,14 @@ class Collection extends Component {
       filterDataTask.forEach((item, index) => {
         item.checked = false;
       });
+      filterDataTask.changed = true;
 
       filterDataTask[index].checked = !filterDataTask[index].checked;
       _this.setState({ filterDataTask });
+
+      _this.context.store.dispatch(
+        toggleTasklistVisibleActions.toggleTasklistVisible(false)
+      );
     }
   }
 

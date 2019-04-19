@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { actions as userboxActions } from '../../../../userBox/';
+import { actions as taskToolBoxActions } from '../../../../taskToolBox/';
 import PropTypes from 'prop-types';
 
 import './style.scss';
@@ -11,8 +12,21 @@ class UserToolbar extends Component {
   }
 
   onClickUser() {
+    const { isUserboxExtended } = this.context.store.getState().userbox;
+
+    if (isUserboxExtended) {
+      this.context.store.dispatch(
+        userboxActions.hide()
+      );
+    } else {
+      this.context.store.dispatch(
+        userboxActions.visible()
+      );
+    }
+
+    // 隐藏任务功能弹框
     this.context.store.dispatch(
-      userboxActions.toggleUserboxStatus()
+      taskToolBoxActions.hidden()
     );
   }
 
