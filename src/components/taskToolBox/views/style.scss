@@ -1,0 +1,36 @@
+.task-tool-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  max-width: 200px;
+  height: auto;
+  border: 1px solid #fff;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  ul {
+    li {
+      height: 20px;
+      line-height: 20px;
+      padding: 4px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      transition: background .3s, color .3s;
+      i {
+	padding: 0 4px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 0;
+      }
+      span {
+	padding: 0 4px;
+      }
+      &:hover {
+	color: #fff;
+	background: lightblue;
+      }
+    }
+  }
+}

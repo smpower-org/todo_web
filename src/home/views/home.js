@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { view as Content } from '../../content/';
 import { view as Navigation } from '../../components/navigation/';
 import { view as UserBox } from '../../components/userBox/';
+import { view as TaskToolBox } from '../../components/taskToolBox/';
 import { actions as userboxActions } from '../../components/userBox/';
+import { actions as taskToolBoxActions } from '../../components/taskToolBox/';
 
 import './style.scss';
 
@@ -14,7 +16,7 @@ class Home extends Component {
 
     this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.hideUserbox = this.hideUserbox.bind(this);
+    this.hideBox = this.hideBox.bind(this);
 
     this.state = Object.assign({}, {
       // default params...
@@ -22,9 +24,12 @@ class Home extends Component {
   }
 
   getOwnState() {
+    const store = this.context.store;
+
     return {
-      isAuthenticate: this.context.store.getState().auth.isAuthenticate,
-      isUserboxExtended: this.context.store.getState().userbox.isUserboxExtended
+      isAuthenticate: store.getState().auth.isAuthenticate,
+      isUserboxExtended: store.getState().userbox.isUserboxExtended,
+      isTaskToolBoxVisible: store.getState().taskToolBox.isTaskToolBoxVisible
     };
   }
 
@@ -32,10 +37,10 @@ class Home extends Component {
     this.setState(this.getOwnState());
   }
 
-  hideUserbox(event) {
+  hideBox(event) {
     const target = event.target;
     const dataSelector = target.getAttribute('data-selector');
-    const isUserboxExtended = this.state.isUserboxExtended;
+    const { isUserboxExtended, isTaskToolBoxVisible } = this.state;
 
     switch(dataSelector) {
       case 'user-toolbar':
@@ -46,6 +51,13 @@ class Home extends Component {
 	    userboxActions.toggleUserboxStatus(false)
 	  );
 	}
+
+	if (isTaskToolBoxVisible) {
+	  this.context.store.dispatch(
+	    taskToolBoxActions.hidden()
+	  );
+	}
+
 	break;
     }
   }
@@ -66,16 +78,23 @@ class Home extends Component {
 
   render() {
     const isAuthenticate = JSON.parse(sessionStorage.getItem('logged_in'));
-    const isUserboxExtended = this.state.isUserboxExtended;
+    const { isUserboxExtended, isTaskToolBoxVisible } = this.state;
 
     return (
       isAuthenticate ? (
-	<div className="main" onClick={this.hideUserbox}>
+	<div className="main" onClick={this.hideBox}>
 	  <Navigation />
 	  <Content />
 	  {
 	    isUserboxExtended ? (
 	      <UserBox />
+	    ) : (
+	      ''
+	    )
+	  }
+	  {
+	    isTaskToolBoxVisible ? (
+	      <TaskToolBox />
 	    ) : (
 	      ''
 	    )

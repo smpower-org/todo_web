@@ -4,6 +4,7 @@ import { addTodo, toggleTodoChecked } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
 import { actions as toggleTasklistVisibleActions } from '../../components/toggleTasklistVisible/';
+import { actions as taskToolBoxActions } from '../../components/taskToolBox/';
 
 import addSvg from './images/add.svg';
 import calendarSvg from './images/calendar.svg';
@@ -23,9 +24,12 @@ class Tasks extends Component {
     this.clearAddTodoVal = this.clearAddTodoVal.bind(this);
     this.onShowCompleted = this.onShowCompleted.bind(this);
     this.toggleChecked = this.toggleChecked.bind(this);
+    this.onShowTaskBox = this.onShowTaskBox.bind(this);
+    this.handleContextMenu = this.handleContextMenu.bind(this);
 
     this.state = Object.assign({}, {
-      // default params...
+      // true - 显示默认右键菜单 | false - 隐藏默认右键菜单
+      isContextMenuVisible: true
     }, this.getOwnState());
   }
 
@@ -75,6 +79,7 @@ class Tasks extends Component {
 
   onShowCompleted() {
     const { isTasklistVisible } = this.state.toggleTasklistVisible;
+
     this.context.store.dispatch(
       toggleTasklistVisibleActions.toggleTasklistVisible(!isTasklistVisible)
     );
@@ -94,6 +99,37 @@ class Tasks extends Component {
 	listIndex, taskId
       });
     }
+  }
+
+  onShowTaskBox(event) {
+    const store = this.context.store;
+
+    // 按下鼠标右键
+    if (event.button === 2) {
+      const { pageX, pageY } = event;
+
+      this.setState({
+        isContextMenuVisible: false
+      });
+
+      // @TODO: Task #20 研发任务功能弹框 / 编写任务弹框模块
+      // ...
+
+      store.dispatch(taskToolBoxActions.visible({
+	top: `${pageY}px`,
+	left: `${pageX}px`
+      }));
+    }
+  }
+
+  handleContextMenu(event) {
+    const { isContextMenuVisible } = this.state;
+
+    if (!isContextMenuVisible) event.preventDefault();
+
+    this.setState({
+      isContextMenuVisible: true
+    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -141,12 +177,16 @@ class Tasks extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener('contextmenu', this.handleContextMenu);
+
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
     });
   }
 
   componentWillUnmount() {
+    document.removeEventListener('contextmenu', this.handleContextMenu);
+
     this.state.unsubscribe(this.onChange);
   }
 
@@ -193,18 +233,21 @@ class Tasks extends Component {
 			return (
 			  <li 
 			    key={taskIndex}
-			    className={taskItem.completed ? 'collapse' : ''}>
-			    <div className="task-list-item">
-			      <i className="task-list-item-checkbox">
+			    className={taskItem.completed ? 'collapse' : ''}
+			    onMouseUp={this.onShowTaskBox}
+			    data-selector="task-item">
+			    <div className="task-list-item" data-selector="task-item">
+			      <i className="task-list-item-checkbox" data-selector="task-item">
 				<img 
 				  src={checkboxNonSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
 				  onClick={this.toggleChecked(index, taskItem.id, 'uncompleted')}
+				  data-selector="task-item"
 				/>
 			      </i>
-			      <div className="task-list-item-input">
-				<span>{taskItem.text}</span>
+			      <div className="task-list-item-input" data-selector="task-item">
+				<span data-selector="task-item">{taskItem.text}</span>
 			      </div>
 			    </div>
 			  </li>
