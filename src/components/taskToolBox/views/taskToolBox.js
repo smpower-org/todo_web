@@ -96,7 +96,7 @@ class TaskToolBox extends Component {
 	    </i>
 	    <span data-selector="task-tool-box">标记为已完成</span>
 	  </li>
-	  <li onClick={this.deleteTodo} data-selector="task-tool-box" data-selector="task-tool-box">
+	  <li onClick={this.deleteTodo} data-selector="task-tool-box">
 	    <i data-selector="task-tool-box">
 	      <img src={deleteSvg} alt="删除任务" />
 	    </i>
