@@ -114,7 +114,11 @@ class Collection extends Component {
 		    key={index}>
 		    <i className="lists-toolbar-filter-item-icon"></i>
 		    <span className="lists-toolbar-filter-item-title">Inbox</span>
-		    <span className="lists-toolbar-filter-item-count">{item.uncompleted}</span>
+		    {
+		      item.uncompleted === 0 ?
+		        '' :
+			<span className="lists-toolbar-filter-item-count">{item.uncompleted}</span>
+		    }
 		  </li>
 		);
 	      }
@@ -127,7 +131,11 @@ class Collection extends Component {
 		    key={index} >
 		    <i className="lists-toolbar-collection-item-icon"></i>
 		    <span className="lists-toolbar-collection-item-title">{item.box}</span>
-		    <span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
+		    {
+		      item.uncompleted === 0 ?
+		        '' :
+			<span className="lists-toolbar-collection-item-count">{item.uncompleted}</span>
+		    }
 		  </li>
 		);
 	      }
