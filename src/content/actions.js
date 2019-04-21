@@ -4,6 +4,7 @@ import {
   GETDATA_FAILURE,
   UPDATE_DATA_CHECKED_STATUS,
   ADD_TODO,
+  DELETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -62,6 +63,11 @@ export const addTodo = (listIndex, taskId, text) => ({
   listIndex,
   taskId,
   text
+});
+
+export const deleteTodo = (selectedTodo) => ({
+  type: DELETE_TODO,
+  selectedTodo
 });
 
 export const toggleTodoChecked = (listIndex, taskIndex) => ({

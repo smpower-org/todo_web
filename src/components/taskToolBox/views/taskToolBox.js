@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as actions from '../actions';
+import { actions as deleteTodoActions } from '../../deleteTodo/';
 
 import completedSvg from './images/completed.svg';
 import deleteSvg from './images/delete.svg';
@@ -13,11 +14,14 @@ class TaskToolBox extends Component {
 
     this.getOwnState = this.getOwnState.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.getSelectedTodos = this.getSelectedTodos.bind(this);
     this.setCompleted = this.setCompleted.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
 
     this.state = Object.assign({}, {
       // default params
+      uid: parseInt(window.sessionStorage.getItem('uid'), 10),
+      token: window.sessionStorage.getItem('token')
     }, this.getOwnState());
   }
 
@@ -26,11 +30,35 @@ class TaskToolBox extends Component {
 
     return {
       taskToolBox: store.getState().taskToolBox,
+      deleteTodo: store.getState().deleteTodo,
+      taskList: store.getState().taskList
     };
   }
 
   onChange() {
     this.setState(this.getOwnState());
+  }
+
+  /**
+    * @des 获取被选中的 todo
+    * @return selectedTodos [Array] - 数组元素为对象类型 {listId, taskId}, ...
+  **/
+  getSelectedTodos() {
+    const taskList = this.state.taskList.data;
+    let selectedTodo = {};
+    let selectedTodos = [];
+
+    taskList.forEach((listItem, listIndex) => {
+      listItem.dataList.forEach((taskItem, taskIndex) => {
+        if (taskItem.selected) {
+	  selectedTodo.listId = listItem.id;
+	  selectedTodo.taskId = taskItem.id;
+	  selectedTodos.push(selectedTodo);
+	}
+      });
+    });
+
+    return selectedTodos;
   }
 
   /**
@@ -55,23 +83,26 @@ class TaskToolBox extends Component {
 
   /**
     * @des 删除任务
-    *      1. 与后台服务通信，后台删除任务成功后，返回状态码 0
-    *      2. 执行本地删除操作 (reducer)
-    *      3. 隐藏 TaskToolBox 模块
     * @TODO 增加批量删除功能
   **/
   deleteTodo() {
+    const { uid, token } = this.state;
+    const selectedTodos = this.getSelectedTodos();
+
+    this.context.store.dispatch(actions.hidden());
+    this.context.store.dispatch(
+      deleteTodoActions.deleteTodo(uid, selectedTodos, token)
+    );
+  }
+
+  componentDidUpdate() {
     const store = this.context.store;
+    const { deleteTodo } = this.state;
 
-    console.log('delete todo');
-    alert('研发中...');
-
-    // @TODO: 1. 后台通信，删除任务
-
-    // @TODO: 2. 通过 reducer 删除本地对应的任务
-
-    // @TODO: 3. 隐藏 TaskToolBox 模块
-    store.dispatch(actions.hidden());
+    if (deleteTodo.status === 0) {
+      // 重置删除 todo 网络状态
+      store.dispatch(deleteTodoActions.reset());
+    }
   }
 
   componentDidMount() {

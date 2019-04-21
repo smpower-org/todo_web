@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addTodo, toggleTodoChecked, selectTodo } from '../actions';
+import { addTodo, toggleTodoChecked, selectTodo, deleteTodo } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
+import { actions as deleteTodoActions } from '../../components/deleteTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
 import { actions as toggleTasklistVisibleActions } from '../../components/toggleTasklistVisible/';
 import { actions as userboxActions } from '../../components/userBox/';
@@ -41,6 +42,7 @@ class Tasks extends Component {
     return {
       taskList: store.getState().taskList,
       addTodo: store.getState().addTodo,
+      deleteTodo: store.getState().deleteTodo,
       toggleTodoChecked: store.getState().toggleTodoChecked,
       toggleTasklistVisible: store.getState().toggleTasklistVisible,
       taskToolBox: store.getState().taskToolBox
@@ -255,6 +257,29 @@ class Tasks extends Component {
 
       return;
     }
+
+    if (this.state.deleteTodo.status === 0) {
+      const dataList = this.state.taskList.data;
+      let selectedTodo = {};
+      let selectedTodos = [];
+      
+      dataList.forEach((listItem, listIndex) => {
+        listItem.dataList.forEach((taskItem, taskIndex) => {
+	  if (taskItem.selected) {
+	    selectedTodo = {
+	      listId: listItem.id,
+	      taskId: taskItem.id
+	    };
+	    selectedTodos.push(selectedTodo);
+	  }
+	});
+      });
+
+      this.context.store.dispatch(deleteTodoActions.reset());
+      this.context.store.dispatch(deleteTodo(selectedTodos));
+
+      return;
+    }
   }
 
   componentDidMount() {
@@ -312,7 +337,7 @@ class Tasks extends Component {
 			return (
 			  <li 
 			    key={taskIndex}
-			    className={taskItem.completed ? 'collapse' : ''}
+			    className={(taskItem.completed || taskItem.deleted) ? 'collapse' : ''}
 			    onMouseUp={this.onShowTaskBox(item.id, taskItem.id)}
 			  >
 			    <div className={taskItem.selected ? 'task-list-item selected' : 'task-list-item'}>

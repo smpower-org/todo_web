@@ -34,6 +34,12 @@ export const addTodo = {
   des: '添加 todo'
 };
 
+export const deleteTodo = {
+  path: '/todo/deleteTodo',
+  params: ['uid', 'selectedTodos', 'token'],
+  des: '删除 todo'
+};
+
 export const toggleTodoChecked = {
   path: '/todo/toggleTodoChecked',
   params: ['listIndex', 'taskId', 'uid', 'token'],

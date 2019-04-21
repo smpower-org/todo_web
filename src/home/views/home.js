@@ -45,6 +45,8 @@ class Home extends Component {
     switch(dataSelector) {
       case 'user-toolbar':
         break;
+      case 'task-tool-box':
+	break;
       default:
 	if (isUserboxExtended) {
 	  this.context.store.dispatch(
@@ -62,9 +64,13 @@ class Home extends Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return false;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      this.state.isUserboxExtended !== nextState.isUserboxExtended ||
+      this.state.isTaskToolBoxVisible !== nextState.isTaskToolBoxVisible
+    ) return true;
+    return false;
+  }
 
   componentDidMount() {
     this.setState({

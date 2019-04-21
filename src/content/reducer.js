@@ -4,6 +4,7 @@ import {
   GETDATA_FAILURE,
   UPDATE_DATA_CHECKED_STATUS,
   ADD_TODO,
+  DELETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -26,6 +27,7 @@ export default (state = {status: Status.LOADING}, action) => {
       resJson.data.forEach((listItem, listIndex) => {
 	listItem.dataList.forEach((taskItem, taskIndex) => {
 	  taskItem.selected = false;
+	  taskItem.deleted = false;
 	});
       });
 
@@ -69,7 +71,26 @@ export default (state = {status: Status.LOADING}, action) => {
 	text
       });
 
-      return state;
+      return resJson;
+    case DELETE_TODO:
+      // 删除一个 todo
+      if (action.selectedTodo.length === 1) {
+	resJson.data.forEach((listItem, listIndex) => {
+	  if (action.selectedTodo[0].listId === listItem.id) {
+	    listItem.dataList.forEach((taskItem, taskIndex) => {
+	      if (action.selectedTodo[0].taskId === taskItem.id) {
+		taskItem.selected = false;
+		taskItem.deleted = true;
+		listItem.uncompleted--;
+	      }
+	    });
+	  }
+	});
+      }
+
+      // @TODO 删除多个 todo
+
+      return resJson;
     case TOGGLE_TODO_CHECKED:
       matchedList = resJson.data[action.listIndex];
 

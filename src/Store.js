@@ -10,6 +10,7 @@ import { reducer as navigationReducer } from './components/navigation/';
 import { reducer as taskListReducer } from './content/';
 import { reducer as userboxReducer } from './components/userBox/';
 import { reducer as addTodoReducer } from './components/addTodo/';
+import { reducer as deleteTodoReducer } from './components/deleteTodo/';
 import { reducer as toggleTodoCheckedReducer } from './components/toggleTodoChecked/';
 import { reducer as toggleTasklistVisibleReducer } from './components/toggleTasklistVisible/';
 import { reducer as taskToolBoxReducer } from './components/taskToolBox/';
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   taskList: taskListReducer,
   userbox: userboxReducer,
   addTodo: addTodoReducer,
+  deleteTodo: deleteTodoReducer,
   toggleTodoChecked: toggleTodoCheckedReducer,
   toggleTasklistVisible: toggleTasklistVisibleReducer,
   taskToolBox: taskToolBoxReducer
