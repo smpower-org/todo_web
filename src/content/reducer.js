@@ -5,13 +5,13 @@ import {
   UPDATE_DATA_CHECKED_STATUS,
   ADD_TODO,
   DELETE_TODO,
+  COMPLETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
 import * as Status from './status';
 
 let resJson = {};
-let matchedList;
 
 export default (state = {status: Status.LOADING}, action) => {
   switch(action.type) {
@@ -91,14 +91,36 @@ export default (state = {status: Status.LOADING}, action) => {
       // @TODO 删除多个 todo
 
       return resJson;
-    case TOGGLE_TODO_CHECKED:
-      matchedList = resJson.data[action.listIndex];
+    case COMPLETE_TODO:
+      if (typeof action.selectedTodos !== 'undefined') {
+	// 标记一个 todo 为已完成
+	if (action.selectedTodos.length === 1) {
+	  resJson.data.forEach((listItem, listIndex) => {
+	    if (action.selectedTodos[0].listId === listItem.id) {
+	      listItem.dataList.forEach((taskItem, taskIndex) => {
+		if (action.selectedTodos[0].taskId === taskItem.id) {
+		  taskItem.completed = true;
+		  listItem.uncompleted--;
+		}
+	      });
+	    }
+	  });
+	}
 
-      matchedList.dataList.forEach((item, index) => {
-	if (item.id === action.taskIndex) {
-	  item.completed = !item.completed;
-	  if (item.completed) matchedList.uncompleted--;
-	  if (!item.completed) matchedList.uncompleted++;
+	// @TODO 标记多个 todo 为已完成
+	if (action.selectedTodos.length >=2 ) {
+	}
+      }
+
+      return resJson;
+    case TOGGLE_TODO_CHECKED:
+      resJson.data.forEach((listItem, listIndex) => {
+        if (listItem.id === action.listId) {
+	  listItem.dataList.forEach((taskItem, taskIndex) => {
+	    if (taskItem.id === action.taskId) {
+	      taskItem.completed = !taskItem.completed;
+	    }
+	  });
 	}
       });
 

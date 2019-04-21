@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as actions from '../actions';
 import { actions as deleteTodoActions } from '../../deleteTodo/';
+import { actions as toggleTodoCheckedActions } from '../../toggleTodoChecked/';
+import { actions as contentActions } from '../../../content/';
 
 import completedSvg from './images/completed.svg';
 import deleteSvg from './images/delete.svg';
@@ -31,6 +33,7 @@ class TaskToolBox extends Component {
     return {
       taskToolBox: store.getState().taskToolBox,
       deleteTodo: store.getState().deleteTodo,
+      toggleTodoChecked: store.getState().toggleTodoChecked,
       taskList: store.getState().taskList
     };
   }
@@ -68,17 +71,14 @@ class TaskToolBox extends Component {
     *      3. 隐藏 TaskToolBox 模块
   **/
   setCompleted() {
-    const store = this.context.store;
+    const { uid, token } = this.state;
+    const selectedTodos = this.getSelectedTodos();
 
-    console.log('set todo completed');
-    alert('研发中...');
-
-    // @TODO: 1. 后台通信，更新任务的标记状态
-
-    // @TODO: 2. 通过 reducer 更新本地任务完成状态
-
-    // @TODO: 3. 隐藏 TaskToolBox 模块
-    store.dispatch(actions.hidden());
+    this.context.store.dispatch(actions.hidden());
+    this.context.store.dispatch(contentActions.completeTodo(selectedTodos));
+    this.context.store.dispatch(
+      toggleTodoCheckedActions.complete(uid, selectedTodos, token)
+    );
   }
 
   /**
@@ -97,11 +97,15 @@ class TaskToolBox extends Component {
 
   componentDidUpdate() {
     const store = this.context.store;
-    const { deleteTodo } = this.state;
+    const { deleteTodo, toggleTodoChecked } = this.state;
 
     if (deleteTodo.status === 0) {
       // 重置删除 todo 网络状态
       store.dispatch(deleteTodoActions.reset());
+    }
+
+    if (toggleTodoChecked.status === 0) {
+      store.dispatch(toggleTodoCheckedActions.reset());
     }
   }
 
