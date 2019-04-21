@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addTodo, toggleTodoChecked, selectTodo, deleteTodo } from '../actions';
+import { addTodo, toggleTodoChecked, selectTodo, deleteTodo, completeTodo } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as deleteTodoActions } from '../../components/deleteTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
@@ -29,6 +29,7 @@ class Tasks extends Component {
     this.onShowTaskBox = this.onShowTaskBox.bind(this);
     this.handleContextMenu = this.handleContextMenu.bind(this);
     this.handleSelectTodo = this.handleSelectTodo.bind(this);
+    this.completeTodo = this.completeTodo.bind(this);
 
     this.state = Object.assign({}, {
       // true - 显示默认右键菜单 | false - 隐藏默认右键菜单
@@ -215,6 +216,36 @@ class Tasks extends Component {
     }
   }
 
+  completeTodo(listId, taskId) {
+    const _this = this;
+
+    return function(event) {
+      const uid = parseInt(window.sessionStorage.getItem('uid'));
+      const token = window.sessionStorage.getItem('token');
+      const taskList = _this.state.taskList.data;
+      const selectedTodo = {};
+      const selectedTodos = [];
+
+      taskList.forEach((listItem, listIndex) => {
+        if (listId === listItem.id) {
+	  listItem.dataList.forEach((taskItem, taskIndex) => {
+	    if (taskId === taskItem.id) {
+	      selectedTodo.listId = listId;
+	      selectedTodo.taskId = taskId;
+	      selectedTodos.push(selectedTodo);
+	    }
+	  });
+	}
+      });
+
+      _this.context.store.dispatch(
+	toggleTodoCheckedActions.complete(uid, selectedTodos, token)
+      );
+
+      _this.setState({selectedTodos});
+    }
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.hasOwnProperty('taskList')) return true;
     else return false;
@@ -250,10 +281,11 @@ class Tasks extends Component {
     } 
 
     if (this.state.toggleTodoChecked.status === 0) {
-      const { listId, taskId } = this.state;
+      const { selectedTodos } = this.state;
 
       this.context.store.dispatch(toggleTodoCheckedActions.reset());
-      this.context.store.dispatch(toggleTodoChecked(listId, taskId));
+      // this.context.store.dispatch(toggleTodoChecked(listId, taskId));
+      this.context.store.dispatch(completeTodo(selectedTodos));
 
       return;
     }
@@ -346,7 +378,8 @@ class Tasks extends Component {
 				  src={checkboxNonSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(item.id, taskItem.id, 'uncompleted')}
+				  /* onClick={this.toggleChecked(item.id, taskItem.id, 'uncompleted')} */
+				  onClick={this.completeTodo(item.id, taskItem.id)}
 				/>
 			      </i>
 			      <div className="task-list-item-input" onClick={this.handleSelectTodo(item.id, taskItem.id)}>

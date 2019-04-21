@@ -5,6 +5,7 @@ import {
   UPDATE_DATA_CHECKED_STATUS,
   ADD_TODO,
   DELETE_TODO,
+  COMPLETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -68,6 +69,11 @@ export const addTodo = (listIndex, taskId, text) => ({
 export const deleteTodo = (selectedTodo) => ({
   type: DELETE_TODO,
   selectedTodo
+});
+
+export const completeTodo = (selectedTodos) => ({
+  type: COMPLETE_TODO,
+  selectedTodos
 });
 
 export const toggleTodoChecked = (listId, taskId) => ({

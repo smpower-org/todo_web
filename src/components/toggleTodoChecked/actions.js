@@ -46,6 +46,34 @@ export const toggleTodoChecked = (listIndex, taskId, uid, token) => {
   };
 };
 
+// 标记任务为已完成
+export const complete = (uid, selectedTodos, token) => {
+  return dispatch => {
+    dispatch(toggleStarted());
+
+    fetch(`${baseUrl}${apis.toggleTodoChecked.path}`, {
+      method: 'POST',
+      headers: {
+	'Content-Type': 'application/json;charset=UTF-8',
+	Authorization: token
+      },
+      body: JSON.stringify({uid, selectedTodos})
+    }).then(res => {
+      if (res.status === 200) return res.json();
+      else {
+        dispatch(toggleFailure({
+	  status: res.status,
+	  message: '标记失败'
+	}));
+      }
+    }).then(resJson => {
+      dispatch(toggleSuccess(resJson));
+    }).catch(error => {
+      dispatch(toggleFailure(error));
+    });
+  };
+};
+
 export const reset = () => {
   return dispatch => {
     dispatch(toggleStarted());

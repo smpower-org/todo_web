@@ -5,6 +5,7 @@ import {
   UPDATE_DATA_CHECKED_STATUS,
   ADD_TODO,
   DELETE_TODO,
+  COMPLETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -90,8 +91,27 @@ export default (state = {status: Status.LOADING}, action) => {
       // @TODO 删除多个 todo
 
       return resJson;
-    case TOGGLE_TODO_CHECKED:
+    case COMPLETE_TODO:
 
+      // 标记一个 todo 为已完成
+      if (action.selectedTodos.length === 1) {
+	resJson.data.forEach((listItem, listIndex) => {
+	  if (action.selectedTodos[0].listId === listItem.id) {
+	    listItem.dataList.forEach((taskItem, taskIndex) => {
+	      if (action.selectedTodos[0].taskId === taskItem.id) {
+	        taskItem.completed = true;
+	      }
+	    });
+	  }
+	});
+      }
+
+      // @TODO 标记多个 todo 为已完成
+      if (action.selectedTodos.length >=2 ) {
+      }
+
+      return resJson;
+    case TOGGLE_TODO_CHECKED:
       resJson.data.forEach((listItem, listIndex) => {
         if (listItem.id === action.listId) {
 	  listItem.dataList.forEach((taskItem, taskIndex) => {
