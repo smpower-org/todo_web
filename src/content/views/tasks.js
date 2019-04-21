@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addTodo, toggleTodoChecked, selectTodo, deleteTodo, completeTodo } from '../actions';
+import { addTodo, selectTodo, deleteTodo, completeTodo } from '../actions';
 import { actions as addTodoActions } from '../../components/addTodo/';
 import { actions as deleteTodoActions } from '../../components/deleteTodo/';
 import { actions as toggleTodoCheckedActions } from '../../components/toggleTodoChecked/';
@@ -286,6 +286,10 @@ class Tasks extends Component {
       this.context.store.dispatch(toggleTodoCheckedActions.reset());
       // this.context.store.dispatch(toggleTodoChecked(listId, taskId));
       this.context.store.dispatch(completeTodo(selectedTodos));
+
+      this.setState({
+        selectedTodos: []
+      });
 
       return;
     }

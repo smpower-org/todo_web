@@ -92,22 +92,24 @@ export default (state = {status: Status.LOADING}, action) => {
 
       return resJson;
     case COMPLETE_TODO:
+      if (typeof action.selectedTodos !== 'undefined') {
+	// 标记一个 todo 为已完成
+	if (action.selectedTodos.length === 1) {
+	  resJson.data.forEach((listItem, listIndex) => {
+	    if (action.selectedTodos[0].listId === listItem.id) {
+	      listItem.dataList.forEach((taskItem, taskIndex) => {
+		if (action.selectedTodos[0].taskId === taskItem.id) {
+		  taskItem.completed = true;
+		  listItem.uncompleted--;
+		}
+	      });
+	    }
+	  });
+	}
 
-      // 标记一个 todo 为已完成
-      if (action.selectedTodos.length === 1) {
-	resJson.data.forEach((listItem, listIndex) => {
-	  if (action.selectedTodos[0].listId === listItem.id) {
-	    listItem.dataList.forEach((taskItem, taskIndex) => {
-	      if (action.selectedTodos[0].taskId === taskItem.id) {
-	        taskItem.completed = true;
-	      }
-	    });
-	  }
-	});
-      }
-
-      // @TODO 标记多个 todo 为已完成
-      if (action.selectedTodos.length >=2 ) {
+	// @TODO 标记多个 todo 为已完成
+	if (action.selectedTodos.length >=2 ) {
+	}
       }
 
       return resJson;
