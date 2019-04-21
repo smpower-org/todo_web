@@ -90,18 +90,18 @@ class Tasks extends Component {
     );
   }
 
-  toggleChecked(listIndex, taskId, clickedType) {
+  toggleChecked(listId, taskId, clickedType) {
     const _this = this;
     return function(event) {
       const token = window.sessionStorage.getItem('token');
       const uid = parseInt(window.sessionStorage.getItem('uid'), 10);
 
       _this.context.store.dispatch(
-        toggleTodoCheckedActions.toggleTodoChecked(listIndex, taskId, uid, token)
+        toggleTodoCheckedActions.toggleTodoChecked(listId, taskId, uid, token)
       );
 
       _this.setState({
-	listIndex, taskId
+	listId, taskId
       });
     }
   }
@@ -250,10 +250,10 @@ class Tasks extends Component {
     } 
 
     if (this.state.toggleTodoChecked.status === 0) {
-      const { listIndex, taskId } = this.state;
+      const { listId, taskId } = this.state;
 
       this.context.store.dispatch(toggleTodoCheckedActions.reset());
-      this.context.store.dispatch(toggleTodoChecked(listIndex, taskId));
+      this.context.store.dispatch(toggleTodoChecked(listId, taskId));
 
       return;
     }
@@ -346,7 +346,7 @@ class Tasks extends Component {
 				  src={checkboxNonSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(index, taskItem.id, 'uncompleted')}
+				  onClick={this.toggleChecked(item.id, taskItem.id, 'uncompleted')}
 				/>
 			      </i>
 			      <div className="task-list-item-input" onClick={this.handleSelectTodo(item.id, taskItem.id)}>
@@ -388,7 +388,7 @@ class Tasks extends Component {
 				  src={checkboxCheckedSvg} 
 				  alt="标记为已完成" 
 				  title="标记为已完成"
-				  onClick={this.toggleChecked(index, taskItem.id, 'completed')}
+				  onClick={this.toggleChecked(item.id, taskItem.id, 'completed')}
 				/>
 			      </i>
 			      <div className="task-list-item-input">

@@ -70,10 +70,10 @@ export const deleteTodo = (selectedTodo) => ({
   selectedTodo
 });
 
-export const toggleTodoChecked = (listIndex, taskIndex) => ({
+export const toggleTodoChecked = (listId, taskId) => ({
   type: TOGGLE_TODO_CHECKED,
-  listIndex,
-  taskIndex
+  listId,
+  taskId
 });
 
 /**

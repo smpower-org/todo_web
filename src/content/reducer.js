@@ -11,7 +11,6 @@ import {
 import * as Status from './status';
 
 let resJson = {};
-let matchedList;
 
 export default (state = {status: Status.LOADING}, action) => {
   switch(action.type) {
@@ -92,13 +91,14 @@ export default (state = {status: Status.LOADING}, action) => {
 
       return resJson;
     case TOGGLE_TODO_CHECKED:
-      matchedList = resJson.data[action.listIndex];
 
-      matchedList.dataList.forEach((item, index) => {
-	if (item.id === action.taskIndex) {
-	  item.completed = !item.completed;
-	  if (item.completed) matchedList.uncompleted--;
-	  if (!item.completed) matchedList.uncompleted++;
+      resJson.data.forEach((listItem, listIndex) => {
+        if (listItem.id === action.listId) {
+	  listItem.dataList.forEach((taskItem, taskIndex) => {
+	    if (taskItem.id === action.taskId) {
+	      taskItem.completed = !taskItem.completed;
+	    }
+	  });
 	}
       });
 
