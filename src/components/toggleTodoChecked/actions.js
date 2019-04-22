@@ -5,20 +5,23 @@ import {
 } from './actionTypes';
 import { baseUrl, apis } from '../../config/';
 
-const toggleStarted = () => ({
+const toggleStarted = (toggleType) => ({
   type: TOGGLE_TODO_CHECKED_STARTED,
   status: 'loading',
-  message: ''
+  message: '',
+  toggleType
 });
 
-const toggleSuccess = (resJson) => ({
+const toggleSuccess = (resJson, toggleType) => ({
   type: TOGGLE_TODO_CHECKED_SUCCESS,
-  resJson
+  resJson,
+  toggleType
 });
 
-const toggleFailure = (error) => ({
+const toggleFailure = (error, toggleType) => ({
   type: TOGGLE_TODO_CHECKED_FAILURE,
-  error
+  error,
+  toggleType
 });
 
 export const toggleTodoChecked = (listIndex, taskId, uid, token) => {
@@ -49,7 +52,7 @@ export const toggleTodoChecked = (listIndex, taskId, uid, token) => {
 // 标记任务为已完成
 export const complete = (uid, selectedTodos, token) => {
   return dispatch => {
-    dispatch(toggleStarted());
+    dispatch(toggleStarted('complete'));
 
     fetch(`${baseUrl}${apis.toggleTodoChecked.path}`, {
       method: 'POST',
@@ -64,12 +67,40 @@ export const complete = (uid, selectedTodos, token) => {
         dispatch(toggleFailure({
 	  status: res.status,
 	  message: '标记失败'
-	}));
+	}, 'complete'));
       }
     }).then(resJson => {
-      dispatch(toggleSuccess(resJson));
+      dispatch(toggleSuccess(resJson, 'complete'));
     }).catch(error => {
-      dispatch(toggleFailure(error));
+      dispatch(toggleFailure(error, 'complete'));
+    });
+  };
+};
+
+// 标记任务为未完成
+export const uncomplete = (uid, selectedTodos, token) => {
+  return dispatch => {
+    dispatch(toggleStarted('uncomplete'));
+
+    fetch(`${baseUrl}${apis.toggleTodoChecked.path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+	'Authorization': token
+      },
+      body: JSON.stringify({uid, selectedTodos})
+    }).then(res => {
+      if (res.status === 200) return res.json();
+      else {
+        dispatch({
+	  status: res.status,
+	  message: '标记失败'
+	}, 'uncomplete');
+      }
+    }).then(resJson => {
+      dispatch(toggleSuccess(resJson, 'uncomplete'));
+    }).catch(error => {
+      dispatch(toggleFailure(error, 'uncomplete'));
     });
   };
 };
