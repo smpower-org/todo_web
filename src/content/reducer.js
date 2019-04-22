@@ -6,6 +6,7 @@ import {
   ADD_TODO,
   DELETE_TODO,
   COMPLETE_TODO,
+  UNCOMPLETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -108,6 +109,28 @@ export default (state = {status: Status.LOADING}, action) => {
 	}
 
 	// @TODO 标记多个 todo 为已完成
+	if (action.selectedTodos.length >=2 ) {
+	}
+      }
+
+      return resJson;
+    case UNCOMPLETE_TODO:
+      if (typeof action.selectedTodos !== 'undefined') {
+	// 标记一个 todo 为未完成
+	if (action.selectedTodos.length === 1) {
+	  resJson.data.forEach((listItem, listIndex) => {
+	    if (action.selectedTodos[0].listId === listItem.id) {
+	      listItem.dataList.forEach((taskItem, taskIndex) => {
+		if (action.selectedTodos[0].taskId === taskItem.id) {
+		  taskItem.completed = false;
+		  listItem.uncompleted++;
+		}
+	      });
+	    }
+	  });
+	}
+
+	// @TODO 标记多个 todo 为未完成
 	if (action.selectedTodos.length >=2 ) {
 	}
       }

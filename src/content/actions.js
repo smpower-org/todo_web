@@ -6,6 +6,7 @@ import {
   ADD_TODO,
   DELETE_TODO,
   COMPLETE_TODO,
+  UNCOMPLETE_TODO,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -71,8 +72,15 @@ export const deleteTodo = (selectedTodo) => ({
   selectedTodo
 });
 
+// 标记任务为已完成
 export const completeTodo = (selectedTodos) => ({
   type: COMPLETE_TODO,
+  selectedTodos
+});
+
+// 标记任务为未完成
+export const uncompleteTodo = (selectedTodos) => ({
+  type: UNCOMPLETE_TODO,
   selectedTodos
 });
 

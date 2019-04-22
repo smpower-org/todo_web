@@ -15,7 +15,8 @@ export default (state = {status: 'loading', message: ''}, action) => {
     case TOGGLE_TODO_CHECKED_SUCCESS:
       return {
         ...state,
-	...action.resJson
+	...action.resJson,
+	toggleType: action.toggleType
       };
     case TOGGLE_TODO_CHECKED_FAILURE:
       return {
