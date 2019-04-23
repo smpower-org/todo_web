@@ -76,6 +76,13 @@
 	  &:hover {
 	    background: #669064;
 	  }
+	  &.disable {
+	    opacity: .4;
+	    cursor: default;
+	    &:hover {
+	      background: #668964;
+	    }
+	  }
 	}
       }
     }
