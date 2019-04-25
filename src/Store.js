@@ -13,7 +13,9 @@ import { reducer as addTodoReducer } from './components/addTodo/';
 import { reducer as deleteTodoReducer } from './components/deleteTodo/';
 import { reducer as toggleTodoCheckedReducer } from './components/toggleTodoChecked/';
 import { reducer as toggleTasklistVisibleReducer } from './components/toggleTasklistVisible/';
+import { reducer as toggleModalVisibleReducer } from './components/modal/';
 import { reducer as taskToolBoxReducer } from './components/taskToolBox/';
+import { reducer as createListReducer } from './components/createList/';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -28,7 +30,9 @@ const reducer = combineReducers({
   deleteTodo: deleteTodoReducer,
   toggleTodoChecked: toggleTodoCheckedReducer,
   toggleTasklistVisible: toggleTasklistVisibleReducer,
-  taskToolBox: taskToolBoxReducer
+  toggleModalVisible: toggleModalVisibleReducer,
+  taskToolBox: taskToolBoxReducer,
+  createList: createListReducer
 });
 
 // export default createStore(reducer, applyMiddleware(thunkMiddleware));

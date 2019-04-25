@@ -7,5 +7,6 @@ export const ADD_TODO = 'TODO/ADD';
 export const DELETE_TODO = 'TODO/DELETE';
 export const COMPLETE_TODO = 'TODO/COMPLETE';
 export const UNCOMPLETE_TODO = 'TODO/UNCOMPLETE';
+export const CREATE_LIST = 'TODO/CREATE_LIST';
 export const TOGGLE_TODO_CHECKED = 'TODO/TOGGLE_CHECKED';
 

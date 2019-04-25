@@ -1,0 +1,3 @@
+export const SET_MODAL_VISIBLE = 'MODAL/VISIBLE';
+export const SET_MODAL_HIDE = 'MODAL/HIDE';
+

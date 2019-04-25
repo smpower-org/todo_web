@@ -7,6 +7,7 @@ import {
   DELETE_TODO,
   COMPLETE_TODO,
   UNCOMPLETE_TODO,
+  CREATE_LIST,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -82,6 +83,12 @@ export const completeTodo = (selectedTodos) => ({
 export const uncompleteTodo = (selectedTodos) => ({
   type: UNCOMPLETE_TODO,
   selectedTodos
+});
+
+// 创建任务列表
+export const createList = (createdList) => ({
+  type: CREATE_LIST,
+  ...createdList
 });
 
 export const toggleTodoChecked = (listId, taskId) => ({

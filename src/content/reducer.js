@@ -7,6 +7,7 @@ import {
   DELETE_TODO,
   COMPLETE_TODO,
   UNCOMPLETE_TODO,
+  CREATE_LIST,
   TOGGLE_TODO_CHECKED,
   SELECT_TODO
 } from './actionTypes';
@@ -134,6 +135,22 @@ export default (state = {status: Status.LOADING}, action) => {
 	if (action.selectedTodos.length >=2 ) {
 	}
       }
+
+      return resJson;
+    case CREATE_LIST:
+      resJson.data.push({
+        id: action.id,
+	box: action.box,
+	dataList: action.dataList,
+      });
+
+      resJson.data.forEach((listItem, listIndex) => {
+	listItem.checked = false;
+	if (listItem.id === action.id) {
+	  listItem.uncompleted = 0;
+	  listItem.checked = true;
+	}
+      });
 
       return resJson;
     case TOGGLE_TODO_CHECKED:

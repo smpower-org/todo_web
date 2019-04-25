@@ -46,3 +46,9 @@ export const toggleTodoChecked = {
   des: '标记 todo 完成状态'
 };
 
+export const createList = {
+  path: '/todo/createList',
+  params: ['uid', 'createdList', 'token'],
+  des: '创建任务列表'
+};
+
