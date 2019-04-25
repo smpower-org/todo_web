@@ -49,7 +49,8 @@ class Collection extends Component {
   getOwnState() {
     return {
       navigation: this.context.store.getState().navigation,
-      taskList: this.context.store.getState().taskList.data
+      taskList: this.context.store.getState().taskList.data,
+      createList: this.context.store.getState().createList
     };
   }
 
@@ -84,6 +85,16 @@ class Collection extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const { filterDataTask, taskList, createList } = this.state;
+
+    if (typeof createList.data === 'undefined') {
+      if (taskList.length === filterDataTask.length + 1) {
+	filterDataTask.push(taskList[taskList.length - 1]);
+      }
+    }
+  }
+
   componentDidMount() {
     this.setState({
       unsubscribe: this.context.store.subscribe(this.onChange)
@@ -96,9 +107,15 @@ class Collection extends Component {
 
   render() {
     const { isNavigationExtended } = this.state.navigation;
-    const { filterDataTask } = this.state;
+    const { filterDataTask, createList, taskList } = this.state;
     const inboxClassName = 'lists-toolbar-filter-item inbox';
     const collectionClassName = 'lists-toolbar-collection-item';
+
+    if (typeof createList.data === 'undefined') {
+      if (taskList.length === filterDataTask.length + 1) {
+        filterDataTask.push(taskList[taskList.length - 1]);
+      }
+    }
 
     return (
       <ul className="lists-toolbar-group">

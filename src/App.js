@@ -9,6 +9,7 @@ import { view as Home } from './home/';
 import { view as Login } from './login/';
 import { view as Register } from './register/';
 import { view as NoMath } from './404/';
+import { view as Modal } from './components/modal/';
 
 import './App.scss';
 
@@ -77,6 +78,7 @@ class App extends Component {
 	  />
 	  <Route component={NoMath} />
 	</Switch>
+	<Modal />
       </div>
     );
   }
