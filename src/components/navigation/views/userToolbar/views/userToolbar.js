@@ -34,8 +34,9 @@ class UserToolbar extends Component {
     const taskList = this.context.store.getState().taskList;
     const { isUserboxExtended } = this.context.store.getState().userbox;
 
+    // @TODO 下一版本研发该模块
     return (
-      <div className="user-toolbar" data-selector="user-toolbar">
+      <div className="user-toolbar hidden" data-selector="user-toolbar">
 	<div className="user" data-selector="user-toolbar" onClick={this.onClickUser} >
 	  <i className="user-avatar" data-selector="user-toolbar"></i>
 	  {
