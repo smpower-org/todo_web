@@ -194,8 +194,9 @@ class More extends Component {
   render() {
     const { isMoreContentExtracted } = this.state;
 
+    // @TODO 下一版研发【更多】模块
     return (
-      <div className="action-bar">
+      <div className="action-bar hidden">
 	<div className="action-bar-buttons">
 	  <button className="sort hidden" onClick={this.onClickSort}>
 	    <img src={sortSvg} alt="排序" />
