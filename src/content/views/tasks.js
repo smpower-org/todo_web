@@ -466,7 +466,7 @@ class Tasks extends Component {
 			return (
 			  <li 
 			    key={taskIndex}
-			    className={taskItem.completed ? '' : 'collapse'}>
+			    className={taskItem.completed && !taskItem.deleted ? '' : 'collapse'}>
 			    <div className="task-list-item">
 			      <i className="task-list-item-checkbox">
 				<img 
