@@ -19,7 +19,7 @@ class Collection extends Component {
 	let uncompleted = 0;
 
 	item.dataList.forEach(taskItem => {
-	  if (!taskItem.completed) uncompleted++;
+	  if (!taskItem.completed && !taskItem.deleted) uncompleted++;
 	});
 
 	item.uncompleted = uncompleted;
@@ -31,7 +31,7 @@ class Collection extends Component {
       let uncompleted = 0;
 
       item.dataList.forEach(taskItem => {
-	if (!taskItem.completed) uncompleted++;
+	if (!taskItem.completed && !taskItem.deleted) uncompleted++;
       });
 
       item.uncompleted = uncompleted;

@@ -29,7 +29,6 @@ export default (state = {status: Status.LOADING}, action) => {
       resJson.data.forEach((listItem, listIndex) => {
 	listItem.dataList.forEach((taskItem, taskIndex) => {
 	  taskItem.selected = false;
-	  taskItem.deleted = false;
 	});
       });
 
