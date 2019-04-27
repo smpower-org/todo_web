@@ -64,12 +64,18 @@ class Tasks extends Component {
       const token = window.sessionStorage.getItem('token');
       const uid = parseInt(window.sessionStorage.getItem('uid'), 10);
       const target = event.target;
+      const dataList = this.state.taskList.data;
+      let list_id = 0;
 
       if (target.value.trim() === '') return;
 
       // 与服务器通信，添加一条 todo
+      dataList.forEach((item, index) => {
+        if (item.checked) list_id = item.id;
+      });
+
       this.context.store.dispatch(
-        addTodoActions.addTodo(uid, target.value.trim(), token)
+        addTodoActions.addTodo(uid, list_id, target.value.trim(), token)
       );
 
       this.setState({
