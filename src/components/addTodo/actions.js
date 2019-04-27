@@ -21,7 +21,7 @@ const addTodoFailure = (error) => ({
   error
 });
 
-export const addTodo = (uid, text, token) => {
+export const addTodo = (uid, list_id, text, token) => {
   return dispatch => {
     dispatch(addTodoStart());
 
@@ -31,7 +31,7 @@ export const addTodo = (uid, text, token) => {
         'Content-Type': 'application/json;charset=UTF-8',
 	'Authorization': token
       },
-      body: JSON.stringify({uid, text})
+      body: JSON.stringify({uid, list_id, text})
     }).then(res => {
       if (res.status === 200) return res.json();
       else dispatch(addTodoFailure({
