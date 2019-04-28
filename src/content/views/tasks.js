@@ -105,7 +105,7 @@ class Tasks extends Component {
       const uid = parseInt(window.sessionStorage.getItem('uid'), 10);
 
       _this.context.store.dispatch(
-        toggleTodoCheckedActions.toggleTodoChecked(listId, taskId, uid, token)
+        toggleTodoCheckedActions.toggleTodoChecked(listId, taskId, uid, token, clickedType)
       );
 
       _this.setState({
@@ -239,6 +239,7 @@ class Tasks extends Component {
 	    if (taskId === taskItem.id) {
 	      selectedTodo.listId = listId;
 	      selectedTodo.taskId = taskId;
+	      selectedTodo.completed = !taskItem.completed;
 	      selectedTodos.push(selectedTodo);
 	    }
 	  });
@@ -269,6 +270,7 @@ class Tasks extends Component {
 	    if (taskId === taskItem.id) {
 	      selectedTodo.listId = listId;
 	      selectedTodo.taskId = taskId;
+	      selectedTodo.completed = !taskItem.completed;
 	      selectedTodos.push(selectedTodo);
 	    }
 	  });
@@ -466,7 +468,7 @@ class Tasks extends Component {
 			return (
 			  <li 
 			    key={taskIndex}
-			    className={taskItem.completed ? '' : 'collapse'}>
+			    className={taskItem.completed && !taskItem.deleted ? '' : 'collapse'}>
 			    <div className="task-list-item">
 			      <i className="task-list-item-checkbox">
 				<img 

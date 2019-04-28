@@ -56,6 +56,7 @@ class TaskToolBox extends Component {
         if (taskItem.selected) {
 	  selectedTodo.listId = listItem.id;
 	  selectedTodo.taskId = taskItem.id;
+	  selectedTodo.completed = !taskItem.completed;
 	  selectedTodos.push(selectedTodo);
 	}
       });

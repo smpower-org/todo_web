@@ -42,12 +42,6 @@ export const getData = (uid, token) => {
       if (res.status === 200) return res.json();
       else dispatch(getDataFailure());
     }).then(resJson => {
-      resJson.data.forEach((item, index) => {
-	item.dataList.forEach((taskItem, taskIndex) => {
-	  taskItem.completed = false;
-	});
-      });
-
       dispatch(getDataSuccess(resJson));
     }).catch(error => {
       dispatch(getDataFailure(error));
