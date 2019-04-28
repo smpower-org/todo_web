@@ -53,7 +53,7 @@ class App extends Component {
 	<Switch>
 	  <Route 
 	    exact
-	    path="/wundertodo"
+	    path="/"
 	    render={() => {
 	      return isAuthenticate ? (
 		<Redirect to="/home" />

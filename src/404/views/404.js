@@ -9,7 +9,7 @@ class NoMath extends Component {
       <div className="no-match-box">
 	<div className="no-match">
 	  <span>页面不见了，返回</span>&nbsp;
-	  <Link to="home">首页</Link>
+	  <Link to="/wundertodo/home">首页</Link>
 	</div>
       </div>
     );
