@@ -64,7 +64,7 @@ const Register = ({
       <div className="register-login">
 	<span className="register-login-text">
 	  Have an account already? 
-	  <a href="/#/login">Sign in</a>
+	  <a href="login">Sign in</a>
 	</span>
       </div>
     </div>
