@@ -66,7 +66,7 @@ const Register = ({
 	<span className="register-login-text">
 	  Have an account already? 
 	  <Link
-	    to="/wundertodo/login"
+	    to="/login"
 	    className="login-link-item login-link-forgot"
 	  >Sign in</Link>
 	</span>
