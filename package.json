@@ -72,7 +72,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "./wundertodo",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
