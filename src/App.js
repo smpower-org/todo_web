@@ -53,6 +53,7 @@ class App extends Component {
 	<Switch>
 	  <Route 
 	    exact
+	    strict
 	    path="/"
 	    render={() => {
 	      return isAuthenticate ? (

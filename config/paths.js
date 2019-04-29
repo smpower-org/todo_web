@@ -12,7 +12,7 @@ const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const envPublicUrl = process.env.PUBLIC_URL;
 
 function ensureSlash(inputPath, needsSlash) {
-  const hasSlash = inputPath.endsWith('/');
+  const hasSlash = inputPath.endsWith('/wundertodo/');
   if (hasSlash && !needsSlash) {
     return inputPath.substr(0, inputPath.length - 1);
   } else if (!hasSlash && needsSlash) {
