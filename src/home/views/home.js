@@ -110,7 +110,7 @@ class Home extends Component {
 	<div className="no-auth-box">
 	  <div className="no-auth">
 	    <span>无权访问该页面，请</span>&nbsp;
-	    <Link to="/wundertodo/login">登录</Link>
+	    <Link to="/login">登录</Link>
 	  </div>
 	</div>
       )

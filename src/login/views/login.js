@@ -50,11 +50,11 @@ const Login = ({
 	</div>
 	<div className="login-item login-link">
 	  <Link
-	    to="/wundertodo/findpwd"
+	    to="/findpwd"
 	    className="login-link-item login-link-forgot"
 	  >Forgot your password?</Link>
 	  <Link
-	    to="/wundertodo/register"
+	    to="/register"
 	    className="login-link-item login-link-register"
 	  >Create Account</Link>
 	</div>

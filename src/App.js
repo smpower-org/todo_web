@@ -54,27 +54,27 @@ class App extends Component {
 	  <Route 
 	    exact
 	    strict
-	    path="/wundertodo/"
+	    path="/"
 	    render={() => {
 	      return isAuthenticate ? (
-		<Redirect to="/wundertodo/home" />
+		<Redirect to="/home" />
 	      ) : (
-		<Redirect to="/wundertodo/login" />
+		<Redirect to="/login" />
 	      );
 	    }}
 	  />
 	  <Route 
 	    exact
-	    path="/wundertodo/login"
+	    path="/login"
 	    component={Login}
 	  />
 	  <Route 
 	    exact
-	    path="/wundertodo/register"
+	    path="/register"
 	    component={Register}
 	  />
 	  <Route 
-	    path="/wundertodo/home"
+	    path="/home"
 	    component={Home}
 	  />
 	  <Route component={NoMath} />
