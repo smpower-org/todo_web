@@ -131,12 +131,16 @@
       }
     }
     .task-list {
+      position: relative;
       li {
 	height: 47px;
-	transition: height .3s, margin-bottom .3s;
+	transition: margin-bottom .3s;
 	overflow-y: hidden;
 	&.collapse {
 	  height: 0;
+          position: absolute;
+	  top: 0;
+	  left: 0;
 	}
 	&:last-child {
 	  margin-bottom: 0;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {view as TipBox} from '../../components/tipBox/';
 
 const Register = ({
@@ -64,7 +65,10 @@ const Register = ({
       <div className="register-login">
 	<span className="register-login-text">
 	  Have an account already? 
-	  <a href="/#/login">Sign in</a>
+	  <Link
+	    to="/login"
+	    className="login-link-item login-link-forgot"
+	  >Sign in</Link>
 	</span>
       </div>
     </div>

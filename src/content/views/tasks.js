@@ -64,12 +64,18 @@ class Tasks extends Component {
       const token = window.sessionStorage.getItem('token');
       const uid = parseInt(window.sessionStorage.getItem('uid'), 10);
       const target = event.target;
+      const dataList = this.state.taskList.data;
+      let list_id = 0;
 
       if (target.value.trim() === '') return;
 
       // 与服务器通信，添加一条 todo
+      dataList.forEach((item, index) => {
+        if (item.checked) list_id = item.id;
+      });
+
       this.context.store.dispatch(
-        addTodoActions.addTodo(uid, target.value.trim(), token)
+        addTodoActions.addTodo(uid, list_id, target.value.trim(), token)
       );
 
       this.setState({
@@ -99,7 +105,7 @@ class Tasks extends Component {
       const uid = parseInt(window.sessionStorage.getItem('uid'), 10);
 
       _this.context.store.dispatch(
-        toggleTodoCheckedActions.toggleTodoChecked(listId, taskId, uid, token)
+        toggleTodoCheckedActions.toggleTodoChecked(listId, taskId, uid, token, clickedType)
       );
 
       _this.setState({
@@ -233,6 +239,7 @@ class Tasks extends Component {
 	    if (taskId === taskItem.id) {
 	      selectedTodo.listId = listId;
 	      selectedTodo.taskId = taskId;
+	      selectedTodo.completed = !taskItem.completed;
 	      selectedTodos.push(selectedTodo);
 	    }
 	  });
@@ -263,6 +270,7 @@ class Tasks extends Component {
 	    if (taskId === taskItem.id) {
 	      selectedTodo.listId = listId;
 	      selectedTodo.taskId = taskId;
+	      selectedTodo.completed = !taskItem.completed;
 	      selectedTodos.push(selectedTodo);
 	    }
 	  });
@@ -460,7 +468,7 @@ class Tasks extends Component {
 			return (
 			  <li 
 			    key={taskIndex}
-			    className={taskItem.completed ? '' : 'collapse'}>
+			    className={taskItem.completed && !taskItem.deleted ? '' : 'collapse'}>
 			    <div className="task-list-item">
 			      <i className="task-list-item-checkbox">
 				<img 
