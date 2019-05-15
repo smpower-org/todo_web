@@ -48,7 +48,7 @@ class LoginContainer extends Component {
       sessionStorage.setItem('logged_in', true);
       sessionStorage.setItem('uid', uid);
       sessionStorage.setItem('token', token);
-      history.replace('/wundertodo/home');
+      history.replace('/home');
       return;
     }
 
