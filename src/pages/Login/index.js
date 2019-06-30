@@ -1,3 +1,4 @@
 import { View } from './views/Container'
+import { loginReducer } from "./reducers";
 
-export { View }
+export { View, loginReducer }
