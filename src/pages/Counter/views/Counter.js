@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'antd'
 import store from '@src/store/'
 import {
   INCREMENT, DECREMENT
@@ -10,13 +11,13 @@ class Counter extends React.Component {
     const { counter } = store.getState()
     return (
       <div className="counter">
-        <button onClick={() => store.dispatch({type: INCREMENT})}>Increment</button>
+        <Button onClick={() => store.dispatch({type: INCREMENT})}>Increment</Button>
         {' '}
-        <button onClick={() => store.dispatch({type: DECREMENT})}>Decrement</button>
+        <Button onClick={() => store.dispatch({type: DECREMENT})}>Decrement</Button>
         {' '}
-        <button>Increment after 1 second</button>
+        <Button>Increment after 1 second</Button>
         {' '}
-        <button>Decrement after 1 second</button>
+        <Button>Decrement after 1 second</Button>
         <hr />
         <p>Clicked: {counter} times</p>
       </div>
