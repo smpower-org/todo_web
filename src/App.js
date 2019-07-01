@@ -4,6 +4,7 @@ import { View as Home } from './pages/Home/'
 import { View as Login } from './pages/Login/'
 import { View as Register } from './pages/Register/'
 import { View as Counter } from './pages/Counter/'
+import { View as Demo } from './pages/Demo/'
 import { View as NoMatch } from './pages/NoMatch/'
 import './App.scss'
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/counter" component={Counter} />
+        <Route path="/demo" component={Demo} />
         <Route component={NoMatch} />
       </Switch>
     </div>
