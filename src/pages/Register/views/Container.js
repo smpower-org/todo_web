@@ -1,8 +1,7 @@
-import React from 'react'
+import { connect } from 'react-redux'
+import Register from './Register'
 import './style.scss'
 
-const Container = () => (
-  <div>Register</div>
-)
+const Container = connect()(Register)
 
 export { Container as View }

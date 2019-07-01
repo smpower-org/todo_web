@@ -1,15 +1,9 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-import store from '@src/store/'
+import { connect } from 'react-redux'
+import Home from './Home'
 import './style.scss'
 
-const Container = ({ location }) => {
-  const { login } = store.getState()
-  if (!login.auth) return <Redirect to="/login" />
+const mapStateToProps = (state, ownProps) => ({ login: state.login })
 
-  return (
-    <div>Home</div>
-  )
-}
+const Container = connect(mapStateToProps)(Home)
 
 export { Container as View }
