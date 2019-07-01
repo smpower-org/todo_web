@@ -1,23 +1,27 @@
 import React from 'react'
 import { Button } from 'antd'
-import store from '@src/store/'
 import {
   INCREMENT, DECREMENT, INCREMENT_ASYNC, DECREMENT_ASYNC
 } from '../actionTypes'
 import './style.scss'
 
 class Counter extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props.counter !== nextProps.counter) return true
+    else return false
+  }
+
   render() {
-    const { counter } = store.getState()
+    const { dispatch, counter } = this.props
     return (
       <div className="counter">
-        <Button onClick={() => store.dispatch({ type: INCREMENT })}>Increment</Button>
+        <Button onClick={() => dispatch({ type: INCREMENT })}>Increment</Button>
         {' '}
-        <Button onClick={() => store.dispatch({ type: DECREMENT })}>Decrement</Button>
+        <Button onClick={() => dispatch({ type: DECREMENT })}>Decrement</Button>
         {' '}
-        <Button onClick={() => store.dispatch({ type: INCREMENT_ASYNC })}>Increment after 1 second</Button>
+        <Button onClick={() => dispatch({ type: INCREMENT_ASYNC })}>Increment after 1 second</Button>
         {' '}
-        <Button onClick={() => store.dispatch({ type: DECREMENT_ASYNC })}>Decrement after 1 second</Button>
+        <Button onClick={() => dispatch({ type: DECREMENT_ASYNC })}>Decrement after 1 second</Button>
         <hr />
         <p>Clicked: {counter} times</p>
       </div>
@@ -25,4 +29,4 @@ class Counter extends React.Component {
   }
 }
 
-export { Counter as View }
+export default Counter
