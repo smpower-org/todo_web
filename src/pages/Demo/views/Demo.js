@@ -8,6 +8,13 @@ const CounterContainer = connect()(Counter)
 
 const { Header, Content, Footer, Sider } = Layout
 
+const siders = [
+  {
+    to: '/demo/counter',
+    text: 'Counter'
+  },
+]
+
 class Demo extends React.Component {
   generatedBreadcrumb = () => {  // 生成面包屑导航
     const { pathname } = this.props.location
@@ -30,9 +37,13 @@ class Demo extends React.Component {
             }}
           >
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['counter']}>
-              <Menu.Item key="counter">
-                <Link to="/demo/counter">Counter</Link>
-              </Menu.Item>
+	      {
+	        siders.map((item, index) => 
+		  <Menu.Item key={item.text}>
+		    <Link to={item.to}>{item.text}</Link>
+		  </Menu.Item>
+		)
+	      }
             </Menu>
           </Sider>
           <Layout style={{ marginLeft: 200 }}>
