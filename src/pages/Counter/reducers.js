@@ -1,10 +1,17 @@
 import {
   INCREMENT,
   INCREMENT_IF_ODD,
-  DECREMENT
+  DECREMENT,
+  GET_USERS_SUCCESS,
+  GET_USERS_FAILURE,
 } from './actionTypes'
 
-const counter = (state = 0, action) => {
+const initialState = {
+  counter: 0,
+  users: {},
+}
+
+const counter = (state = initialState.counter, action) => {
   switch (action.type) {
     case INCREMENT:
       return state + 1
@@ -17,4 +24,21 @@ const counter = (state = 0, action) => {
   }
 }
 
-export { counter as counterReducer }
+const users = (state = initialState.users, action) => {
+  switch (action.type) {
+    case GET_USERS_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+      }
+    case GET_USERS_FAILURE:
+      return {
+        ...state,
+        ...action.payload
+      }
+    default:
+      return state
+  }
+}
+
+export { counter as counterReducer, users as usersReducer }

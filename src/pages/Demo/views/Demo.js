@@ -3,15 +3,23 @@ import { connect } from 'react-redux'
 import { Link, Redirect, Route } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import { View as Counter } from '@src/pages/Counter/'
+import Users from './Users'
 
 const CounterContainer = connect()(Counter)
+const UsersContainer = connect()(Users)
 
 const { Header, Content, Footer, Sider } = Layout
 
 const siders = [
   {
     to: '/demo/counter',
-    text: 'Counter'
+    text: 'Counter',
+    component: CounterContainer,
+  },
+  {
+    to: '/demo/users',
+    text: 'Users',
+    component: UsersContainer,
   },
 ]
 
@@ -36,14 +44,14 @@ class Demo extends React.Component {
               left: 0,
             }}
           >
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['counter']}>
-	      {
-	        siders.map((item, index) => 
-		  <Menu.Item key={item.text}>
-		    <Link to={item.to}>{item.text}</Link>
-		  </Menu.Item>
-		)
-	      }
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={[siders[0].text]}>
+              {
+                siders.map((item, index) => (
+                  <Menu.Item key={item.text}>
+                    <Link to={item.to}>{item.text}</Link>
+                  </Menu.Item>
+                ))
+              }
             </Menu>
           </Sider>
           <Layout style={{ marginLeft: 200 }}>
@@ -59,7 +67,11 @@ class Demo extends React.Component {
             <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
               <div style={{ padding: 24, background: '#fff' }}>
                 { pathnames.length === 3 ? '' : <Redirect to="/demo/counter" /> }
-                <Route path="/demo/counter" component={CounterContainer} />
+                {
+                  siders.map((item, index) => (
+                    <Route key={index} path={item.to} component={item.component} />
+                  ))
+                }
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
