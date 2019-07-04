@@ -13,12 +13,12 @@ const { Header, Content, Footer, Sider } = Layout
 const siders = [
   {
     to: '/demo/counter',
-    text: 'Counter',
+    text: 'counter',
     component: CounterContainer,
   },
   {
     to: '/demo/users',
-    text: 'Users',
+    text: 'users',
     component: UsersContainer,
   },
 ]
@@ -44,7 +44,9 @@ class Demo extends React.Component {
               left: 0,
             }}
           >
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={[siders[0].text]}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={
+              pathnames.length === 3 ? [pathnames[pathnames.length - 1]] : [pathnames[0]]
+            }>
               {
                 siders.map((item, index) => (
                   <Menu.Item key={item.text}>
