@@ -11,10 +11,6 @@ class Counter extends React.Component {
     else return false
   }
 
-  componentDidMount() {
-    console.log(this.props)
-  }
-
   render() {
     const { dispatch, counter } = this.props
     return (
