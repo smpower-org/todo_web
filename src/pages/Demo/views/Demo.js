@@ -5,8 +5,13 @@ import { Layout, Menu, Breadcrumb } from 'antd'
 import { View as Counter } from '@src/pages/Counter/'
 import Users from './Users'
 
+
 const CounterContainer = connect()(Counter)
-const UsersContainer = connect()(Users)
+
+const usersMapStateToProps = (state, ownProps) => ({
+  users: state.users,
+})
+const UsersContainer = connect(usersMapStateToProps)(Users)
 
 const { Header, Content, Footer, Sider } = Layout
 
