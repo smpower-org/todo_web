@@ -1,7 +1,10 @@
 import React from 'react'
-import { message } from 'antd'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { message } from 'antd'
+import './style.scss'
 
+@connect(state => ({ login: state.login }))
 class Login extends React.Component {
   state = {
     emailInputFocused: false,
@@ -126,4 +129,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export { Login as View }

@@ -1,6 +1,5 @@
-import { View } from './views/Container'
+import { View } from './views/Counter'
 import counterAction from './actions'
-// import { counterReducer, usersReducer } from './reducers'
 import { counterReducer } from './reducers'
 
 export { View, counterAction, counterReducer }

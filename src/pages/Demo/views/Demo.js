@@ -5,29 +5,22 @@ import { Layout, Menu, Breadcrumb } from 'antd'
 import { View as Counter } from '@src/pages/Counter/'
 import Users from './Users'
 
-
-const CounterContainer = connect()(Counter)
-
-const usersMapStateToProps = (state, ownProps) => ({
-  users: state.users,
-})
-const UsersContainer = connect(usersMapStateToProps)(Users)
-
 const { Header, Content, Footer, Sider } = Layout
 
 const siders = [
   {
     to: '/demo/counter',
     text: 'counter',
-    component: CounterContainer,
+    component: Counter,
   },
   {
     to: '/demo/users',
     text: 'users',
-    component: UsersContainer,
+    component: Users,
   },
 ]
 
+@connect()
 class Demo extends React.Component {
   generatedBreadcrumb = () => {  // 生成面包屑导航
     const { pathname } = this.props.location
@@ -91,4 +84,4 @@ class Demo extends React.Component {
   }
 }
 
-export default Demo
+export { Demo as View }

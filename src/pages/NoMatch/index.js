@@ -1,3 +1,3 @@
-import { View } from './views/Container'
+import { View } from './views/NoMatch'
 
 export { View }

@@ -1,8 +1,8 @@
 import React from 'react'
 import './style.scss'
 
-const Container = () => (
+const NoMatch = () => (
   <div>NoMatch</div>
 )
 
-export { Container as View }
+export { NoMatch as View }

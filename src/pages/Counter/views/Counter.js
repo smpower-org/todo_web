@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Button } from 'antd'
 import {
   INCREMENT, DECREMENT, INCREMENT_ASYNC, DECREMENT_ASYNC, GET_USERS
 } from '../actionTypes'
 import './style.scss'
 
+@connect()
 class Counter extends React.Component {
   shouldComponentUpdate(nextProps) {
     if (this.props.counter !== nextProps.counter) return true
@@ -31,4 +33,4 @@ class Counter extends React.Component {
   }
 }
 
-export default Counter
+export { Counter as View }

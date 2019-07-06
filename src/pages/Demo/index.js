@@ -1,4 +1,4 @@
-import { View } from './views/Container'
+import { View } from './views/Demo'
 import usersAction from './actions'
 import { usersReducer } from './reducers'
 

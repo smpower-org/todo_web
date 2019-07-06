@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Button, List } from 'antd'
 import { FETCH_USERS } from '../actionTypes'
 
+@connect(state => ({ users: state.users }))
 class Users extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     const isFetchUsersSuccess = this.props.users.status !== nextProps.users.status
