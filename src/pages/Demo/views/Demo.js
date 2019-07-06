@@ -32,13 +32,18 @@ class Demo extends React.Component {
   generatedBreadcrumb = () => {  // 生成面包屑导航
     const { pathname } = this.props.location
     const pathnames = pathname.split('/')
-    if (pathnames.length === 3) pathnames[0] = 'Home'
+    if (pathnames.length === 3) {
+      pathnames[0] = 'Home'
+      if (pathnames[2] === '') pathnames.splice(pathnames[2], 1)
+    }
     return pathnames
   }
 
   render() {
     const pathnames = this.generatedBreadcrumb()
-
+    
+    if (pathnames.length === 2) return <Redirect to={siders[0].to} /> 
+    
     return (
       <div>
         <Layout>
@@ -49,9 +54,7 @@ class Demo extends React.Component {
               left: 0,
             }}
           >
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={
-              pathnames.length === 3 ? [pathnames[pathnames.length - 1]] : [pathnames[0]]
-            }>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={[siders[0].text]}>
               {
                 siders.map((item, index) => (
                   <Menu.Item key={item.text}>
@@ -73,7 +76,6 @@ class Demo extends React.Component {
             </Header>
             <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
               <div style={{ padding: 24, background: '#fff' }}>
-                { pathnames.length === 3 ? '' : <Redirect to="/demo/counter" /> }
                 {
                   siders.map((item, index) => (
                     <Route key={index} path={item.to} component={item.component} />
