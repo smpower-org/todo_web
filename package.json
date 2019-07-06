@@ -66,6 +66,7 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "babel-plugin-import": "^1.12.0"
   },
   "scripts": {
@@ -138,11 +139,20 @@
       "react-app"
     ],
     "plugins": [
-      ["import", {
-        "libraryName": "antd",
-        "libraryDirectory": "es",
-        "style": "css"
-      }]
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": "css"
+        }
+      ],
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ]
   }
 }
