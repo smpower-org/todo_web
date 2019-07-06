@@ -43,7 +43,7 @@ class Demo extends React.Component {
     const pathnames = this.generatedBreadcrumb()
     
     if (pathnames.length === 2) return <Redirect to={siders[0].to} /> 
-    
+
     return (
       <div>
         <Layout>
@@ -54,7 +54,7 @@ class Demo extends React.Component {
               left: 0,
             }}
           >
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={[siders[0].text]}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={[pathnames[pathnames.length - 1]]}>
               {
                 siders.map((item, index) => (
                   <Menu.Item key={item.text}>

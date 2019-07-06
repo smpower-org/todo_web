@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, List } from 'antd'
 import { FETCH_USERS } from '../actionTypes'
 
 class Users extends React.Component {
@@ -21,7 +21,20 @@ class Users extends React.Component {
           { users.status === 'failure' ? '请求失败……' : ''}
           { users.status === 'success' ? (
             <div>
-              <p>status: {users.status}</p>
+              <List
+              itemLayout="horizontal"
+              dataSource={users.payload.data}
+              renderItem={item => (
+                <List.Item>
+                  <div>
+                    <p>{item.name}</p>
+                    <p>age: {item.age}</p>
+                    <p>sex: {item.sex}</p>
+                    <p>country: {item.country}</p>
+                  </div>
+                </List.Item>
+              )}
+            />
             </div>
           ) : ''}
         </div>

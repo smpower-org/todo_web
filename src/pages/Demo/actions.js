@@ -5,12 +5,13 @@ import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
 } from './actionTypes'
-import { getUsers } from './api'
+import { postUsers } from './api'
 
 function *fetchUsers() {
   try {
     yield put({ type: FETCH_USERS_LOADING, status: 'loading' })
-    const result = yield call(() => getUsers('https://api.github.com/users/github'))
+    const url = 'http://localhost:8080/users'
+    const result = yield call(() => postUsers(url))
     if (result.response) {
       yield put({ type: FETCH_USERS_FAILURE, payload: result.response.statusText, status: 'failure' })
     } else {
