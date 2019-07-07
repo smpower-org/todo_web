@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { message } from 'antd'
+import { LOGIN } from '../actionTypes'
 import './style.scss'
 
 @connect(state => ({ login: state.login }))
@@ -57,6 +58,14 @@ class Login extends React.Component {
       return
     }
 
+    this.props.dispatch({
+      type: LOGIN,
+      data: {
+        email: emailInputValue,
+        password: passwordInputValue
+      }
+    })
+
     // console.log(store.dispatch({ type: 'LOGIN' }))
     // store.dispatch({ type: 'LOGIN_ASYNC' })
 
@@ -68,6 +77,9 @@ class Login extends React.Component {
   render() {
     const emailPlaceholderClass = this.state.emailInputFocused ? 'active' : ''
     const passwordPlaceholderClass = this.state.passwordInputFocused ? 'active' : ''
+    const { auth } = this.props.login
+
+    if (auth) return <Redirect to="/" />
 
     return (
       <div className="main">
