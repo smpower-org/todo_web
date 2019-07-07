@@ -1,11 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { message } from 'antd'
 import { Validator } from '@src/utils/'
 import { View as TipBox } from '@src/components/TipBox/'
+import { REGISTER } from '../actionTypes'
 import './style.scss'
 
-@connect()
+@connect(state => ({ register: state.register }))
 class Register extends React.Component {
   state = {
     nameInputValue: '',
@@ -142,20 +144,24 @@ class Register extends React.Component {
     const isPasswordInputPassed = (passwordInputErrorMsg === '' && passwordInputValue !== '') ? true : false;
 
     if (isNameInputPassed && isEmailInputPassed && isPasswordInputPassed) {
-      // @TODO 注册
-      alert('register...')
-      // this.context.store.dispatch(regist(
-      //   this.state.nameInputValue,
-      //   this.state.emailInputValue,
-      //   this.state.passwordInputValue
-      // ));
-    } else {
-      // @TODO 检查注册信息
-      alert('请检查注册信息');
-    }
+      this.props.dispatch({
+        type: REGISTER,
+        data: {
+          username: this.state.nameInputValue,
+          email: this.state.emailInputValue,
+          password: this.state.passwordInputValue,
+        },
+      })
+    } else message.warning('请检查注册信息')
   }
 
   render() {
+    const { register } = this.props
+    if (register.status === 'success') {
+      const { message } = register.payload
+      if (message && message === 'success') return <Redirect to="/" /> 
+    }
+
     return (
       <div className="main">
         <div className="register">

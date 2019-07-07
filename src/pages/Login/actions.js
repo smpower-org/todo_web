@@ -8,7 +8,6 @@ import {
 import { postLogin } from './api'
 
 function *login(action) {
-  console.log(action)
   try {
     yield put({ type: LOGIN_LOADING, status: 'loading' })
     const url = 'http://localhost:8080/login'

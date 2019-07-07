@@ -27,7 +27,7 @@ const login = (state = initialState, action) => {
         status: action.status,
       }
     default:
-      return initialState
+      return state
   }
 }
 
