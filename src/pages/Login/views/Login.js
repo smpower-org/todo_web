@@ -101,7 +101,7 @@ class Login extends React.Component {
               />
               <span
                 className={"login-item-placeholder login-email-placeholder "+ emailPlaceholderClass}>
-                Email
+                邮 箱
               </span>
             </div>
             <div className="login-item login-password">
@@ -116,23 +116,23 @@ class Login extends React.Component {
               />
               <span
                 className={"login-item-placeholder login-password-placeholder " + passwordPlaceholderClass}>
-                Password
+                密 码
               </span	>
             </div>
             <div className="login-item login-submit">
               <button type="button" className="login-submit-signin" onClick={this.onSignin}>
-                Sign in
+                登 录
               </button>
             </div>
             <div className="login-item login-link">
               <Link
                 to="/findpwd"
                 className="login-link-item login-link-forgot"
-              >Forgot your password?</Link>
+              >忘记密码?</Link>
               <Link
                 to="/register"
                 className="login-link-item login-link-register"
-              >Create Account</Link>
+              >创建账户</Link>
             </div>
           </div>
         </div>
