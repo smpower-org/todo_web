@@ -1,6 +1,6 @@
 const postData = (url, options) => {
   const headers = options.headers || {
-    'Content-Type': 'application/json;charset=utf-8'
+    'Content-Type': 'application/json;charset=utf-8',
   }
   const data = options.data || {}
 
