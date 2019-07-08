@@ -13,7 +13,7 @@ const sider = (state = initialState.sider, action) => {
     case TOGGLE_SIDER:
       return {
         ...state,
-        isSiderExtended: action.payload.isSiderExtended
+        isSiderExtended: action.isSiderExtended
       }
     default:
       return state
