@@ -3,7 +3,7 @@ import {
 } from './actionTypes'
 
 const initialState = {
-  auth: false
+  auth: true,
 }
 
 const login = (state = initialState, action) => {
