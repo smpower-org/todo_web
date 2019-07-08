@@ -6,11 +6,12 @@ import ListsToolbar from './ListsToolbar'
 import CreateToolbar from './CreateToolbar'
 import './style.scss'
 
-@connect()
+@connect(state => ({ sider: state.sider }))
 class Sider extends React.Component {
   render() {
+    const { isSiderExtended } = this.props.sider
     return (
-      <div className="sider active">
+      <div className={isSiderExtended ? 'sider active' : 'sider'}>
         <div className="inner">
           <SearchToolbar />
           <UserToolbar />

@@ -3,8 +3,8 @@ import {
   TOGGLE_SIDER,
 } from './actionTypes'
 
-function *toggleSider() {
-  yield put({ type: TOGGLE_SIDER })
+function *toggleSider(action) {
+  yield put({ type: TOGGLE_SIDER, isSiderExtended: action.isSiderExtended })
 }
 
 export default function *siderAction() {
