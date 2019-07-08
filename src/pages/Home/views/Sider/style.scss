@@ -1,0 +1,18 @@
+.sider {
+  width: 42px;
+  height: 100vh;
+  background: #f7f7f7;
+  transition: all .3s;
+  overflow: hidden;
+  display: flex;
+  &.active {
+    width: 280px;
+  }
+  .inner {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
