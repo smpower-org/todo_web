@@ -28,7 +28,6 @@ class Boundle extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return this.state.mod 
       ? this.props.children(this.state.mod) 
       : this.props.children(Loading)
