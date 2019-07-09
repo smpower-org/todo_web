@@ -3,7 +3,7 @@ import {
 } from './actionTypes'
 
 const initialState = {
-  home: {
+  userBox: {
     isUserboxExtended: false,
   },
   sider: {
@@ -12,7 +12,7 @@ const initialState = {
   },
 }
 
-const userBox = (state = initialState.home, action) => {
+const userBox = (state = initialState.userBox, action) => {
   switch (action.type) {
     case TOGGLE_USERBOX_VISIBLE:
       return {

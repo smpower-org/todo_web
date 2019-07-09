@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { View as Sider } from './Sider/'
 import { View as Content } from './Content/'
-import { View as UserBox } from './Userbox/'
+import { View as UserBox } from './UserBox/'
 import './style.scss'
 
 @connect(state => ({
