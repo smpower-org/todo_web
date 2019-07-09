@@ -1,1 +1,2 @@
 export const TOGGLE_SIDER = 'SIDER/TOGGLE'
+export const TOGGLE_USERBOX = 'SIDER/USERBOX/TOGGLE'

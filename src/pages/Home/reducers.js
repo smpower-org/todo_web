@@ -1,10 +1,11 @@
 import {
-  TOGGLE_SIDER,
+  TOGGLE_SIDER, TOGGLE_USERBOX,
 } from './actionTypes'
 
 const initialState = {
   sider: {
     isSiderExtended: true,
+    isUserboxExtended: false,
   },
 }
 
@@ -13,7 +14,12 @@ const sider = (state = initialState.sider, action) => {
     case TOGGLE_SIDER:
       return {
         ...state,
-        isSiderExtended: action.isSiderExtended
+        isSiderExtended: action.isSiderExtended,
+      }
+    case TOGGLE_USERBOX:
+      return {
+        ...state,
+        isUserboxExtended: action.isUserboxExtended,
       }
     default:
       return state

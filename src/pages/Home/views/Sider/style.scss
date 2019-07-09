@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: center;
     .search-menu-wrapper {
-      width: 45px;
+      width: 42px;
       height: 45px;
       display: flex;
       flex-shrink: 0;
@@ -74,6 +74,79 @@
       &.active .search-icon {
         background: url("./images/close.svg") no-repeat center center;
         background-size: 100%;
+      }
+    }
+  }
+  .user-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 5px 5px 8px;
+    .user {
+      min-width: 32px;
+      display: flex;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: center;
+      overflow: hidden;
+      .user-avatar {  /* 用户头像 */
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background: url("./images/avatar.svg") no-repeat center center;
+        background-size: 100%;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+      .user-name {  /* 用户名 */
+        padding: 5px;
+        color: #262626;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .user-arrow-icon {  /* 小三角图标 */
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background: url("./images/arrow-down.svg") no-repeat center center;
+        background-size: 100%;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: transform .3s;
+        &.active {
+          transform: rotate(180deg);
+        }
+      }
+      .sync {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+    }
+    .stream-counts {
+      display: flex;
+      flex-shrink: 1;
+      align-items: center;
+      overflow: hidden;
+      .bell-icon, .conversation-icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+      .bell-icon {  /* 小铃铛图标 */
+        background: url("./images/bell.svg") no-repeat center center;
+        background-size: 100%;
+        margin-right: 15px;
+      }
+      .conversation-icon {  /* 对话图标 */
+        background: url("./images/conversation.svg") no-repeat center center;
+        background-size: 100%;
+        margin-right: 5px;
       }
     }
   }

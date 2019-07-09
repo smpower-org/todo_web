@@ -9,8 +9,9 @@ import './style.scss'
 @connect(state => ({ sider: state.sider }))
 class Sider extends React.Component {
   render() {
+    const { isSiderExtended } = this.props.sider
     return (
-      <div className="sider active">
+      <div className={isSiderExtended ? 'sider active' : 'sider'}>
         <div className="inner">
           <SearchToolbar />
           <UserToolbar />
