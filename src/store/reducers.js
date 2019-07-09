@@ -3,7 +3,7 @@ import { counterReducer } from '@src/pages/Counter/'
 import { usersReducer } from '@src/pages/Demo/'
 import { loginReducer } from '@src/pages/Login/'
 import { registerReducer } from '@src/pages/Register/'
-import { siderReducer } from '@src/pages/Home/'
+import { userBoxReducer, siderReducer } from '@src/pages/Home/'
 
 const reducers = combineReducers({
   counter: counterReducer,
@@ -11,6 +11,7 @@ const reducers = combineReducers({
   users: usersReducer,
   register: registerReducer,
   sider: siderReducer,
+  userBox: userBoxReducer,
 })
 
 export default reducers

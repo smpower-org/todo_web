@@ -1,16 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { TOGGLE_USERBOX } from '../../actionTypes'
+import { TOGGLE_USERBOX_VISIBLE } from '../../actionTypes'
 
-@connect(state => ({ sider: state.sider }))
+@connect(state => ({ userBox: state.userBox }))
 class UserToolbar extends React.Component {
   handleUserClick = () => {
-    const { dispatch, sider } = this.props
-    dispatch({ type: TOGGLE_USERBOX, isUserboxExtended: !sider.isUserboxExtended })
+    const { dispatch, userBox } = this.props
+    dispatch({ type: TOGGLE_USERBOX_VISIBLE, isUserboxExtended: !userBox.isUserboxExtended })
   }
   
   render() {
-    const { isUserboxExtended } = this.props.sider
+    const { isUserboxExtended } = this.props.userBox
     return (
       <div className="user-toolbar" data-selector="user-toolbar">
         <div className="user" data-selector="user-toolbar" onClick={this.handleUserClick} >

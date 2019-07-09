@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { TOGGLE_SIDER } from '../../actionTypes'
+import { TOGGLE_SIDER_VISIBLE } from '../../actionTypes'
 
 @connect(state => ({ sider: state.sider }))
 class SearchToolbar extends React.Component {
   onClickMenuBtn = () => {
     const { dispatch, sider } = this.props
-    dispatch({ type: TOGGLE_SIDER, isSiderExtended: !sider.isSiderExtended })
+    dispatch({ type: TOGGLE_SIDER_VISIBLE, isSiderExtended: !sider.isSiderExtended })
   }
 
   shouldComponentUpdate(nextProps, nextState) {

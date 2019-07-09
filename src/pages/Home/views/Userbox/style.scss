@@ -1,0 +1,33 @@
+.user-box {
+  position: absolute;
+  top: 90px;
+  left: 5px;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  background: #fff;
+  .menu {
+    font-size: 13px;
+    ul {
+      li {
+        height: 37px;
+        line-height: 37px;
+        padding: 0 12px;
+        cursor: pointer;
+        transition: background .3s, color .3s;
+        &.last-sync-time {
+          color: #aaa;
+          background: #fff;
+          cursor: default;
+          &:hover {
+            color: #aaa;
+            background: #fff;
+          }
+        }
+        &:hover {
+          color: #fff;
+          background: #1296db;
+        }
+      }
+    }
+  }
+}
