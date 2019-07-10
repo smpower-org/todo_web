@@ -1,16 +1,10 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { View as Home } from './pages/Home/'
 import { View as Boundle } from './components/Bundle/'
 import { View as Counter } from './pages/Counter/'
 import { View as Demo } from './pages/Demo/'
 import './App.scss'
-
-// Home component
-const Home = props => (
-  <Boundle load={ () => import('./pages/Home/') }>
-    { Home => <Home { ...props } /> }
-  </Boundle>
-)
 
 // Login component
 const Login = props => (
