@@ -150,4 +150,55 @@
       }
     }
   }
+  .lists-toolbar {  /* 列表 */
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  
+    &::-webkit-scrollbar {  
+      width: 6px;
+      height: 16px;
+    }  
+  
+    &::-webkit-scrollbar-track {  
+      background-color: transparent;
+    }  
+  
+    &::-webkit-scrollbar-thumb {  
+      border-radius: 3px;
+      background-color: #bfbfbf;
+    }
+  }
+  .create-toolbar {
+    border-top: 1px solid #e1e1e1;
+    background: #f7f7f7;
+    position: relative;
+    .create-toolbar-inner {
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      padding-left: 11px;
+      height: 42px;
+      line-height: 42px;
+      cursor: pointer;
+    }
+    .create-toolbar-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      background: url("./images/add.svg") no-repeat center center;
+      background-size: 100%;
+      flex-shrink: 0;
+    }
+    .create-toolbar-title {
+      color: #1296db;
+      font-size: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+      letter-spacing: 1px;
+    }
+  }
 }
