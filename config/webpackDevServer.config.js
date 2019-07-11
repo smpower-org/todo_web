@@ -12,7 +12,6 @@ const routes = require('../mock/')
 
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
-const router = express.Router()
 
 module.exports = function(proxy, allowedHost) {
   return {
