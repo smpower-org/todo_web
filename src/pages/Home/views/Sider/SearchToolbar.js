@@ -9,11 +9,6 @@ class SearchToolbar extends React.Component {
     dispatch({ type: TOGGLE_SIDER_VISIBLE, isSiderExtended: !sider.isSiderExtended })
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextState)
-    return true
-  }
-
   render() {
     return (
       <div className="search-toolbar">

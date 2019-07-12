@@ -1,5 +1,15 @@
 import { View } from './views/Home'
 import siderAction from './actions'
-import { userBoxReducer, siderReducer } from './reducers'
+import {
+  userBoxReducer,
+  siderReducer,
+  moreBoxReducer,
+} from './reducers'
 
-export { View, siderAction, userBoxReducer, siderReducer }
+export {
+  View,
+  siderAction,
+  userBoxReducer,
+  siderReducer,
+  moreBoxReducer,
+}

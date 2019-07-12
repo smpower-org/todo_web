@@ -2,6 +2,9 @@
   height: 100vh;
   position: relative;
   overflow-y: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   .no-auth {
     span {
       color: #fff;

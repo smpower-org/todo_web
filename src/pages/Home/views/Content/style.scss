@@ -1,0 +1,97 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  .list-toolbar {
+    height: 45px;
+    max-height: 45px;
+    line-height: 45px;
+    background: #668964;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      padding: 0 14px;
+      height: 45px;
+      max-height: 45px;
+      line-height: 45px;
+      letter-spacing: 1px;
+      flex: 1;
+    }
+    .action-bar {
+      height: 45px;
+      max-height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      .action-bar-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        button {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          color: #fff;
+          font-size: 10px;
+          &:last-child {
+            margin-left: 5px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .action-bar-content {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      z-index: 1;
+      width: 250px;
+      max-width: 250px;
+      background: #668964;
+      color: #fff;
+      font-size: 14px;
+      ul {
+        height: 0;
+        overflow-y: hidden;
+        opacity: 0;
+        transition: height .3s, opacity .3s;
+        &.active {
+          height: 315px;
+          max-height: 315px;
+          opacity: 1;
+        }
+        li {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          color: #fff;
+          cursor: pointer;
+          transition: all .3s;
+          img {
+            margin: 0 10px;
+          }
+          span {
+            position: relative;
+            top: 2px;
+          }
+          &:hover {
+            background: #669064;
+          }
+          &.disable {
+            opacity: .4;
+            cursor: default;
+            &:hover {
+              background: #668964;
+            }
+          }
+        }
+      }
+    }
+  }
+}

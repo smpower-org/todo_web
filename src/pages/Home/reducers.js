@@ -1,5 +1,7 @@
 import {
-  TOGGLE_SIDER_VISIBLE, TOGGLE_USERBOX_VISIBLE,
+  TOGGLE_SIDER_VISIBLE,
+  TOGGLE_USERBOX_VISIBLE,
+  TOGGLE_MOREBOX_VISIBLE,
 } from './actionTypes'
 
 const initialState = {
@@ -9,6 +11,9 @@ const initialState = {
   sider: {
     isSiderExtended: true,
     isUserboxExtended: false,
+  },
+  moreBox: {
+    isMoreboxExtended: false,
   },
 }
 
@@ -36,4 +41,20 @@ const sider = (state = initialState.sider, action) => {
   }
 }
 
-export { userBox as userBoxReducer, sider as siderReducer }
+const moreBox = (state = initialState.moreBox, action) => {
+  switch (action.type) {
+    case TOGGLE_MOREBOX_VISIBLE:
+      return {
+        ...state,
+        isMoreboxExtended: action.isMoreboxExtended,
+      }
+    default:
+      return state
+  }
+}
+
+export {
+  userBox as userBoxReducer,
+  sider as siderReducer,
+  moreBox as moreBoxReducer,
+}
