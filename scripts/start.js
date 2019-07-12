@@ -127,7 +127,7 @@ checkBrowsers(paths.appPath, isInteractive)
       }
 
       console.log(chalk.cyan('Starting the development server...\n'));
-      console.log(`You can press ${chalk.cyan('rs')} to restart the mock server.`)
+      console.log(`To restart at any time, enter ${chalk.cyan('rs')}.`)
       openBrowser(urls.localUrlForBrowser);
     });
 

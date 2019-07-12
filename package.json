@@ -160,8 +160,18 @@
   },
   "nodemonConfig": {
     "ignore": [
+      ".vscode",
+      "config",
+      "mock",
+      "node_modules",
+      "public",
+      "scripts",
       "src",
-      "mock"
+      ".gitignore",
+      "LICENSE",
+      "package.json",
+      "README.md",
+      "yarn.lock"
     ]
   }
 }
