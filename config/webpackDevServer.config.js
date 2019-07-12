@@ -8,7 +8,8 @@ const ignoredFiles = require('react-dev-utils/ignoredFiles');
 const paths = require('./paths');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
-const routes = require('../mock/')
+const logger = require('morgan');
+const routes = require('../mock/');
 
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
@@ -103,9 +104,10 @@ module.exports = function(proxy, allowedHost) {
       // https://github.com/facebook/create-react-app/issues/2272#issuecomment-302832432
       app.use(noopServiceWorkerMiddleware());
 
-      app.use(express.json())
-      app.use(express.urlencoded({ extended: false }))
-      app.use(cookieParser())
+      app.use(express.json());
+      app.use(express.urlencoded({ extended: false }));
+      app.use(cookieParser());
+      app.use(logger('dev'));
 
       // routers
       routes.map(item => app.use(item.route, item.router));
