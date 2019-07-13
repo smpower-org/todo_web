@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { message } from 'antd'
 import {
   TOGGLE_MOREBOX_VISIBLE,
 } from '../../actionTypes'
@@ -54,7 +55,7 @@ class Toolbar extends React.Component {
     ]
   }
 
-  onClickMore = () => {
+  onClickMoreButton = () => {
     const { dispatch, moreBox } = this.props
     dispatch({
       type: TOGGLE_MOREBOX_VISIBLE,
@@ -62,10 +63,70 @@ class Toolbar extends React.Component {
     })
   }
 
-  // @TODO list item of moreBox onClicked
+  // TODO: 复制清单
+  onCopyList = () => {
+    message.info('研发中...')
+  }
+
+  // TODO: 以电子邮件发送清单
+  onEmailList = () => {
+    message.info('研发中...')
+  }
+
+  // TODO: 以电子邮件发送所选任务
+  onEmailCheckedTask = () => {
+    message.info('研发中...')
+  }
+
+  // TODO: 打印清单
+  onPrintList = () => {
+    message.info('研发中...')
+  }
+
+  // TODO: 打印所选任务
+  onPrintCheckedTask = () => {
+    message.info('研发中...')
+  }
+
+  // TODO: 勿扰
+  onUndisturb = () => {
+    message.info('研发中...')
+  }
+
+  // TODO: 删除所选任务
+  onDeleteCheckedTask = () => {
+    message.info('研发中...')
+  }
+
+  // 点击 moreBox 中的条目
   onClickMoreboxListItem = type => {
+    const _this = this
     return function() {
-      console.log(type)
+      switch (type) {
+        case 'copy':
+          _this.onCopyList()
+          break
+        case 'emailList':
+          _this.onEmailList()
+          break
+        case 'emailTask':
+          _this.onEmailCheckedTask()
+          break
+        case 'printList':
+          _this.onPrintList()
+          break
+        case 'printTask':
+          _this.onPrintCheckedTask()
+          break
+        case 'undistrub':
+          _this.onUndisturb()
+          break
+        case 'delete':
+          _this.onDeleteCheckedTask()
+          break
+        default:
+          break
+      }
     }
   }
 
@@ -80,7 +141,7 @@ class Toolbar extends React.Component {
             <button className="sort" onClick={this.onClickSort}>
               <img src={sortSvg} alt="排序" title="排序" />
             </button>
-            <button className="more" onClick={this.onClickMore}>
+            <button className="more" onClick={this.onClickMoreButton}>
               <img src={moreSvg} alt="更多" title="更多" />
             </button>
           </div>
