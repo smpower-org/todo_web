@@ -13,48 +13,18 @@ import printSvg from './images/print.svg';
 import undisturbSvg from './images/undisturb.svg';
 import deleteSvg from './images/delete.svg';
 
+const moreBoxList = [
+  { text: '复制清单', imgSrc: copySvg, type: 'copy' },
+  { text: '以电子邮件发送清单', imgSrc: emailSvg, type: 'emailList' },
+  { text: '用电子邮件发送所选任务', imgSrc: emailSvg, type: 'emailTask' },
+  { text: '打印清单', imgSrc: printSvg, type: 'printList' },
+  { text: '打印所选任务', imgSrc: printSvg, type: 'printTask' },
+  { text: '勿扰', imgSrc: undisturbSvg, type: 'undisturb' },
+  { text: '删除所选任务', imgSrc: deleteSvg, type: 'delete' },
+]
+
 @connect(state => ({ moreBox: state.moreBox }))
 class Toolbar extends React.Component {
-  state = {
-    moreBoxParams: [
-      {
-        text: '复制清单',
-        imgSrc: copySvg,
-        type: 'copy'
-      },
-      {
-        text: '以电子邮件发送清单',
-        imgSrc: emailSvg,
-        type: 'emailList'
-      },
-      {
-        text: '用电子邮件发送所选任务',
-        imgSrc: emailSvg,
-        type: 'emailTask'
-      },
-      {
-        text: '打印清单',
-        imgSrc: printSvg,
-        type: 'printList'
-      },
-      {
-        text: '打印所选任务',
-        imgSrc: printSvg,
-        type: 'printTask'
-      },
-      {
-        text: '勿扰',
-        imgSrc: undisturbSvg,
-        type: 'undisturb'
-      },
-      {
-        text: '删除所选任务',
-        imgSrc: deleteSvg,
-        type: 'delete'
-      },
-    ]
-  }
-
   onClickMoreButton = () => {
     const { dispatch, moreBox } = this.props
     dispatch({
@@ -148,7 +118,7 @@ class Toolbar extends React.Component {
           <div className="action-bar-content active">
             <ul className={moreBox.isMoreboxExtended ? 'more active' : 'more'}>
               {
-                this.state.moreBoxParams.map((listItem, listIndex) => {
+                moreBoxList.map((listItem, listIndex) => {
                   return (
                     <li
                       // className="disable"
