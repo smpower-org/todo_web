@@ -8,7 +8,11 @@
       "type": "node",
       "request": "launch",
       "name": "start",
-      "program": "${workspaceFolder}/scripts/start.js"
+      "runtimeExecutable": "/home/ruofei/www/todo/web/node_modules/.bin/nodemon",
+      "program": "${workspaceFolder}/scripts/start.js",
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",
