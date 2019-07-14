@@ -1,6 +1,6 @@
 module.exports = [
   {
-    route: '/welcome',
+    route: '/api/welcome',
     router: require('./welcome/'),
   },
 ]
